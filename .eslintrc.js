@@ -46,14 +46,12 @@ module.exports = {
       "error",
       {
         "vars": "local",
-        "varsIgnorePattern": "^(e|i|it|expect)$",
         "argsIgnorePattern": "^(props|error|reject|response|dispatch|getState)$"
       }
     ],
     "@typescript-eslint/explicit-member-accessibility": "off",
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/ban-ts-ignore": "off",
-    "@typescript-eslint/no-var-requires": "off",
 
     "no-trailing-spaces": "error",
     "no-console": [
@@ -93,7 +91,6 @@ module.exports = {
       "error",
       {
         "vars": "local",
-        "varsIgnorePattern": "^(e|i|it|expect)$",
         "argsIgnorePattern": "^(props|error|reject|response|dispatch|getState)$"
       }
     ],
@@ -210,8 +207,6 @@ module.exports = {
       "always"
     ],
     "arrow-spacing": "error",
-    "no-duplicate-imports": "error",
-    "no-var": "error"
-
+    "no-duplicate-imports": "error"
   }
 };

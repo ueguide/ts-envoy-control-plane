@@ -1,5 +1,5 @@
 import * as grpc from 'grpc'
-import { Any } from "google-protobuf/google/protobuf/any_pb"
+import { Any } from 'google-protobuf/google/protobuf/any_pb'
 import { EndpointDiscoveryServiceService, IEndpointDiscoveryServiceServer } from './envoy/api/v2/eds_grpc_pb'
 import { DiscoveryRequest, DiscoveryResponse } from './envoy/api/v2/discovery_pb'
 import { CacheManager, Logger, Watcher, CacheResponse } from './types'
@@ -30,8 +30,8 @@ const createResponse = ( cacheResponse: CacheResponse ): DiscoveryResponse => {
   return response
 }
 
-export const makeStreamEndpointsHandler = ( cache: CacheManager, logger: null | Logger = null ): grpc.handleBidiStreamingCall<DiscoveryRequest,DiscoveryResponse> => {
-  const streamEndpoints: grpc.handleBidiStreamingCall<DiscoveryRequest,DiscoveryResponse> = ( call ) => {
+export const makeStreamEndpointsHandler = ( cache: CacheManager, logger: null | Logger = null ): grpc.handleBidiStreamingCall<DiscoveryRequest, DiscoveryResponse> => {
+  const streamEndpoints: grpc.handleBidiStreamingCall<DiscoveryRequest, DiscoveryResponse> = ( call ) => {
 
     // unique nonce generator for req-resp pairs per xDS stream; the server
     // ignores stale nonces. nonce is only modified within send() function.
@@ -39,9 +39,18 @@ export const makeStreamEndpointsHandler = ( cache: CacheManager, logger: null | 
 
     // store cancel watcher function
     let streamWatcher: null | Watcher
+    // watcher setter function
+    const assignWatcher = ( val: null | Watcher ): void => {
+      // cancel current watcher if set
+      if ( streamWatcher ) {
+        streamWatcher.cancel()
+      }
+
+      streamWatcher = val
+    }
 
     // sends a serialized protobuf response
-    const send = ( cacheResponse: CacheResponse, request: DiscoveryRequest ) => {
+    const send = ( cacheResponse: CacheResponse, request: DiscoveryRequest ): void => {
       // create DiscoveryResponse from cache service response
       const response = createResponse( cacheResponse )
 
@@ -66,8 +75,8 @@ export const makeStreamEndpointsHandler = ( cache: CacheManager, logger: null | 
     }
 
     // On data received on stream
-    call.on('data', async ( request: DiscoveryRequest ) => {
-      // get the current request nonce 
+    call.on( 'data', async ( request: DiscoveryRequest ) => {
+      // get the current request nonce
       const nonce = request.getResponseNonce()
       const node = request.getNode()
       // log the request
@@ -86,15 +95,10 @@ export const makeStreamEndpointsHandler = ( cache: CacheManager, logger: null | 
       // if request nonce or streamNonce are empty, this is a first time request for the envoy node
       // or the management server (eg a deployment rollover)
       if ( nonce === '' || streamNonce === 0 || nonce === streamNonce.toString() ) {
-        // cancel current watcher if set
-        if ( streamWatcher ) {
-          streamWatcher.cancel()
-        }
-
         // create watcher - returns cache response or watcher promise to return
         const { cacheResponse, watcher } = await cache.createWatch( request )
         // set watcher for this stream
-        streamWatcher = watcher
+        assignWatcher( watcher )
 
         if ( cacheResponse ) {
           send( cacheResponse, request )
@@ -112,7 +116,7 @@ export const makeStreamEndpointsHandler = ( cache: CacheManager, logger: null | 
           const awaitedResponse = await watcher.watch()
           if ( awaitedResponse ) {
             // reset streamWatcher
-            streamWatcher = null
+            assignWatcher( null )
             // send response
             send( awaitedResponse, request )
           } else {
@@ -155,10 +159,14 @@ export const makeStreamEndpointsHandler = ( cache: CacheManager, logger: null | 
 }
 
 
-const fetchEndpoints = () => {}
-const deltaEndpoints = () => {}
+const fetchEndpoints = (): void => {
+  // placeholder
+}
+const deltaEndpoints = (): void => {
+  // placeholder
+}
 
-export const registerServices = ( server: grpc.Server, cache: CacheManager, logger: null | Logger = null ) => {
+export const registerServices = ( server: grpc.Server, cache: CacheManager, logger: null | Logger = null ): void => {
   server.addService<IEndpointDiscoveryServiceServer>(
     EndpointDiscoveryServiceService,
     {

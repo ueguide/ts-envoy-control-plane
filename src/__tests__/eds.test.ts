@@ -6,7 +6,6 @@ import * as envoyCore from '../envoy/api/v2/core/base_pb'
 describe( 'Endpoint Discovery Service', () => {
 
   describe( 'streamEndpoints', () => {
-
     let requestHandler: ( request: discoveryMessages.DiscoveryRequest ) => Promise<void>
     let callResponse: discoveryMessages.DiscoveryResponse
     let call: any
@@ -72,16 +71,16 @@ describe( 'Endpoint Discovery Service', () => {
       requestHandler( request )
         .then( () => {
           expect( call.write ).toHaveBeenCalled()
-          expect( callResponse.getVersionInfo()).toEqual( '1' )
+          expect( callResponse.getVersionInfo() ).toEqual( '1' )
           expect( callResponse.getNonce() ).toEqual( '1' )
           const [ resource ] = callResponse.getResourcesList()
           const clusterAssignment = resource.unpack(
             edsPB.ClusterLoadAssignment.deserializeBinary,
             resource.getTypeName()
           )
-          expect(clusterAssignment).not.toBeNull()
+          expect( clusterAssignment ).not.toBeNull()
           if ( clusterAssignment ) {
-            expect( clusterAssignment.getClusterName()).toEqual('remote_cluster')
+            expect( clusterAssignment.getClusterName() ).toEqual( 'remote_cluster' )
           }
           done()
         })
@@ -145,15 +144,15 @@ describe( 'Endpoint Discovery Service', () => {
         .then( () => {
           expect( call.write ).toHaveBeenCalled()
 
-          expect( callResponse.getVersionInfo()).toEqual( '2' )
+          expect( callResponse.getVersionInfo() ).toEqual( '2' )
           const [ resource ] = callResponse.getResourcesList()
           const clusterAssignment = resource.unpack(
             edsPB.ClusterLoadAssignment.deserializeBinary,
             resource.getTypeName()
           )
-          expect(clusterAssignment).not.toBeNull()
+          expect( clusterAssignment ).not.toBeNull()
           if ( clusterAssignment ) {
-            expect( clusterAssignment.getClusterName()).toEqual('remote_cluster')
+            expect( clusterAssignment.getClusterName() ).toEqual( 'remote_cluster' )
           }
           done()
         })
