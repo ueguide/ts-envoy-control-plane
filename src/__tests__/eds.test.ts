@@ -1,9 +1,12 @@
-import * as eds from '../eds'
-import * as edsPB from '../envoy/api/v2/eds_pb'
+import { Server } from '../server'
+import { ClusterLoadAssignment } from '../envoy/api/v2/eds_pb'
 import * as discoveryMessages from '../envoy/api/v2/discovery_pb'
 import * as envoyCore from '../envoy/api/v2/core/base_pb'
+import { createClusterLoadAssignment } from './fixtures'
 
 describe( 'Endpoint Discovery Service', () => {
+
+  const cla = createClusterLoadAssignment()
 
   describe( 'streamEndpoints', () => {
     let requestHandler: ( request: discoveryMessages.DiscoveryRequest ) => Promise<void>
@@ -29,27 +32,7 @@ describe( 'Endpoint Discovery Service', () => {
           return {
             cacheResponse: {
               version: '1',
-              resourcesList: [
-                {
-                  'cluster_name': 'remote_cluster',
-                  'endpoints': [
-                    {
-                      'lb_endpoints': [
-                        {
-                          'endpoint': {
-                            'address': {
-                              'socket_address': {
-                                'address': '34.231.242.239',
-                                'port_value': '32770'
-                              }
-                            }
-                          }
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
+              resourcesList: [ cla ]
             },
             watcher: null
           }
@@ -65,8 +48,8 @@ describe( 'Endpoint Discovery Service', () => {
       request.setResponseNonce( '' )
       request.setResourceNamesList( [ 'remote_cluster' ] )
 
-      // call streamEndpoints (fires call.on methods)
-      eds.makeStreamEndpointsHandler( cache, console )( call )
+      const server = new Server( cache, console )
+      server.streamEndpoints( call )
 
       requestHandler( request )
         .then( () => {
@@ -75,13 +58,14 @@ describe( 'Endpoint Discovery Service', () => {
           expect( callResponse.getNonce() ).toEqual( '1' )
           const [ resource ] = callResponse.getResourcesList()
           const clusterAssignment = resource.unpack(
-            edsPB.ClusterLoadAssignment.deserializeBinary,
+            ClusterLoadAssignment.deserializeBinary,
             resource.getTypeName()
           )
           expect( clusterAssignment ).not.toBeNull()
           if ( clusterAssignment ) {
             expect( clusterAssignment.getClusterName() ).toEqual( 'remote_cluster' )
           }
+
           done()
         })
         .catch( err => {
@@ -98,27 +82,7 @@ describe( 'Endpoint Discovery Service', () => {
               watch: jest.fn().mockImplementation( () => {
                 return {
                   version: '2',
-                  resourcesList: [
-                    {
-                      'cluster_name': 'remote_cluster',
-                      'endpoints': [
-                        {
-                          'lb_endpoints': [
-                            {
-                              'endpoint': {
-                                'address': {
-                                  'socket_address': {
-                                    'address': '34.231.242.239',
-                                    'port_value': '32770'
-                                  }
-                                }
-                              }
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  ]
+                  resourcesList: [ cla ]
                 }
               }),
               cancel: jest.fn()
@@ -137,8 +101,8 @@ describe( 'Endpoint Discovery Service', () => {
       request.setResponseNonce( '' )
       request.setResourceNamesList( [ 'remote_cluster' ] )
 
-      // call streamEndpoints (fires call.on methods)
-      eds.makeStreamEndpointsHandler( cache, console )( call )
+      const server = new Server( cache, console )
+      server.streamEndpoints( call )
 
       requestHandler( request )
         .then( () => {
@@ -147,7 +111,7 @@ describe( 'Endpoint Discovery Service', () => {
           expect( callResponse.getVersionInfo() ).toEqual( '2' )
           const [ resource ] = callResponse.getResourcesList()
           const clusterAssignment = resource.unpack(
-            edsPB.ClusterLoadAssignment.deserializeBinary,
+            ClusterLoadAssignment.deserializeBinary,
             resource.getTypeName()
           )
           expect( clusterAssignment ).not.toBeNull()
