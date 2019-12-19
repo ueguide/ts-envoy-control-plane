@@ -1,4 +1,7 @@
 import { envoy } from '../conversion'
+import { HttpConnectionManager } from '../envoy/config/filter/network/http_connection_manager/v2/http_connection_manager_pb'
+import { ExtAuthz } from '../envoy/config/filter/network/ext_authz/v2/ext_authz_pb'
+import { Lua } from '../envoy/config/filter/http/lua/v2/lua_pb'
 
 describe( 'conversion', () => {
   describe( 'eds', () => {
@@ -400,5 +403,121 @@ describe( 'conversion', () => {
     })
 
   }) // end cds
+
+
+  describe( 'lds', () => {
+    test( 'edge proxy listener', () => {
+      const data = {
+        'name': 'listener-a',
+        'address': {
+          'socket_address': {
+            'address': '0.0.0.0',
+            'port_value': '80'
+          }
+        },
+        'filter_chains': [
+          {
+            'filters': [
+              {
+                'name': 'envoy.http_connection_manager',
+                'typed_config': {
+                  '@type': 'type.googleapis.com/envoy.config.filter.network.http_connection_manager.v2.HttpConnectionManager',
+                  'codec_type': 'AUTO',
+                  'stat_prefix': 'ingress_http',
+                  'use_remote_address': true,
+                  'idle_timeout': '1s',
+                  'http_filters': [
+                    {
+                      'name': 'envoy.ext_authz',
+                      'typed_config': {
+                        '@type': 'type.googleapis.com/envoy.config.filter.network.ext_authz.v2.ExtAuthz',
+                        'failure_mode_allow': true,
+                        'grpc_service': {
+                          'envoy_grpc': {
+                            'cluster_name': 'external-auth-service'
+                          },
+                          'timeout': '5s'
+                        }
+                      }
+                    },
+                    {
+                      'name': 'envoy.ext_authz',
+                      'typed_config': {
+                        '@type': 'type.googleapis.com/envoy.config.filter.http.lua.v2.Lua',
+                        'inline_code': 'function envoy_on_request(request_handle)\nend'
+                      }
+                    },
+                    {
+                      'name': 'envoy.router',
+                      'config': {}
+                    }
+                  ],
+                  'route_config': {
+                    'name': 'local_route',
+                    'virtual_hosts': [
+                      {
+                        'name': 'service'
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+
+      const msg = envoy.api.v2.Listener( data )
+      console.log( JSON.stringify( msg.toObject(), null, 2 ) )
+
+      const a = msg.getFilterChainsList()[0].getFiltersList()[0].getTypedConfig()
+      expect( a ).not.toBeNull()
+      if ( a ) {
+        const http = a.unpack( HttpConnectionManager.deserializeBinary, a.getTypeName() )
+        expect( http ).not.toBeNull()
+        if ( http ) {
+          console.log( JSON.stringify( http.toObject(), null, 2 ) )
+
+          const ext = http.getHttpFiltersList()[0].getTypedConfig()
+          expect( ext ).not.toBeNull()
+          if ( ext ) {
+            const authz = ext.unpack( ExtAuthz.deserializeBinary, ext.getTypeName() )
+            expect( authz ).not.toBeNull()
+            if ( authz ) {
+              expect( authz.toObject() ).toEqual({
+                'statPrefix': '',
+                'grpcService': {
+                  'envoyGrpc': {
+                    'clusterName': 'external-auth-service'
+                  },
+                  'timeout': {
+                    'seconds': 5,
+                    'nanos': 0
+                  },
+                  'initialMetadataList': []
+                },
+                'failureModeAllow': true,
+                'includePeerCertificate': false
+              })
+            }
+          }
+
+          const l = http.getHttpFiltersList()[1].getTypedConfig()
+          expect( l ).not.toBeNull()
+          if ( l ) {
+            const lua = l.unpack( Lua.deserializeBinary, l.getTypeName() )
+            expect( lua ).not.toBeNull()
+            if ( lua ) {
+              expect( lua.toObject() ).toEqual({
+                'inlineCode': 'function envoy_on_request(request_handle)\nend'
+              })
+            }
+          }
+
+        }
+      }
+    })
+  })
+
 })
 

@@ -23,6 +23,12 @@ JS_PLUGIN_PATH="./node_modules/.bin/grpc_tools_node_protoc_plugin"
 # directories to compile
 imports=(
   "${vendor}/envoy/api/v2"
+  "${vendor}/envoy/config/filter/accesslog/v2"
+  "${vendor}/envoy/config/filter/http/ext_authz/v2"
+  "${vendor}/envoy/config/filter/http/lua/v2"
+  "${vendor}/envoy/config/filter/network/ext_authz/v2"
+  "${vendor}/envoy/config/filter/network/http_connection_manager/v2"
+  "${vendor}/envoy/config/filter/network/redis_proxy/v2"
   "${vendor}/envoy/config/listener/v2"
   "${vendor}/envoy/type"
   "${vendor}/opencensus/proto/resource"
