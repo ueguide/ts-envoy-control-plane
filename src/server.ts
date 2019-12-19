@@ -4,7 +4,7 @@ import { DiscoveryRequest, DiscoveryResponse, DeltaDiscoveryRequest, DeltaDiscov
 import { CacheManager, Logger, Watcher, CacheResponse } from './types'
 
 const createResponse = ( cacheResponse: CacheResponse, typeURL: string ): DiscoveryResponse => {
-  console.log( 'TYPE>>>', typeURL )
+  // console.log( 'TYPE>>>', typeURL )
   const { version, resourcesList } = cacheResponse
 
   // build discovery response

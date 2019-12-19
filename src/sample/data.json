@@ -124,7 +124,7 @@
               "endpoint": {
                 "address": {
                   "socket_address": {
-                    "address": "199.232.32.81",
+                    "address": "151.101.192.81",
                     "port_value": "80"
                   }
                 }
