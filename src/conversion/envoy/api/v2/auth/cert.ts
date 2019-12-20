@@ -49,3 +49,9 @@ export const UpstreamTlsContext = factory( certPB.UpstreamTlsContext, {
     return CommonTlsContext( val )
   }
 })
+
+export const DownstreamTlsContext = factory( certPB.DownstreamTlsContext, {
+  setCommonTlsContext: ( val: any ): certPB.CommonTlsContext => {
+    return CommonTlsContext( val )
+  }
+})

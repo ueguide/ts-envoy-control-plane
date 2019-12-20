@@ -13,8 +13,8 @@ vendor=${root}/vendor
 # generators
 protoc=$(which protoc)
 $protoc --version
-grpc_tools_node_protoc=$(which ./node_modules/.bin/grpc_tools_node_protoc)
-$grpc_tools_node_protoc --version
+#grpc_tools_node_protoc=$(which ./node_modules/.bin/grpc_tools_node_protoc)
+#$grpc_tools_node_protoc --version
 
 # plugins
 PROTOC_GEN_TS_PATH="./node_modules/.bin/protoc-gen-ts"
@@ -28,7 +28,7 @@ imports=(
   "${vendor}/envoy/config/filter/http/lua/v2"
   "${vendor}/envoy/config/filter/network/ext_authz/v2"
   "${vendor}/envoy/config/filter/network/http_connection_manager/v2"
-  "${vendor}/envoy/config/filter/network/redis_proxy/v2"
+  "${vendor}/envoy/config/filter/network/tcp_proxy/v2"
   "${vendor}/envoy/config/listener/v2"
   "${vendor}/envoy/type"
   "${vendor}/opencensus/proto/resource"
@@ -57,10 +57,8 @@ do
     if [[ ${#path_protos[@]} > 0 ]]
     then
       echo "${path} ..."
-      $grpc_tools_node_protoc --proto_path=${vendor} \
-        --plugin="protoc-gen-grpc=${JS_PLUGIN_PATH}" \
+      $protoc --proto_path=${vendor} \
         --js_out="import_style=commonjs,binary:${OUT_DIR}" \
-        --grpc_out=$OUT_DIR \
         ${path}/*.proto 
 
       $protoc --proto_path=${vendor} \
@@ -74,10 +72,8 @@ done
 for i in "${importsi[@]}"
 do
   echo "${i} ..."
-  $grpc_tools_node_protoc --proto_path=${vendor} \
-    --plugin="protoc-gen-grpc=${JS_PLUGIN_PATH}" \
+  $protoc --proto_path=${vendor} \
     --js_out="import_style=commonjs,binary:${OUT_DIR}" \
-    --grpc_out=$OUT_DIR \
     ${i}
 
   $protoc --proto_path=${vendor} \

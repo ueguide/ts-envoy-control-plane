@@ -1,3 +1,4 @@
+// source: envoy/api/v2/route/route.proto
 /**
  * @fileoverview
  * @enhanceable
@@ -36,14 +37,18 @@ goog.object.extend(proto, udpa_annotations_migrate_pb);
 var validate_validate_pb = require('../../../../validate/validate_pb.js');
 goog.object.extend(proto, validate_validate_pb);
 goog.exportSymbol('proto.envoy.api.v2.route.CorsPolicy', null, global);
+goog.exportSymbol('proto.envoy.api.v2.route.CorsPolicy.EnabledSpecifierCase', null, global);
 goog.exportSymbol('proto.envoy.api.v2.route.Decorator', null, global);
 goog.exportSymbol('proto.envoy.api.v2.route.DirectResponseAction', null, global);
 goog.exportSymbol('proto.envoy.api.v2.route.FilterAction', null, global);
 goog.exportSymbol('proto.envoy.api.v2.route.HeaderMatcher', null, global);
+goog.exportSymbol('proto.envoy.api.v2.route.HeaderMatcher.HeaderMatchSpecifierCase', null, global);
 goog.exportSymbol('proto.envoy.api.v2.route.HedgePolicy', null, global);
 goog.exportSymbol('proto.envoy.api.v2.route.QueryParameterMatcher', null, global);
+goog.exportSymbol('proto.envoy.api.v2.route.QueryParameterMatcher.QueryParameterMatchSpecifierCase', null, global);
 goog.exportSymbol('proto.envoy.api.v2.route.RateLimit', null, global);
 goog.exportSymbol('proto.envoy.api.v2.route.RateLimit.Action', null, global);
+goog.exportSymbol('proto.envoy.api.v2.route.RateLimit.Action.ActionSpecifierCase', null, global);
 goog.exportSymbol('proto.envoy.api.v2.route.RateLimit.Action.DestinationCluster', null, global);
 goog.exportSymbol('proto.envoy.api.v2.route.RateLimit.Action.GenericKey', null, global);
 goog.exportSymbol('proto.envoy.api.v2.route.RateLimit.Action.HeaderValueMatch', null, global);
@@ -51,24 +56,33 @@ goog.exportSymbol('proto.envoy.api.v2.route.RateLimit.Action.RemoteAddress', nul
 goog.exportSymbol('proto.envoy.api.v2.route.RateLimit.Action.RequestHeaders', null, global);
 goog.exportSymbol('proto.envoy.api.v2.route.RateLimit.Action.SourceCluster', null, global);
 goog.exportSymbol('proto.envoy.api.v2.route.RedirectAction', null, global);
+goog.exportSymbol('proto.envoy.api.v2.route.RedirectAction.PathRewriteSpecifierCase', null, global);
 goog.exportSymbol('proto.envoy.api.v2.route.RedirectAction.RedirectResponseCode', null, global);
+goog.exportSymbol('proto.envoy.api.v2.route.RedirectAction.SchemeRewriteSpecifierCase', null, global);
 goog.exportSymbol('proto.envoy.api.v2.route.RetryPolicy', null, global);
 goog.exportSymbol('proto.envoy.api.v2.route.RetryPolicy.RetryBackOff', null, global);
 goog.exportSymbol('proto.envoy.api.v2.route.RetryPolicy.RetryHostPredicate', null, global);
+goog.exportSymbol('proto.envoy.api.v2.route.RetryPolicy.RetryHostPredicate.ConfigTypeCase', null, global);
 goog.exportSymbol('proto.envoy.api.v2.route.RetryPolicy.RetryPriority', null, global);
+goog.exportSymbol('proto.envoy.api.v2.route.RetryPolicy.RetryPriority.ConfigTypeCase', null, global);
 goog.exportSymbol('proto.envoy.api.v2.route.Route', null, global);
+goog.exportSymbol('proto.envoy.api.v2.route.Route.ActionCase', null, global);
 goog.exportSymbol('proto.envoy.api.v2.route.RouteAction', null, global);
 goog.exportSymbol('proto.envoy.api.v2.route.RouteAction.ClusterNotFoundResponseCode', null, global);
+goog.exportSymbol('proto.envoy.api.v2.route.RouteAction.ClusterSpecifierCase', null, global);
 goog.exportSymbol('proto.envoy.api.v2.route.RouteAction.HashPolicy', null, global);
 goog.exportSymbol('proto.envoy.api.v2.route.RouteAction.HashPolicy.ConnectionProperties', null, global);
 goog.exportSymbol('proto.envoy.api.v2.route.RouteAction.HashPolicy.Cookie', null, global);
 goog.exportSymbol('proto.envoy.api.v2.route.RouteAction.HashPolicy.Header', null, global);
+goog.exportSymbol('proto.envoy.api.v2.route.RouteAction.HashPolicy.PolicySpecifierCase', null, global);
 goog.exportSymbol('proto.envoy.api.v2.route.RouteAction.HashPolicy.QueryParameter', null, global);
+goog.exportSymbol('proto.envoy.api.v2.route.RouteAction.HostRewriteSpecifierCase', null, global);
 goog.exportSymbol('proto.envoy.api.v2.route.RouteAction.InternalRedirectAction', null, global);
 goog.exportSymbol('proto.envoy.api.v2.route.RouteAction.RequestMirrorPolicy', null, global);
 goog.exportSymbol('proto.envoy.api.v2.route.RouteAction.UpgradeConfig', null, global);
 goog.exportSymbol('proto.envoy.api.v2.route.RouteMatch', null, global);
 goog.exportSymbol('proto.envoy.api.v2.route.RouteMatch.GrpcRouteMatchOptions', null, global);
+goog.exportSymbol('proto.envoy.api.v2.route.RouteMatch.PathSpecifierCase', null, global);
 goog.exportSymbol('proto.envoy.api.v2.route.RouteMatch.TlsContextMatchOptions', null, global);
 goog.exportSymbol('proto.envoy.api.v2.route.Tracing', null, global);
 goog.exportSymbol('proto.envoy.api.v2.route.VirtualCluster', null, global);
@@ -76,7 +90,6 @@ goog.exportSymbol('proto.envoy.api.v2.route.VirtualHost', null, global);
 goog.exportSymbol('proto.envoy.api.v2.route.VirtualHost.TlsRequirementType', null, global);
 goog.exportSymbol('proto.envoy.api.v2.route.WeightedCluster', null, global);
 goog.exportSymbol('proto.envoy.api.v2.route.WeightedCluster.ClusterWeight', null, global);
-
 /**
  * Generated by JsPbCodeGenerator.
  * @param {Array=} opt_data Optional initial data array, typically from a
@@ -92,8 +105,769 @@ proto.envoy.api.v2.route.VirtualHost = function(opt_data) {
 };
 goog.inherits(proto.envoy.api.v2.route.VirtualHost, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
   proto.envoy.api.v2.route.VirtualHost.displayName = 'proto.envoy.api.v2.route.VirtualHost';
 }
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.envoy.api.v2.route.FilterAction = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.envoy.api.v2.route.FilterAction, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.envoy.api.v2.route.FilterAction.displayName = 'proto.envoy.api.v2.route.FilterAction';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.envoy.api.v2.route.Route = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.envoy.api.v2.route.Route.repeatedFields_, proto.envoy.api.v2.route.Route.oneofGroups_);
+};
+goog.inherits(proto.envoy.api.v2.route.Route, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.envoy.api.v2.route.Route.displayName = 'proto.envoy.api.v2.route.Route';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.envoy.api.v2.route.WeightedCluster = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.envoy.api.v2.route.WeightedCluster.repeatedFields_, null);
+};
+goog.inherits(proto.envoy.api.v2.route.WeightedCluster, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.envoy.api.v2.route.WeightedCluster.displayName = 'proto.envoy.api.v2.route.WeightedCluster';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.envoy.api.v2.route.WeightedCluster.ClusterWeight = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.envoy.api.v2.route.WeightedCluster.ClusterWeight.repeatedFields_, null);
+};
+goog.inherits(proto.envoy.api.v2.route.WeightedCluster.ClusterWeight, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.envoy.api.v2.route.WeightedCluster.ClusterWeight.displayName = 'proto.envoy.api.v2.route.WeightedCluster.ClusterWeight';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.envoy.api.v2.route.RouteMatch = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.envoy.api.v2.route.RouteMatch.repeatedFields_, proto.envoy.api.v2.route.RouteMatch.oneofGroups_);
+};
+goog.inherits(proto.envoy.api.v2.route.RouteMatch, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.envoy.api.v2.route.RouteMatch.displayName = 'proto.envoy.api.v2.route.RouteMatch';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.envoy.api.v2.route.RouteMatch.GrpcRouteMatchOptions = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.envoy.api.v2.route.RouteMatch.GrpcRouteMatchOptions, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.envoy.api.v2.route.RouteMatch.GrpcRouteMatchOptions.displayName = 'proto.envoy.api.v2.route.RouteMatch.GrpcRouteMatchOptions';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.envoy.api.v2.route.RouteMatch.TlsContextMatchOptions = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.envoy.api.v2.route.RouteMatch.TlsContextMatchOptions, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.envoy.api.v2.route.RouteMatch.TlsContextMatchOptions.displayName = 'proto.envoy.api.v2.route.RouteMatch.TlsContextMatchOptions';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.envoy.api.v2.route.CorsPolicy = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.envoy.api.v2.route.CorsPolicy.repeatedFields_, proto.envoy.api.v2.route.CorsPolicy.oneofGroups_);
+};
+goog.inherits(proto.envoy.api.v2.route.CorsPolicy, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.envoy.api.v2.route.CorsPolicy.displayName = 'proto.envoy.api.v2.route.CorsPolicy';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.envoy.api.v2.route.RouteAction = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.envoy.api.v2.route.RouteAction.repeatedFields_, proto.envoy.api.v2.route.RouteAction.oneofGroups_);
+};
+goog.inherits(proto.envoy.api.v2.route.RouteAction, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.envoy.api.v2.route.RouteAction.displayName = 'proto.envoy.api.v2.route.RouteAction';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.envoy.api.v2.route.RouteAction.RequestMirrorPolicy = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.envoy.api.v2.route.RouteAction.RequestMirrorPolicy, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.envoy.api.v2.route.RouteAction.RequestMirrorPolicy.displayName = 'proto.envoy.api.v2.route.RouteAction.RequestMirrorPolicy';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.envoy.api.v2.route.RouteAction.HashPolicy = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, proto.envoy.api.v2.route.RouteAction.HashPolicy.oneofGroups_);
+};
+goog.inherits(proto.envoy.api.v2.route.RouteAction.HashPolicy, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.envoy.api.v2.route.RouteAction.HashPolicy.displayName = 'proto.envoy.api.v2.route.RouteAction.HashPolicy';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.envoy.api.v2.route.RouteAction.HashPolicy.Header = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.envoy.api.v2.route.RouteAction.HashPolicy.Header, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.envoy.api.v2.route.RouteAction.HashPolicy.Header.displayName = 'proto.envoy.api.v2.route.RouteAction.HashPolicy.Header';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.envoy.api.v2.route.RouteAction.HashPolicy.Cookie = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.envoy.api.v2.route.RouteAction.HashPolicy.Cookie, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.envoy.api.v2.route.RouteAction.HashPolicy.Cookie.displayName = 'proto.envoy.api.v2.route.RouteAction.HashPolicy.Cookie';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.envoy.api.v2.route.RouteAction.HashPolicy.ConnectionProperties = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.envoy.api.v2.route.RouteAction.HashPolicy.ConnectionProperties, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.envoy.api.v2.route.RouteAction.HashPolicy.ConnectionProperties.displayName = 'proto.envoy.api.v2.route.RouteAction.HashPolicy.ConnectionProperties';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.envoy.api.v2.route.RouteAction.HashPolicy.QueryParameter = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.envoy.api.v2.route.RouteAction.HashPolicy.QueryParameter, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.envoy.api.v2.route.RouteAction.HashPolicy.QueryParameter.displayName = 'proto.envoy.api.v2.route.RouteAction.HashPolicy.QueryParameter';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.envoy.api.v2.route.RouteAction.UpgradeConfig = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.envoy.api.v2.route.RouteAction.UpgradeConfig, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.envoy.api.v2.route.RouteAction.UpgradeConfig.displayName = 'proto.envoy.api.v2.route.RouteAction.UpgradeConfig';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.envoy.api.v2.route.RetryPolicy = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.envoy.api.v2.route.RetryPolicy.repeatedFields_, null);
+};
+goog.inherits(proto.envoy.api.v2.route.RetryPolicy, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.envoy.api.v2.route.RetryPolicy.displayName = 'proto.envoy.api.v2.route.RetryPolicy';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.envoy.api.v2.route.RetryPolicy.RetryPriority = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, proto.envoy.api.v2.route.RetryPolicy.RetryPriority.oneofGroups_);
+};
+goog.inherits(proto.envoy.api.v2.route.RetryPolicy.RetryPriority, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.envoy.api.v2.route.RetryPolicy.RetryPriority.displayName = 'proto.envoy.api.v2.route.RetryPolicy.RetryPriority';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.envoy.api.v2.route.RetryPolicy.RetryHostPredicate = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, proto.envoy.api.v2.route.RetryPolicy.RetryHostPredicate.oneofGroups_);
+};
+goog.inherits(proto.envoy.api.v2.route.RetryPolicy.RetryHostPredicate, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.envoy.api.v2.route.RetryPolicy.RetryHostPredicate.displayName = 'proto.envoy.api.v2.route.RetryPolicy.RetryHostPredicate';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.envoy.api.v2.route.RetryPolicy.RetryBackOff = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.envoy.api.v2.route.RetryPolicy.RetryBackOff, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.envoy.api.v2.route.RetryPolicy.RetryBackOff.displayName = 'proto.envoy.api.v2.route.RetryPolicy.RetryBackOff';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.envoy.api.v2.route.HedgePolicy = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.envoy.api.v2.route.HedgePolicy, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.envoy.api.v2.route.HedgePolicy.displayName = 'proto.envoy.api.v2.route.HedgePolicy';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.envoy.api.v2.route.RedirectAction = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, proto.envoy.api.v2.route.RedirectAction.oneofGroups_);
+};
+goog.inherits(proto.envoy.api.v2.route.RedirectAction, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.envoy.api.v2.route.RedirectAction.displayName = 'proto.envoy.api.v2.route.RedirectAction';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.envoy.api.v2.route.DirectResponseAction = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.envoy.api.v2.route.DirectResponseAction, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.envoy.api.v2.route.DirectResponseAction.displayName = 'proto.envoy.api.v2.route.DirectResponseAction';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.envoy.api.v2.route.Decorator = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.envoy.api.v2.route.Decorator, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.envoy.api.v2.route.Decorator.displayName = 'proto.envoy.api.v2.route.Decorator';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.envoy.api.v2.route.Tracing = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.envoy.api.v2.route.Tracing.repeatedFields_, null);
+};
+goog.inherits(proto.envoy.api.v2.route.Tracing, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.envoy.api.v2.route.Tracing.displayName = 'proto.envoy.api.v2.route.Tracing';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.envoy.api.v2.route.VirtualCluster = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.envoy.api.v2.route.VirtualCluster.repeatedFields_, null);
+};
+goog.inherits(proto.envoy.api.v2.route.VirtualCluster, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.envoy.api.v2.route.VirtualCluster.displayName = 'proto.envoy.api.v2.route.VirtualCluster';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.envoy.api.v2.route.RateLimit = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.envoy.api.v2.route.RateLimit.repeatedFields_, null);
+};
+goog.inherits(proto.envoy.api.v2.route.RateLimit, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.envoy.api.v2.route.RateLimit.displayName = 'proto.envoy.api.v2.route.RateLimit';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.envoy.api.v2.route.RateLimit.Action = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, proto.envoy.api.v2.route.RateLimit.Action.oneofGroups_);
+};
+goog.inherits(proto.envoy.api.v2.route.RateLimit.Action, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.envoy.api.v2.route.RateLimit.Action.displayName = 'proto.envoy.api.v2.route.RateLimit.Action';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.envoy.api.v2.route.RateLimit.Action.SourceCluster = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.envoy.api.v2.route.RateLimit.Action.SourceCluster, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.envoy.api.v2.route.RateLimit.Action.SourceCluster.displayName = 'proto.envoy.api.v2.route.RateLimit.Action.SourceCluster';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.envoy.api.v2.route.RateLimit.Action.DestinationCluster = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.envoy.api.v2.route.RateLimit.Action.DestinationCluster, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.envoy.api.v2.route.RateLimit.Action.DestinationCluster.displayName = 'proto.envoy.api.v2.route.RateLimit.Action.DestinationCluster';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.envoy.api.v2.route.RateLimit.Action.RequestHeaders = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.envoy.api.v2.route.RateLimit.Action.RequestHeaders, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.envoy.api.v2.route.RateLimit.Action.RequestHeaders.displayName = 'proto.envoy.api.v2.route.RateLimit.Action.RequestHeaders';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.envoy.api.v2.route.RateLimit.Action.RemoteAddress = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.envoy.api.v2.route.RateLimit.Action.RemoteAddress, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.envoy.api.v2.route.RateLimit.Action.RemoteAddress.displayName = 'proto.envoy.api.v2.route.RateLimit.Action.RemoteAddress';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.envoy.api.v2.route.RateLimit.Action.GenericKey = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.envoy.api.v2.route.RateLimit.Action.GenericKey, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.envoy.api.v2.route.RateLimit.Action.GenericKey.displayName = 'proto.envoy.api.v2.route.RateLimit.Action.GenericKey';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.envoy.api.v2.route.RateLimit.Action.HeaderValueMatch = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.envoy.api.v2.route.RateLimit.Action.HeaderValueMatch.repeatedFields_, null);
+};
+goog.inherits(proto.envoy.api.v2.route.RateLimit.Action.HeaderValueMatch, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.envoy.api.v2.route.RateLimit.Action.HeaderValueMatch.displayName = 'proto.envoy.api.v2.route.RateLimit.Action.HeaderValueMatch';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.envoy.api.v2.route.HeaderMatcher = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, proto.envoy.api.v2.route.HeaderMatcher.oneofGroups_);
+};
+goog.inherits(proto.envoy.api.v2.route.HeaderMatcher, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.envoy.api.v2.route.HeaderMatcher.displayName = 'proto.envoy.api.v2.route.HeaderMatcher';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.envoy.api.v2.route.QueryParameterMatcher = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, proto.envoy.api.v2.route.QueryParameterMatcher.oneofGroups_);
+};
+goog.inherits(proto.envoy.api.v2.route.QueryParameterMatcher, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.envoy.api.v2.route.QueryParameterMatcher.displayName = 'proto.envoy.api.v2.route.QueryParameterMatcher';
+}
+
 /**
  * List of repeated fields within this message type.
  * @private {!Array<number>}
@@ -105,13 +879,15 @@ proto.envoy.api.v2.route.VirtualHost.repeatedFields_ = [2,3,5,6,7,13,10,11];
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
 /**
- * Creates an object representation of this proto suitable for use in Soy templates.
+ * Creates an object representation of this proto.
  * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
  * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
  * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
  * @return {!Object}
  */
 proto.envoy.api.v2.route.VirtualHost.prototype.toObject = function(opt_includeInstance) {
@@ -121,8 +897,8 @@ proto.envoy.api.v2.route.VirtualHost.prototype.toObject = function(opt_includeIn
 
 /**
  * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
  * @param {!proto.envoy.api.v2.route.VirtualHost} msg The msg instance to transform.
  * @return {!Object}
@@ -131,7 +907,7 @@ proto.envoy.api.v2.route.VirtualHost.prototype.toObject = function(opt_includeIn
 proto.envoy.api.v2.route.VirtualHost.toObject = function(includeInstance, msg) {
   var f, obj = {
     name: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    domainsList: jspb.Message.getRepeatedField(msg, 2),
+    domainsList: (f = jspb.Message.getRepeatedField(msg, 2)) == null ? undefined : f,
     routesList: jspb.Message.toObjectList(msg.getRoutesList(),
     proto.envoy.api.v2.route.Route.toObject, includeInstance),
     requireTls: jspb.Message.getFieldWithDefault(msg, 4, 0),
@@ -141,14 +917,14 @@ proto.envoy.api.v2.route.VirtualHost.toObject = function(includeInstance, msg) {
     proto.envoy.api.v2.route.RateLimit.toObject, includeInstance),
     requestHeadersToAddList: jspb.Message.toObjectList(msg.getRequestHeadersToAddList(),
     envoy_api_v2_core_base_pb.HeaderValueOption.toObject, includeInstance),
-    requestHeadersToRemoveList: jspb.Message.getRepeatedField(msg, 13),
+    requestHeadersToRemoveList: (f = jspb.Message.getRepeatedField(msg, 13)) == null ? undefined : f,
     responseHeadersToAddList: jspb.Message.toObjectList(msg.getResponseHeadersToAddList(),
     envoy_api_v2_core_base_pb.HeaderValueOption.toObject, includeInstance),
-    responseHeadersToRemoveList: jspb.Message.getRepeatedField(msg, 11),
+    responseHeadersToRemoveList: (f = jspb.Message.getRepeatedField(msg, 11)) == null ? undefined : f,
     cors: (f = msg.getCors()) && proto.envoy.api.v2.route.CorsPolicy.toObject(includeInstance, f),
     perFilterConfigMap: (f = msg.getPerFilterConfigMap()) ? f.toObject(includeInstance, proto.google.protobuf.Struct.toObject) : [],
     typedPerFilterConfigMap: (f = msg.getTypedPerFilterConfigMap()) ? f.toObject(includeInstance, proto.google.protobuf.Any.toObject) : [],
-    includeRequestAttemptCount: jspb.Message.getFieldWithDefault(msg, 14, false),
+    includeRequestAttemptCount: jspb.Message.getBooleanFieldWithDefault(msg, 14, false),
     retryPolicy: (f = msg.getRetryPolicy()) && proto.envoy.api.v2.route.RetryPolicy.toObject(includeInstance, f),
     hedgePolicy: (f = msg.getHedgePolicy()) && proto.envoy.api.v2.route.HedgePolicy.toObject(includeInstance, f),
     perRequestBufferLimitBytes: (f = msg.getPerRequestBufferLimitBytes()) && google_protobuf_wrappers_pb.UInt32Value.toObject(includeInstance, f)
@@ -241,13 +1017,13 @@ proto.envoy.api.v2.route.VirtualHost.deserializeBinaryFromReader = function(msg,
     case 12:
       var value = msg.getPerFilterConfigMap();
       reader.readMessage(value, function(message, reader) {
-        jspb.Map.deserializeBinary(message, reader, jspb.BinaryReader.prototype.readString, jspb.BinaryReader.prototype.readMessage, proto.google.protobuf.Struct.deserializeBinaryFromReader, "");
+        jspb.Map.deserializeBinary(message, reader, jspb.BinaryReader.prototype.readString, jspb.BinaryReader.prototype.readMessage, proto.google.protobuf.Struct.deserializeBinaryFromReader, "", new proto.google.protobuf.Struct());
          });
       break;
     case 15:
       var value = msg.getTypedPerFilterConfigMap();
       reader.readMessage(value, function(message, reader) {
-        jspb.Map.deserializeBinary(message, reader, jspb.BinaryReader.prototype.readString, jspb.BinaryReader.prototype.readMessage, proto.google.protobuf.Any.deserializeBinaryFromReader, "");
+        jspb.Map.deserializeBinary(message, reader, jspb.BinaryReader.prototype.readString, jspb.BinaryReader.prototype.readMessage, proto.google.protobuf.Any.deserializeBinaryFromReader, "", new proto.google.protobuf.Any());
          });
       break;
     case 14:
@@ -441,9 +1217,12 @@ proto.envoy.api.v2.route.VirtualHost.prototype.getName = function() {
 };
 
 
-/** @param {string} value */
+/**
+ * @param {string} value
+ * @return {!proto.envoy.api.v2.route.VirtualHost} returns this
+ */
 proto.envoy.api.v2.route.VirtualHost.prototype.setName = function(value) {
-  jspb.Message.setProto3StringField(this, 1, value);
+  return jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
@@ -456,23 +1235,31 @@ proto.envoy.api.v2.route.VirtualHost.prototype.getDomainsList = function() {
 };
 
 
-/** @param {!Array<string>} value */
+/**
+ * @param {!Array<string>} value
+ * @return {!proto.envoy.api.v2.route.VirtualHost} returns this
+ */
 proto.envoy.api.v2.route.VirtualHost.prototype.setDomainsList = function(value) {
-  jspb.Message.setField(this, 2, value || []);
+  return jspb.Message.setField(this, 2, value || []);
 };
 
 
 /**
  * @param {string} value
  * @param {number=} opt_index
+ * @return {!proto.envoy.api.v2.route.VirtualHost} returns this
  */
 proto.envoy.api.v2.route.VirtualHost.prototype.addDomains = function(value, opt_index) {
-  jspb.Message.addToRepeatedField(this, 2, value, opt_index);
+  return jspb.Message.addToRepeatedField(this, 2, value, opt_index);
 };
 
 
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.envoy.api.v2.route.VirtualHost} returns this
+ */
 proto.envoy.api.v2.route.VirtualHost.prototype.clearDomainsList = function() {
-  this.setDomainsList([]);
+  return this.setDomainsList([]);
 };
 
 
@@ -486,9 +1273,12 @@ proto.envoy.api.v2.route.VirtualHost.prototype.getRoutesList = function() {
 };
 
 
-/** @param {!Array<!proto.envoy.api.v2.route.Route>} value */
+/**
+ * @param {!Array<!proto.envoy.api.v2.route.Route>} value
+ * @return {!proto.envoy.api.v2.route.VirtualHost} returns this
+*/
 proto.envoy.api.v2.route.VirtualHost.prototype.setRoutesList = function(value) {
-  jspb.Message.setRepeatedWrapperField(this, 3, value);
+  return jspb.Message.setRepeatedWrapperField(this, 3, value);
 };
 
 
@@ -502,8 +1292,12 @@ proto.envoy.api.v2.route.VirtualHost.prototype.addRoutes = function(opt_value, o
 };
 
 
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.envoy.api.v2.route.VirtualHost} returns this
+ */
 proto.envoy.api.v2.route.VirtualHost.prototype.clearRoutesList = function() {
-  this.setRoutesList([]);
+  return this.setRoutesList([]);
 };
 
 
@@ -516,9 +1310,12 @@ proto.envoy.api.v2.route.VirtualHost.prototype.getRequireTls = function() {
 };
 
 
-/** @param {!proto.envoy.api.v2.route.VirtualHost.TlsRequirementType} value */
+/**
+ * @param {!proto.envoy.api.v2.route.VirtualHost.TlsRequirementType} value
+ * @return {!proto.envoy.api.v2.route.VirtualHost} returns this
+ */
 proto.envoy.api.v2.route.VirtualHost.prototype.setRequireTls = function(value) {
-  jspb.Message.setProto3EnumField(this, 4, value);
+  return jspb.Message.setProto3EnumField(this, 4, value);
 };
 
 
@@ -532,9 +1329,12 @@ proto.envoy.api.v2.route.VirtualHost.prototype.getVirtualClustersList = function
 };
 
 
-/** @param {!Array<!proto.envoy.api.v2.route.VirtualCluster>} value */
+/**
+ * @param {!Array<!proto.envoy.api.v2.route.VirtualCluster>} value
+ * @return {!proto.envoy.api.v2.route.VirtualHost} returns this
+*/
 proto.envoy.api.v2.route.VirtualHost.prototype.setVirtualClustersList = function(value) {
-  jspb.Message.setRepeatedWrapperField(this, 5, value);
+  return jspb.Message.setRepeatedWrapperField(this, 5, value);
 };
 
 
@@ -548,8 +1348,12 @@ proto.envoy.api.v2.route.VirtualHost.prototype.addVirtualClusters = function(opt
 };
 
 
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.envoy.api.v2.route.VirtualHost} returns this
+ */
 proto.envoy.api.v2.route.VirtualHost.prototype.clearVirtualClustersList = function() {
-  this.setVirtualClustersList([]);
+  return this.setVirtualClustersList([]);
 };
 
 
@@ -563,9 +1367,12 @@ proto.envoy.api.v2.route.VirtualHost.prototype.getRateLimitsList = function() {
 };
 
 
-/** @param {!Array<!proto.envoy.api.v2.route.RateLimit>} value */
+/**
+ * @param {!Array<!proto.envoy.api.v2.route.RateLimit>} value
+ * @return {!proto.envoy.api.v2.route.VirtualHost} returns this
+*/
 proto.envoy.api.v2.route.VirtualHost.prototype.setRateLimitsList = function(value) {
-  jspb.Message.setRepeatedWrapperField(this, 6, value);
+  return jspb.Message.setRepeatedWrapperField(this, 6, value);
 };
 
 
@@ -579,8 +1386,12 @@ proto.envoy.api.v2.route.VirtualHost.prototype.addRateLimits = function(opt_valu
 };
 
 
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.envoy.api.v2.route.VirtualHost} returns this
+ */
 proto.envoy.api.v2.route.VirtualHost.prototype.clearRateLimitsList = function() {
-  this.setRateLimitsList([]);
+  return this.setRateLimitsList([]);
 };
 
 
@@ -594,9 +1405,12 @@ proto.envoy.api.v2.route.VirtualHost.prototype.getRequestHeadersToAddList = func
 };
 
 
-/** @param {!Array<!proto.envoy.api.v2.core.HeaderValueOption>} value */
+/**
+ * @param {!Array<!proto.envoy.api.v2.core.HeaderValueOption>} value
+ * @return {!proto.envoy.api.v2.route.VirtualHost} returns this
+*/
 proto.envoy.api.v2.route.VirtualHost.prototype.setRequestHeadersToAddList = function(value) {
-  jspb.Message.setRepeatedWrapperField(this, 7, value);
+  return jspb.Message.setRepeatedWrapperField(this, 7, value);
 };
 
 
@@ -610,8 +1424,12 @@ proto.envoy.api.v2.route.VirtualHost.prototype.addRequestHeadersToAdd = function
 };
 
 
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.envoy.api.v2.route.VirtualHost} returns this
+ */
 proto.envoy.api.v2.route.VirtualHost.prototype.clearRequestHeadersToAddList = function() {
-  this.setRequestHeadersToAddList([]);
+  return this.setRequestHeadersToAddList([]);
 };
 
 
@@ -624,23 +1442,31 @@ proto.envoy.api.v2.route.VirtualHost.prototype.getRequestHeadersToRemoveList = f
 };
 
 
-/** @param {!Array<string>} value */
+/**
+ * @param {!Array<string>} value
+ * @return {!proto.envoy.api.v2.route.VirtualHost} returns this
+ */
 proto.envoy.api.v2.route.VirtualHost.prototype.setRequestHeadersToRemoveList = function(value) {
-  jspb.Message.setField(this, 13, value || []);
+  return jspb.Message.setField(this, 13, value || []);
 };
 
 
 /**
  * @param {string} value
  * @param {number=} opt_index
+ * @return {!proto.envoy.api.v2.route.VirtualHost} returns this
  */
 proto.envoy.api.v2.route.VirtualHost.prototype.addRequestHeadersToRemove = function(value, opt_index) {
-  jspb.Message.addToRepeatedField(this, 13, value, opt_index);
+  return jspb.Message.addToRepeatedField(this, 13, value, opt_index);
 };
 
 
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.envoy.api.v2.route.VirtualHost} returns this
+ */
 proto.envoy.api.v2.route.VirtualHost.prototype.clearRequestHeadersToRemoveList = function() {
-  this.setRequestHeadersToRemoveList([]);
+  return this.setRequestHeadersToRemoveList([]);
 };
 
 
@@ -654,9 +1480,12 @@ proto.envoy.api.v2.route.VirtualHost.prototype.getResponseHeadersToAddList = fun
 };
 
 
-/** @param {!Array<!proto.envoy.api.v2.core.HeaderValueOption>} value */
+/**
+ * @param {!Array<!proto.envoy.api.v2.core.HeaderValueOption>} value
+ * @return {!proto.envoy.api.v2.route.VirtualHost} returns this
+*/
 proto.envoy.api.v2.route.VirtualHost.prototype.setResponseHeadersToAddList = function(value) {
-  jspb.Message.setRepeatedWrapperField(this, 10, value);
+  return jspb.Message.setRepeatedWrapperField(this, 10, value);
 };
 
 
@@ -670,8 +1499,12 @@ proto.envoy.api.v2.route.VirtualHost.prototype.addResponseHeadersToAdd = functio
 };
 
 
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.envoy.api.v2.route.VirtualHost} returns this
+ */
 proto.envoy.api.v2.route.VirtualHost.prototype.clearResponseHeadersToAddList = function() {
-  this.setResponseHeadersToAddList([]);
+  return this.setResponseHeadersToAddList([]);
 };
 
 
@@ -684,23 +1517,31 @@ proto.envoy.api.v2.route.VirtualHost.prototype.getResponseHeadersToRemoveList = 
 };
 
 
-/** @param {!Array<string>} value */
+/**
+ * @param {!Array<string>} value
+ * @return {!proto.envoy.api.v2.route.VirtualHost} returns this
+ */
 proto.envoy.api.v2.route.VirtualHost.prototype.setResponseHeadersToRemoveList = function(value) {
-  jspb.Message.setField(this, 11, value || []);
+  return jspb.Message.setField(this, 11, value || []);
 };
 
 
 /**
  * @param {string} value
  * @param {number=} opt_index
+ * @return {!proto.envoy.api.v2.route.VirtualHost} returns this
  */
 proto.envoy.api.v2.route.VirtualHost.prototype.addResponseHeadersToRemove = function(value, opt_index) {
-  jspb.Message.addToRepeatedField(this, 11, value, opt_index);
+  return jspb.Message.addToRepeatedField(this, 11, value, opt_index);
 };
 
 
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.envoy.api.v2.route.VirtualHost} returns this
+ */
 proto.envoy.api.v2.route.VirtualHost.prototype.clearResponseHeadersToRemoveList = function() {
-  this.setResponseHeadersToRemoveList([]);
+  return this.setResponseHeadersToRemoveList([]);
 };
 
 
@@ -714,14 +1555,21 @@ proto.envoy.api.v2.route.VirtualHost.prototype.getCors = function() {
 };
 
 
-/** @param {?proto.envoy.api.v2.route.CorsPolicy|undefined} value */
+/**
+ * @param {?proto.envoy.api.v2.route.CorsPolicy|undefined} value
+ * @return {!proto.envoy.api.v2.route.VirtualHost} returns this
+*/
 proto.envoy.api.v2.route.VirtualHost.prototype.setCors = function(value) {
-  jspb.Message.setWrapperField(this, 8, value);
+  return jspb.Message.setWrapperField(this, 8, value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.VirtualHost} returns this
+ */
 proto.envoy.api.v2.route.VirtualHost.prototype.clearCors = function() {
-  this.setCors(undefined);
+  return this.setCors(undefined);
 };
 
 
@@ -747,9 +1595,13 @@ proto.envoy.api.v2.route.VirtualHost.prototype.getPerFilterConfigMap = function(
 };
 
 
+/**
+ * Clears values from the map. The map will be non-null.
+ * @return {!proto.envoy.api.v2.route.VirtualHost} returns this
+ */
 proto.envoy.api.v2.route.VirtualHost.prototype.clearPerFilterConfigMap = function() {
   this.getPerFilterConfigMap().clear();
-};
+  return this;};
 
 
 /**
@@ -765,25 +1617,30 @@ proto.envoy.api.v2.route.VirtualHost.prototype.getTypedPerFilterConfigMap = func
 };
 
 
+/**
+ * Clears values from the map. The map will be non-null.
+ * @return {!proto.envoy.api.v2.route.VirtualHost} returns this
+ */
 proto.envoy.api.v2.route.VirtualHost.prototype.clearTypedPerFilterConfigMap = function() {
   this.getTypedPerFilterConfigMap().clear();
-};
+  return this;};
 
 
 /**
  * optional bool include_request_attempt_count = 14;
- * Note that Boolean fields may be set to 0/1 when serialized from a Java server.
- * You should avoid comparisons like {@code val === true/false} in those cases.
  * @return {boolean}
  */
 proto.envoy.api.v2.route.VirtualHost.prototype.getIncludeRequestAttemptCount = function() {
-  return /** @type {boolean} */ (jspb.Message.getFieldWithDefault(this, 14, false));
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 14, false));
 };
 
 
-/** @param {boolean} value */
+/**
+ * @param {boolean} value
+ * @return {!proto.envoy.api.v2.route.VirtualHost} returns this
+ */
 proto.envoy.api.v2.route.VirtualHost.prototype.setIncludeRequestAttemptCount = function(value) {
-  jspb.Message.setProto3BooleanField(this, 14, value);
+  return jspb.Message.setProto3BooleanField(this, 14, value);
 };
 
 
@@ -797,14 +1654,21 @@ proto.envoy.api.v2.route.VirtualHost.prototype.getRetryPolicy = function() {
 };
 
 
-/** @param {?proto.envoy.api.v2.route.RetryPolicy|undefined} value */
+/**
+ * @param {?proto.envoy.api.v2.route.RetryPolicy|undefined} value
+ * @return {!proto.envoy.api.v2.route.VirtualHost} returns this
+*/
 proto.envoy.api.v2.route.VirtualHost.prototype.setRetryPolicy = function(value) {
-  jspb.Message.setWrapperField(this, 16, value);
+  return jspb.Message.setWrapperField(this, 16, value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.VirtualHost} returns this
+ */
 proto.envoy.api.v2.route.VirtualHost.prototype.clearRetryPolicy = function() {
-  this.setRetryPolicy(undefined);
+  return this.setRetryPolicy(undefined);
 };
 
 
@@ -827,14 +1691,21 @@ proto.envoy.api.v2.route.VirtualHost.prototype.getHedgePolicy = function() {
 };
 
 
-/** @param {?proto.envoy.api.v2.route.HedgePolicy|undefined} value */
+/**
+ * @param {?proto.envoy.api.v2.route.HedgePolicy|undefined} value
+ * @return {!proto.envoy.api.v2.route.VirtualHost} returns this
+*/
 proto.envoy.api.v2.route.VirtualHost.prototype.setHedgePolicy = function(value) {
-  jspb.Message.setWrapperField(this, 17, value);
+  return jspb.Message.setWrapperField(this, 17, value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.VirtualHost} returns this
+ */
 proto.envoy.api.v2.route.VirtualHost.prototype.clearHedgePolicy = function() {
-  this.setHedgePolicy(undefined);
+  return this.setHedgePolicy(undefined);
 };
 
 
@@ -857,14 +1728,21 @@ proto.envoy.api.v2.route.VirtualHost.prototype.getPerRequestBufferLimitBytes = f
 };
 
 
-/** @param {?proto.google.protobuf.UInt32Value|undefined} value */
+/**
+ * @param {?proto.google.protobuf.UInt32Value|undefined} value
+ * @return {!proto.envoy.api.v2.route.VirtualHost} returns this
+*/
 proto.envoy.api.v2.route.VirtualHost.prototype.setPerRequestBufferLimitBytes = function(value) {
-  jspb.Message.setWrapperField(this, 18, value);
+  return jspb.Message.setWrapperField(this, 18, value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.VirtualHost} returns this
+ */
 proto.envoy.api.v2.route.VirtualHost.prototype.clearPerRequestBufferLimitBytes = function() {
-  this.setPerRequestBufferLimitBytes(undefined);
+  return this.setPerRequestBufferLimitBytes(undefined);
 };
 
 
@@ -878,34 +1756,19 @@ proto.envoy.api.v2.route.VirtualHost.prototype.hasPerRequestBufferLimitBytes = f
 
 
 
-/**
- * Generated by JsPbCodeGenerator.
- * @param {Array=} opt_data Optional initial data array, typically from a
- * server response, or constructed directly in Javascript. The array is used
- * in place and becomes part of the constructed object. It is not cloned.
- * If no data is provided, the constructed object will be empty, but still
- * valid.
- * @extends {jspb.Message}
- * @constructor
- */
-proto.envoy.api.v2.route.FilterAction = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
-};
-goog.inherits(proto.envoy.api.v2.route.FilterAction, jspb.Message);
-if (goog.DEBUG && !COMPILED) {
-  proto.envoy.api.v2.route.FilterAction.displayName = 'proto.envoy.api.v2.route.FilterAction';
-}
 
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
 /**
- * Creates an object representation of this proto suitable for use in Soy templates.
+ * Creates an object representation of this proto.
  * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
  * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
  * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
  * @return {!Object}
  */
 proto.envoy.api.v2.route.FilterAction.prototype.toObject = function(opt_includeInstance) {
@@ -915,8 +1778,8 @@ proto.envoy.api.v2.route.FilterAction.prototype.toObject = function(opt_includeI
 
 /**
  * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
  * @param {!proto.envoy.api.v2.route.FilterAction} msg The msg instance to transform.
  * @return {!Object}
@@ -1016,14 +1879,21 @@ proto.envoy.api.v2.route.FilterAction.prototype.getAction = function() {
 };
 
 
-/** @param {?proto.google.protobuf.Any|undefined} value */
+/**
+ * @param {?proto.google.protobuf.Any|undefined} value
+ * @return {!proto.envoy.api.v2.route.FilterAction} returns this
+*/
 proto.envoy.api.v2.route.FilterAction.prototype.setAction = function(value) {
-  jspb.Message.setWrapperField(this, 1, value);
+  return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.FilterAction} returns this
+ */
 proto.envoy.api.v2.route.FilterAction.prototype.clearAction = function() {
-  this.setAction(undefined);
+  return this.setAction(undefined);
 };
 
 
@@ -1037,23 +1907,6 @@ proto.envoy.api.v2.route.FilterAction.prototype.hasAction = function() {
 
 
 
-/**
- * Generated by JsPbCodeGenerator.
- * @param {Array=} opt_data Optional initial data array, typically from a
- * server response, or constructed directly in Javascript. The array is used
- * in place and becomes part of the constructed object. It is not cloned.
- * If no data is provided, the constructed object will be empty, but still
- * valid.
- * @extends {jspb.Message}
- * @constructor
- */
-proto.envoy.api.v2.route.Route = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.envoy.api.v2.route.Route.repeatedFields_, proto.envoy.api.v2.route.Route.oneofGroups_);
-};
-goog.inherits(proto.envoy.api.v2.route.Route, jspb.Message);
-if (goog.DEBUG && !COMPILED) {
-  proto.envoy.api.v2.route.Route.displayName = 'proto.envoy.api.v2.route.Route';
-}
 /**
  * List of repeated fields within this message type.
  * @private {!Array<number>}
@@ -1093,13 +1946,15 @@ proto.envoy.api.v2.route.Route.prototype.getActionCase = function() {
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
 /**
- * Creates an object representation of this proto suitable for use in Soy templates.
+ * Creates an object representation of this proto.
  * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
  * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
  * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
  * @return {!Object}
  */
 proto.envoy.api.v2.route.Route.prototype.toObject = function(opt_includeInstance) {
@@ -1109,8 +1964,8 @@ proto.envoy.api.v2.route.Route.prototype.toObject = function(opt_includeInstance
 
 /**
  * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
  * @param {!proto.envoy.api.v2.route.Route} msg The msg instance to transform.
  * @return {!Object}
@@ -1130,10 +1985,10 @@ proto.envoy.api.v2.route.Route.toObject = function(includeInstance, msg) {
     typedPerFilterConfigMap: (f = msg.getTypedPerFilterConfigMap()) ? f.toObject(includeInstance, proto.google.protobuf.Any.toObject) : [],
     requestHeadersToAddList: jspb.Message.toObjectList(msg.getRequestHeadersToAddList(),
     envoy_api_v2_core_base_pb.HeaderValueOption.toObject, includeInstance),
-    requestHeadersToRemoveList: jspb.Message.getRepeatedField(msg, 12),
+    requestHeadersToRemoveList: (f = jspb.Message.getRepeatedField(msg, 12)) == null ? undefined : f,
     responseHeadersToAddList: jspb.Message.toObjectList(msg.getResponseHeadersToAddList(),
     envoy_api_v2_core_base_pb.HeaderValueOption.toObject, includeInstance),
-    responseHeadersToRemoveList: jspb.Message.getRepeatedField(msg, 11),
+    responseHeadersToRemoveList: (f = jspb.Message.getRepeatedField(msg, 11)) == null ? undefined : f,
     tracing: (f = msg.getTracing()) && proto.envoy.api.v2.route.Tracing.toObject(includeInstance, f),
     perRequestBufferLimitBytes: (f = msg.getPerRequestBufferLimitBytes()) && google_protobuf_wrappers_pb.UInt32Value.toObject(includeInstance, f)
   };
@@ -1214,13 +2069,13 @@ proto.envoy.api.v2.route.Route.deserializeBinaryFromReader = function(msg, reade
     case 8:
       var value = msg.getPerFilterConfigMap();
       reader.readMessage(value, function(message, reader) {
-        jspb.Map.deserializeBinary(message, reader, jspb.BinaryReader.prototype.readString, jspb.BinaryReader.prototype.readMessage, proto.google.protobuf.Struct.deserializeBinaryFromReader, "");
+        jspb.Map.deserializeBinary(message, reader, jspb.BinaryReader.prototype.readString, jspb.BinaryReader.prototype.readMessage, proto.google.protobuf.Struct.deserializeBinaryFromReader, "", new proto.google.protobuf.Struct());
          });
       break;
     case 13:
       var value = msg.getTypedPerFilterConfigMap();
       reader.readMessage(value, function(message, reader) {
-        jspb.Map.deserializeBinary(message, reader, jspb.BinaryReader.prototype.readString, jspb.BinaryReader.prototype.readMessage, proto.google.protobuf.Any.deserializeBinaryFromReader, "");
+        jspb.Map.deserializeBinary(message, reader, jspb.BinaryReader.prototype.readString, jspb.BinaryReader.prototype.readMessage, proto.google.protobuf.Any.deserializeBinaryFromReader, "", new proto.google.protobuf.Any());
          });
       break;
     case 9:
@@ -1409,9 +2264,12 @@ proto.envoy.api.v2.route.Route.prototype.getName = function() {
 };
 
 
-/** @param {string} value */
+/**
+ * @param {string} value
+ * @return {!proto.envoy.api.v2.route.Route} returns this
+ */
 proto.envoy.api.v2.route.Route.prototype.setName = function(value) {
-  jspb.Message.setProto3StringField(this, 14, value);
+  return jspb.Message.setProto3StringField(this, 14, value);
 };
 
 
@@ -1425,14 +2283,21 @@ proto.envoy.api.v2.route.Route.prototype.getMatch = function() {
 };
 
 
-/** @param {?proto.envoy.api.v2.route.RouteMatch|undefined} value */
+/**
+ * @param {?proto.envoy.api.v2.route.RouteMatch|undefined} value
+ * @return {!proto.envoy.api.v2.route.Route} returns this
+*/
 proto.envoy.api.v2.route.Route.prototype.setMatch = function(value) {
-  jspb.Message.setWrapperField(this, 1, value);
+  return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.Route} returns this
+ */
 proto.envoy.api.v2.route.Route.prototype.clearMatch = function() {
-  this.setMatch(undefined);
+  return this.setMatch(undefined);
 };
 
 
@@ -1455,14 +2320,21 @@ proto.envoy.api.v2.route.Route.prototype.getRoute = function() {
 };
 
 
-/** @param {?proto.envoy.api.v2.route.RouteAction|undefined} value */
+/**
+ * @param {?proto.envoy.api.v2.route.RouteAction|undefined} value
+ * @return {!proto.envoy.api.v2.route.Route} returns this
+*/
 proto.envoy.api.v2.route.Route.prototype.setRoute = function(value) {
-  jspb.Message.setOneofWrapperField(this, 2, proto.envoy.api.v2.route.Route.oneofGroups_[0], value);
+  return jspb.Message.setOneofWrapperField(this, 2, proto.envoy.api.v2.route.Route.oneofGroups_[0], value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.Route} returns this
+ */
 proto.envoy.api.v2.route.Route.prototype.clearRoute = function() {
-  this.setRoute(undefined);
+  return this.setRoute(undefined);
 };
 
 
@@ -1485,14 +2357,21 @@ proto.envoy.api.v2.route.Route.prototype.getRedirect = function() {
 };
 
 
-/** @param {?proto.envoy.api.v2.route.RedirectAction|undefined} value */
+/**
+ * @param {?proto.envoy.api.v2.route.RedirectAction|undefined} value
+ * @return {!proto.envoy.api.v2.route.Route} returns this
+*/
 proto.envoy.api.v2.route.Route.prototype.setRedirect = function(value) {
-  jspb.Message.setOneofWrapperField(this, 3, proto.envoy.api.v2.route.Route.oneofGroups_[0], value);
+  return jspb.Message.setOneofWrapperField(this, 3, proto.envoy.api.v2.route.Route.oneofGroups_[0], value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.Route} returns this
+ */
 proto.envoy.api.v2.route.Route.prototype.clearRedirect = function() {
-  this.setRedirect(undefined);
+  return this.setRedirect(undefined);
 };
 
 
@@ -1515,14 +2394,21 @@ proto.envoy.api.v2.route.Route.prototype.getDirectResponse = function() {
 };
 
 
-/** @param {?proto.envoy.api.v2.route.DirectResponseAction|undefined} value */
+/**
+ * @param {?proto.envoy.api.v2.route.DirectResponseAction|undefined} value
+ * @return {!proto.envoy.api.v2.route.Route} returns this
+*/
 proto.envoy.api.v2.route.Route.prototype.setDirectResponse = function(value) {
-  jspb.Message.setOneofWrapperField(this, 7, proto.envoy.api.v2.route.Route.oneofGroups_[0], value);
+  return jspb.Message.setOneofWrapperField(this, 7, proto.envoy.api.v2.route.Route.oneofGroups_[0], value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.Route} returns this
+ */
 proto.envoy.api.v2.route.Route.prototype.clearDirectResponse = function() {
-  this.setDirectResponse(undefined);
+  return this.setDirectResponse(undefined);
 };
 
 
@@ -1545,14 +2431,21 @@ proto.envoy.api.v2.route.Route.prototype.getFilterAction = function() {
 };
 
 
-/** @param {?proto.envoy.api.v2.route.FilterAction|undefined} value */
+/**
+ * @param {?proto.envoy.api.v2.route.FilterAction|undefined} value
+ * @return {!proto.envoy.api.v2.route.Route} returns this
+*/
 proto.envoy.api.v2.route.Route.prototype.setFilterAction = function(value) {
-  jspb.Message.setOneofWrapperField(this, 17, proto.envoy.api.v2.route.Route.oneofGroups_[0], value);
+  return jspb.Message.setOneofWrapperField(this, 17, proto.envoy.api.v2.route.Route.oneofGroups_[0], value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.Route} returns this
+ */
 proto.envoy.api.v2.route.Route.prototype.clearFilterAction = function() {
-  this.setFilterAction(undefined);
+  return this.setFilterAction(undefined);
 };
 
 
@@ -1575,14 +2468,21 @@ proto.envoy.api.v2.route.Route.prototype.getMetadata = function() {
 };
 
 
-/** @param {?proto.envoy.api.v2.core.Metadata|undefined} value */
+/**
+ * @param {?proto.envoy.api.v2.core.Metadata|undefined} value
+ * @return {!proto.envoy.api.v2.route.Route} returns this
+*/
 proto.envoy.api.v2.route.Route.prototype.setMetadata = function(value) {
-  jspb.Message.setWrapperField(this, 4, value);
+  return jspb.Message.setWrapperField(this, 4, value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.Route} returns this
+ */
 proto.envoy.api.v2.route.Route.prototype.clearMetadata = function() {
-  this.setMetadata(undefined);
+  return this.setMetadata(undefined);
 };
 
 
@@ -1605,14 +2505,21 @@ proto.envoy.api.v2.route.Route.prototype.getDecorator = function() {
 };
 
 
-/** @param {?proto.envoy.api.v2.route.Decorator|undefined} value */
+/**
+ * @param {?proto.envoy.api.v2.route.Decorator|undefined} value
+ * @return {!proto.envoy.api.v2.route.Route} returns this
+*/
 proto.envoy.api.v2.route.Route.prototype.setDecorator = function(value) {
-  jspb.Message.setWrapperField(this, 5, value);
+  return jspb.Message.setWrapperField(this, 5, value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.Route} returns this
+ */
 proto.envoy.api.v2.route.Route.prototype.clearDecorator = function() {
-  this.setDecorator(undefined);
+  return this.setDecorator(undefined);
 };
 
 
@@ -1638,9 +2545,13 @@ proto.envoy.api.v2.route.Route.prototype.getPerFilterConfigMap = function(opt_no
 };
 
 
+/**
+ * Clears values from the map. The map will be non-null.
+ * @return {!proto.envoy.api.v2.route.Route} returns this
+ */
 proto.envoy.api.v2.route.Route.prototype.clearPerFilterConfigMap = function() {
   this.getPerFilterConfigMap().clear();
-};
+  return this;};
 
 
 /**
@@ -1656,9 +2567,13 @@ proto.envoy.api.v2.route.Route.prototype.getTypedPerFilterConfigMap = function(o
 };
 
 
+/**
+ * Clears values from the map. The map will be non-null.
+ * @return {!proto.envoy.api.v2.route.Route} returns this
+ */
 proto.envoy.api.v2.route.Route.prototype.clearTypedPerFilterConfigMap = function() {
   this.getTypedPerFilterConfigMap().clear();
-};
+  return this;};
 
 
 /**
@@ -1671,9 +2586,12 @@ proto.envoy.api.v2.route.Route.prototype.getRequestHeadersToAddList = function()
 };
 
 
-/** @param {!Array<!proto.envoy.api.v2.core.HeaderValueOption>} value */
+/**
+ * @param {!Array<!proto.envoy.api.v2.core.HeaderValueOption>} value
+ * @return {!proto.envoy.api.v2.route.Route} returns this
+*/
 proto.envoy.api.v2.route.Route.prototype.setRequestHeadersToAddList = function(value) {
-  jspb.Message.setRepeatedWrapperField(this, 9, value);
+  return jspb.Message.setRepeatedWrapperField(this, 9, value);
 };
 
 
@@ -1687,8 +2605,12 @@ proto.envoy.api.v2.route.Route.prototype.addRequestHeadersToAdd = function(opt_v
 };
 
 
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.envoy.api.v2.route.Route} returns this
+ */
 proto.envoy.api.v2.route.Route.prototype.clearRequestHeadersToAddList = function() {
-  this.setRequestHeadersToAddList([]);
+  return this.setRequestHeadersToAddList([]);
 };
 
 
@@ -1701,23 +2623,31 @@ proto.envoy.api.v2.route.Route.prototype.getRequestHeadersToRemoveList = functio
 };
 
 
-/** @param {!Array<string>} value */
+/**
+ * @param {!Array<string>} value
+ * @return {!proto.envoy.api.v2.route.Route} returns this
+ */
 proto.envoy.api.v2.route.Route.prototype.setRequestHeadersToRemoveList = function(value) {
-  jspb.Message.setField(this, 12, value || []);
+  return jspb.Message.setField(this, 12, value || []);
 };
 
 
 /**
  * @param {string} value
  * @param {number=} opt_index
+ * @return {!proto.envoy.api.v2.route.Route} returns this
  */
 proto.envoy.api.v2.route.Route.prototype.addRequestHeadersToRemove = function(value, opt_index) {
-  jspb.Message.addToRepeatedField(this, 12, value, opt_index);
+  return jspb.Message.addToRepeatedField(this, 12, value, opt_index);
 };
 
 
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.envoy.api.v2.route.Route} returns this
+ */
 proto.envoy.api.v2.route.Route.prototype.clearRequestHeadersToRemoveList = function() {
-  this.setRequestHeadersToRemoveList([]);
+  return this.setRequestHeadersToRemoveList([]);
 };
 
 
@@ -1731,9 +2661,12 @@ proto.envoy.api.v2.route.Route.prototype.getResponseHeadersToAddList = function(
 };
 
 
-/** @param {!Array<!proto.envoy.api.v2.core.HeaderValueOption>} value */
+/**
+ * @param {!Array<!proto.envoy.api.v2.core.HeaderValueOption>} value
+ * @return {!proto.envoy.api.v2.route.Route} returns this
+*/
 proto.envoy.api.v2.route.Route.prototype.setResponseHeadersToAddList = function(value) {
-  jspb.Message.setRepeatedWrapperField(this, 10, value);
+  return jspb.Message.setRepeatedWrapperField(this, 10, value);
 };
 
 
@@ -1747,8 +2680,12 @@ proto.envoy.api.v2.route.Route.prototype.addResponseHeadersToAdd = function(opt_
 };
 
 
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.envoy.api.v2.route.Route} returns this
+ */
 proto.envoy.api.v2.route.Route.prototype.clearResponseHeadersToAddList = function() {
-  this.setResponseHeadersToAddList([]);
+  return this.setResponseHeadersToAddList([]);
 };
 
 
@@ -1761,23 +2698,31 @@ proto.envoy.api.v2.route.Route.prototype.getResponseHeadersToRemoveList = functi
 };
 
 
-/** @param {!Array<string>} value */
+/**
+ * @param {!Array<string>} value
+ * @return {!proto.envoy.api.v2.route.Route} returns this
+ */
 proto.envoy.api.v2.route.Route.prototype.setResponseHeadersToRemoveList = function(value) {
-  jspb.Message.setField(this, 11, value || []);
+  return jspb.Message.setField(this, 11, value || []);
 };
 
 
 /**
  * @param {string} value
  * @param {number=} opt_index
+ * @return {!proto.envoy.api.v2.route.Route} returns this
  */
 proto.envoy.api.v2.route.Route.prototype.addResponseHeadersToRemove = function(value, opt_index) {
-  jspb.Message.addToRepeatedField(this, 11, value, opt_index);
+  return jspb.Message.addToRepeatedField(this, 11, value, opt_index);
 };
 
 
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.envoy.api.v2.route.Route} returns this
+ */
 proto.envoy.api.v2.route.Route.prototype.clearResponseHeadersToRemoveList = function() {
-  this.setResponseHeadersToRemoveList([]);
+  return this.setResponseHeadersToRemoveList([]);
 };
 
 
@@ -1791,14 +2736,21 @@ proto.envoy.api.v2.route.Route.prototype.getTracing = function() {
 };
 
 
-/** @param {?proto.envoy.api.v2.route.Tracing|undefined} value */
+/**
+ * @param {?proto.envoy.api.v2.route.Tracing|undefined} value
+ * @return {!proto.envoy.api.v2.route.Route} returns this
+*/
 proto.envoy.api.v2.route.Route.prototype.setTracing = function(value) {
-  jspb.Message.setWrapperField(this, 15, value);
+  return jspb.Message.setWrapperField(this, 15, value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.Route} returns this
+ */
 proto.envoy.api.v2.route.Route.prototype.clearTracing = function() {
-  this.setTracing(undefined);
+  return this.setTracing(undefined);
 };
 
 
@@ -1821,14 +2773,21 @@ proto.envoy.api.v2.route.Route.prototype.getPerRequestBufferLimitBytes = functio
 };
 
 
-/** @param {?proto.google.protobuf.UInt32Value|undefined} value */
+/**
+ * @param {?proto.google.protobuf.UInt32Value|undefined} value
+ * @return {!proto.envoy.api.v2.route.Route} returns this
+*/
 proto.envoy.api.v2.route.Route.prototype.setPerRequestBufferLimitBytes = function(value) {
-  jspb.Message.setWrapperField(this, 16, value);
+  return jspb.Message.setWrapperField(this, 16, value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.Route} returns this
+ */
 proto.envoy.api.v2.route.Route.prototype.clearPerRequestBufferLimitBytes = function() {
-  this.setPerRequestBufferLimitBytes(undefined);
+  return this.setPerRequestBufferLimitBytes(undefined);
 };
 
 
@@ -1843,23 +2802,6 @@ proto.envoy.api.v2.route.Route.prototype.hasPerRequestBufferLimitBytes = functio
 
 
 /**
- * Generated by JsPbCodeGenerator.
- * @param {Array=} opt_data Optional initial data array, typically from a
- * server response, or constructed directly in Javascript. The array is used
- * in place and becomes part of the constructed object. It is not cloned.
- * If no data is provided, the constructed object will be empty, but still
- * valid.
- * @extends {jspb.Message}
- * @constructor
- */
-proto.envoy.api.v2.route.WeightedCluster = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.envoy.api.v2.route.WeightedCluster.repeatedFields_, null);
-};
-goog.inherits(proto.envoy.api.v2.route.WeightedCluster, jspb.Message);
-if (goog.DEBUG && !COMPILED) {
-  proto.envoy.api.v2.route.WeightedCluster.displayName = 'proto.envoy.api.v2.route.WeightedCluster';
-}
-/**
  * List of repeated fields within this message type.
  * @private {!Array<number>}
  * @const
@@ -1870,13 +2812,15 @@ proto.envoy.api.v2.route.WeightedCluster.repeatedFields_ = [1];
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
 /**
- * Creates an object representation of this proto suitable for use in Soy templates.
+ * Creates an object representation of this proto.
  * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
  * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
  * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
  * @return {!Object}
  */
 proto.envoy.api.v2.route.WeightedCluster.prototype.toObject = function(opt_includeInstance) {
@@ -1886,8 +2830,8 @@ proto.envoy.api.v2.route.WeightedCluster.prototype.toObject = function(opt_inclu
 
 /**
  * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
  * @param {!proto.envoy.api.v2.route.WeightedCluster} msg The msg instance to transform.
  * @return {!Object}
@@ -2006,23 +2950,6 @@ proto.envoy.api.v2.route.WeightedCluster.serializeBinaryToWriter = function(mess
 
 
 /**
- * Generated by JsPbCodeGenerator.
- * @param {Array=} opt_data Optional initial data array, typically from a
- * server response, or constructed directly in Javascript. The array is used
- * in place and becomes part of the constructed object. It is not cloned.
- * If no data is provided, the constructed object will be empty, but still
- * valid.
- * @extends {jspb.Message}
- * @constructor
- */
-proto.envoy.api.v2.route.WeightedCluster.ClusterWeight = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.envoy.api.v2.route.WeightedCluster.ClusterWeight.repeatedFields_, null);
-};
-goog.inherits(proto.envoy.api.v2.route.WeightedCluster.ClusterWeight, jspb.Message);
-if (goog.DEBUG && !COMPILED) {
-  proto.envoy.api.v2.route.WeightedCluster.ClusterWeight.displayName = 'proto.envoy.api.v2.route.WeightedCluster.ClusterWeight';
-}
-/**
  * List of repeated fields within this message type.
  * @private {!Array<number>}
  * @const
@@ -2033,13 +2960,15 @@ proto.envoy.api.v2.route.WeightedCluster.ClusterWeight.repeatedFields_ = [4,9,5,
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
 /**
- * Creates an object representation of this proto suitable for use in Soy templates.
+ * Creates an object representation of this proto.
  * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
  * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
  * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
  * @return {!Object}
  */
 proto.envoy.api.v2.route.WeightedCluster.ClusterWeight.prototype.toObject = function(opt_includeInstance) {
@@ -2049,8 +2978,8 @@ proto.envoy.api.v2.route.WeightedCluster.ClusterWeight.prototype.toObject = func
 
 /**
  * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
  * @param {!proto.envoy.api.v2.route.WeightedCluster.ClusterWeight} msg The msg instance to transform.
  * @return {!Object}
@@ -2063,10 +2992,10 @@ proto.envoy.api.v2.route.WeightedCluster.ClusterWeight.toObject = function(inclu
     metadataMatch: (f = msg.getMetadataMatch()) && envoy_api_v2_core_base_pb.Metadata.toObject(includeInstance, f),
     requestHeadersToAddList: jspb.Message.toObjectList(msg.getRequestHeadersToAddList(),
     envoy_api_v2_core_base_pb.HeaderValueOption.toObject, includeInstance),
-    requestHeadersToRemoveList: jspb.Message.getRepeatedField(msg, 9),
+    requestHeadersToRemoveList: (f = jspb.Message.getRepeatedField(msg, 9)) == null ? undefined : f,
     responseHeadersToAddList: jspb.Message.toObjectList(msg.getResponseHeadersToAddList(),
     envoy_api_v2_core_base_pb.HeaderValueOption.toObject, includeInstance),
-    responseHeadersToRemoveList: jspb.Message.getRepeatedField(msg, 6),
+    responseHeadersToRemoveList: (f = jspb.Message.getRepeatedField(msg, 6)) == null ? undefined : f,
     perFilterConfigMap: (f = msg.getPerFilterConfigMap()) ? f.toObject(includeInstance, proto.google.protobuf.Struct.toObject) : [],
     typedPerFilterConfigMap: (f = msg.getTypedPerFilterConfigMap()) ? f.toObject(includeInstance, proto.google.protobuf.Any.toObject) : []
   };
@@ -2140,13 +3069,13 @@ proto.envoy.api.v2.route.WeightedCluster.ClusterWeight.deserializeBinaryFromRead
     case 8:
       var value = msg.getPerFilterConfigMap();
       reader.readMessage(value, function(message, reader) {
-        jspb.Map.deserializeBinary(message, reader, jspb.BinaryReader.prototype.readString, jspb.BinaryReader.prototype.readMessage, proto.google.protobuf.Struct.deserializeBinaryFromReader, "");
+        jspb.Map.deserializeBinary(message, reader, jspb.BinaryReader.prototype.readString, jspb.BinaryReader.prototype.readMessage, proto.google.protobuf.Struct.deserializeBinaryFromReader, "", new proto.google.protobuf.Struct());
          });
       break;
     case 10:
       var value = msg.getTypedPerFilterConfigMap();
       reader.readMessage(value, function(message, reader) {
-        jspb.Map.deserializeBinary(message, reader, jspb.BinaryReader.prototype.readString, jspb.BinaryReader.prototype.readMessage, proto.google.protobuf.Any.deserializeBinaryFromReader, "");
+        jspb.Map.deserializeBinary(message, reader, jspb.BinaryReader.prototype.readString, jspb.BinaryReader.prototype.readMessage, proto.google.protobuf.Any.deserializeBinaryFromReader, "", new proto.google.protobuf.Any());
          });
       break;
     default:
@@ -2251,9 +3180,12 @@ proto.envoy.api.v2.route.WeightedCluster.ClusterWeight.prototype.getName = funct
 };
 
 
-/** @param {string} value */
+/**
+ * @param {string} value
+ * @return {!proto.envoy.api.v2.route.WeightedCluster.ClusterWeight} returns this
+ */
 proto.envoy.api.v2.route.WeightedCluster.ClusterWeight.prototype.setName = function(value) {
-  jspb.Message.setProto3StringField(this, 1, value);
+  return jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
@@ -2267,14 +3199,21 @@ proto.envoy.api.v2.route.WeightedCluster.ClusterWeight.prototype.getWeight = fun
 };
 
 
-/** @param {?proto.google.protobuf.UInt32Value|undefined} value */
+/**
+ * @param {?proto.google.protobuf.UInt32Value|undefined} value
+ * @return {!proto.envoy.api.v2.route.WeightedCluster.ClusterWeight} returns this
+*/
 proto.envoy.api.v2.route.WeightedCluster.ClusterWeight.prototype.setWeight = function(value) {
-  jspb.Message.setWrapperField(this, 2, value);
+  return jspb.Message.setWrapperField(this, 2, value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.WeightedCluster.ClusterWeight} returns this
+ */
 proto.envoy.api.v2.route.WeightedCluster.ClusterWeight.prototype.clearWeight = function() {
-  this.setWeight(undefined);
+  return this.setWeight(undefined);
 };
 
 
@@ -2297,14 +3236,21 @@ proto.envoy.api.v2.route.WeightedCluster.ClusterWeight.prototype.getMetadataMatc
 };
 
 
-/** @param {?proto.envoy.api.v2.core.Metadata|undefined} value */
+/**
+ * @param {?proto.envoy.api.v2.core.Metadata|undefined} value
+ * @return {!proto.envoy.api.v2.route.WeightedCluster.ClusterWeight} returns this
+*/
 proto.envoy.api.v2.route.WeightedCluster.ClusterWeight.prototype.setMetadataMatch = function(value) {
-  jspb.Message.setWrapperField(this, 3, value);
+  return jspb.Message.setWrapperField(this, 3, value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.WeightedCluster.ClusterWeight} returns this
+ */
 proto.envoy.api.v2.route.WeightedCluster.ClusterWeight.prototype.clearMetadataMatch = function() {
-  this.setMetadataMatch(undefined);
+  return this.setMetadataMatch(undefined);
 };
 
 
@@ -2327,9 +3273,12 @@ proto.envoy.api.v2.route.WeightedCluster.ClusterWeight.prototype.getRequestHeade
 };
 
 
-/** @param {!Array<!proto.envoy.api.v2.core.HeaderValueOption>} value */
+/**
+ * @param {!Array<!proto.envoy.api.v2.core.HeaderValueOption>} value
+ * @return {!proto.envoy.api.v2.route.WeightedCluster.ClusterWeight} returns this
+*/
 proto.envoy.api.v2.route.WeightedCluster.ClusterWeight.prototype.setRequestHeadersToAddList = function(value) {
-  jspb.Message.setRepeatedWrapperField(this, 4, value);
+  return jspb.Message.setRepeatedWrapperField(this, 4, value);
 };
 
 
@@ -2343,8 +3292,12 @@ proto.envoy.api.v2.route.WeightedCluster.ClusterWeight.prototype.addRequestHeade
 };
 
 
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.envoy.api.v2.route.WeightedCluster.ClusterWeight} returns this
+ */
 proto.envoy.api.v2.route.WeightedCluster.ClusterWeight.prototype.clearRequestHeadersToAddList = function() {
-  this.setRequestHeadersToAddList([]);
+  return this.setRequestHeadersToAddList([]);
 };
 
 
@@ -2357,23 +3310,31 @@ proto.envoy.api.v2.route.WeightedCluster.ClusterWeight.prototype.getRequestHeade
 };
 
 
-/** @param {!Array<string>} value */
+/**
+ * @param {!Array<string>} value
+ * @return {!proto.envoy.api.v2.route.WeightedCluster.ClusterWeight} returns this
+ */
 proto.envoy.api.v2.route.WeightedCluster.ClusterWeight.prototype.setRequestHeadersToRemoveList = function(value) {
-  jspb.Message.setField(this, 9, value || []);
+  return jspb.Message.setField(this, 9, value || []);
 };
 
 
 /**
  * @param {string} value
  * @param {number=} opt_index
+ * @return {!proto.envoy.api.v2.route.WeightedCluster.ClusterWeight} returns this
  */
 proto.envoy.api.v2.route.WeightedCluster.ClusterWeight.prototype.addRequestHeadersToRemove = function(value, opt_index) {
-  jspb.Message.addToRepeatedField(this, 9, value, opt_index);
+  return jspb.Message.addToRepeatedField(this, 9, value, opt_index);
 };
 
 
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.envoy.api.v2.route.WeightedCluster.ClusterWeight} returns this
+ */
 proto.envoy.api.v2.route.WeightedCluster.ClusterWeight.prototype.clearRequestHeadersToRemoveList = function() {
-  this.setRequestHeadersToRemoveList([]);
+  return this.setRequestHeadersToRemoveList([]);
 };
 
 
@@ -2387,9 +3348,12 @@ proto.envoy.api.v2.route.WeightedCluster.ClusterWeight.prototype.getResponseHead
 };
 
 
-/** @param {!Array<!proto.envoy.api.v2.core.HeaderValueOption>} value */
+/**
+ * @param {!Array<!proto.envoy.api.v2.core.HeaderValueOption>} value
+ * @return {!proto.envoy.api.v2.route.WeightedCluster.ClusterWeight} returns this
+*/
 proto.envoy.api.v2.route.WeightedCluster.ClusterWeight.prototype.setResponseHeadersToAddList = function(value) {
-  jspb.Message.setRepeatedWrapperField(this, 5, value);
+  return jspb.Message.setRepeatedWrapperField(this, 5, value);
 };
 
 
@@ -2403,8 +3367,12 @@ proto.envoy.api.v2.route.WeightedCluster.ClusterWeight.prototype.addResponseHead
 };
 
 
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.envoy.api.v2.route.WeightedCluster.ClusterWeight} returns this
+ */
 proto.envoy.api.v2.route.WeightedCluster.ClusterWeight.prototype.clearResponseHeadersToAddList = function() {
-  this.setResponseHeadersToAddList([]);
+  return this.setResponseHeadersToAddList([]);
 };
 
 
@@ -2417,23 +3385,31 @@ proto.envoy.api.v2.route.WeightedCluster.ClusterWeight.prototype.getResponseHead
 };
 
 
-/** @param {!Array<string>} value */
+/**
+ * @param {!Array<string>} value
+ * @return {!proto.envoy.api.v2.route.WeightedCluster.ClusterWeight} returns this
+ */
 proto.envoy.api.v2.route.WeightedCluster.ClusterWeight.prototype.setResponseHeadersToRemoveList = function(value) {
-  jspb.Message.setField(this, 6, value || []);
+  return jspb.Message.setField(this, 6, value || []);
 };
 
 
 /**
  * @param {string} value
  * @param {number=} opt_index
+ * @return {!proto.envoy.api.v2.route.WeightedCluster.ClusterWeight} returns this
  */
 proto.envoy.api.v2.route.WeightedCluster.ClusterWeight.prototype.addResponseHeadersToRemove = function(value, opt_index) {
-  jspb.Message.addToRepeatedField(this, 6, value, opt_index);
+  return jspb.Message.addToRepeatedField(this, 6, value, opt_index);
 };
 
 
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.envoy.api.v2.route.WeightedCluster.ClusterWeight} returns this
+ */
 proto.envoy.api.v2.route.WeightedCluster.ClusterWeight.prototype.clearResponseHeadersToRemoveList = function() {
-  this.setResponseHeadersToRemoveList([]);
+  return this.setResponseHeadersToRemoveList([]);
 };
 
 
@@ -2450,9 +3426,13 @@ proto.envoy.api.v2.route.WeightedCluster.ClusterWeight.prototype.getPerFilterCon
 };
 
 
+/**
+ * Clears values from the map. The map will be non-null.
+ * @return {!proto.envoy.api.v2.route.WeightedCluster.ClusterWeight} returns this
+ */
 proto.envoy.api.v2.route.WeightedCluster.ClusterWeight.prototype.clearPerFilterConfigMap = function() {
   this.getPerFilterConfigMap().clear();
-};
+  return this;};
 
 
 /**
@@ -2468,9 +3448,13 @@ proto.envoy.api.v2.route.WeightedCluster.ClusterWeight.prototype.getTypedPerFilt
 };
 
 
+/**
+ * Clears values from the map. The map will be non-null.
+ * @return {!proto.envoy.api.v2.route.WeightedCluster.ClusterWeight} returns this
+ */
 proto.envoy.api.v2.route.WeightedCluster.ClusterWeight.prototype.clearTypedPerFilterConfigMap = function() {
   this.getTypedPerFilterConfigMap().clear();
-};
+  return this;};
 
 
 /**
@@ -2483,9 +3467,12 @@ proto.envoy.api.v2.route.WeightedCluster.prototype.getClustersList = function() 
 };
 
 
-/** @param {!Array<!proto.envoy.api.v2.route.WeightedCluster.ClusterWeight>} value */
+/**
+ * @param {!Array<!proto.envoy.api.v2.route.WeightedCluster.ClusterWeight>} value
+ * @return {!proto.envoy.api.v2.route.WeightedCluster} returns this
+*/
 proto.envoy.api.v2.route.WeightedCluster.prototype.setClustersList = function(value) {
-  jspb.Message.setRepeatedWrapperField(this, 1, value);
+  return jspb.Message.setRepeatedWrapperField(this, 1, value);
 };
 
 
@@ -2499,8 +3486,12 @@ proto.envoy.api.v2.route.WeightedCluster.prototype.addClusters = function(opt_va
 };
 
 
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.envoy.api.v2.route.WeightedCluster} returns this
+ */
 proto.envoy.api.v2.route.WeightedCluster.prototype.clearClustersList = function() {
-  this.setClustersList([]);
+  return this.setClustersList([]);
 };
 
 
@@ -2514,14 +3505,21 @@ proto.envoy.api.v2.route.WeightedCluster.prototype.getTotalWeight = function() {
 };
 
 
-/** @param {?proto.google.protobuf.UInt32Value|undefined} value */
+/**
+ * @param {?proto.google.protobuf.UInt32Value|undefined} value
+ * @return {!proto.envoy.api.v2.route.WeightedCluster} returns this
+*/
 proto.envoy.api.v2.route.WeightedCluster.prototype.setTotalWeight = function(value) {
-  jspb.Message.setWrapperField(this, 3, value);
+  return jspb.Message.setWrapperField(this, 3, value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.WeightedCluster} returns this
+ */
 proto.envoy.api.v2.route.WeightedCluster.prototype.clearTotalWeight = function() {
-  this.setTotalWeight(undefined);
+  return this.setTotalWeight(undefined);
 };
 
 
@@ -2543,30 +3541,16 @@ proto.envoy.api.v2.route.WeightedCluster.prototype.getRuntimeKeyPrefix = functio
 };
 
 
-/** @param {string} value */
-proto.envoy.api.v2.route.WeightedCluster.prototype.setRuntimeKeyPrefix = function(value) {
-  jspb.Message.setProto3StringField(this, 2, value);
-};
-
-
-
 /**
- * Generated by JsPbCodeGenerator.
- * @param {Array=} opt_data Optional initial data array, typically from a
- * server response, or constructed directly in Javascript. The array is used
- * in place and becomes part of the constructed object. It is not cloned.
- * If no data is provided, the constructed object will be empty, but still
- * valid.
- * @extends {jspb.Message}
- * @constructor
+ * @param {string} value
+ * @return {!proto.envoy.api.v2.route.WeightedCluster} returns this
  */
-proto.envoy.api.v2.route.RouteMatch = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.envoy.api.v2.route.RouteMatch.repeatedFields_, proto.envoy.api.v2.route.RouteMatch.oneofGroups_);
+proto.envoy.api.v2.route.WeightedCluster.prototype.setRuntimeKeyPrefix = function(value) {
+  return jspb.Message.setProto3StringField(this, 2, value);
 };
-goog.inherits(proto.envoy.api.v2.route.RouteMatch, jspb.Message);
-if (goog.DEBUG && !COMPILED) {
-  proto.envoy.api.v2.route.RouteMatch.displayName = 'proto.envoy.api.v2.route.RouteMatch';
-}
+
+
+
 /**
  * List of repeated fields within this message type.
  * @private {!Array<number>}
@@ -2606,13 +3590,15 @@ proto.envoy.api.v2.route.RouteMatch.prototype.getPathSpecifierCase = function() 
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
 /**
- * Creates an object representation of this proto suitable for use in Soy templates.
+ * Creates an object representation of this proto.
  * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
  * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
  * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
  * @return {!Object}
  */
 proto.envoy.api.v2.route.RouteMatch.prototype.toObject = function(opt_includeInstance) {
@@ -2622,8 +3608,8 @@ proto.envoy.api.v2.route.RouteMatch.prototype.toObject = function(opt_includeIns
 
 /**
  * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
  * @param {!proto.envoy.api.v2.route.RouteMatch} msg The msg instance to transform.
  * @return {!Object}
@@ -2836,34 +3822,19 @@ proto.envoy.api.v2.route.RouteMatch.serializeBinaryToWriter = function(message, 
 
 
 
-/**
- * Generated by JsPbCodeGenerator.
- * @param {Array=} opt_data Optional initial data array, typically from a
- * server response, or constructed directly in Javascript. The array is used
- * in place and becomes part of the constructed object. It is not cloned.
- * If no data is provided, the constructed object will be empty, but still
- * valid.
- * @extends {jspb.Message}
- * @constructor
- */
-proto.envoy.api.v2.route.RouteMatch.GrpcRouteMatchOptions = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
-};
-goog.inherits(proto.envoy.api.v2.route.RouteMatch.GrpcRouteMatchOptions, jspb.Message);
-if (goog.DEBUG && !COMPILED) {
-  proto.envoy.api.v2.route.RouteMatch.GrpcRouteMatchOptions.displayName = 'proto.envoy.api.v2.route.RouteMatch.GrpcRouteMatchOptions';
-}
 
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
 /**
- * Creates an object representation of this proto suitable for use in Soy templates.
+ * Creates an object representation of this proto.
  * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
  * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
  * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
  * @return {!Object}
  */
 proto.envoy.api.v2.route.RouteMatch.GrpcRouteMatchOptions.prototype.toObject = function(opt_includeInstance) {
@@ -2873,8 +3844,8 @@ proto.envoy.api.v2.route.RouteMatch.GrpcRouteMatchOptions.prototype.toObject = f
 
 /**
  * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
  * @param {!proto.envoy.api.v2.route.RouteMatch.GrpcRouteMatchOptions} msg The msg instance to transform.
  * @return {!Object}
@@ -2952,34 +3923,19 @@ proto.envoy.api.v2.route.RouteMatch.GrpcRouteMatchOptions.serializeBinaryToWrite
 
 
 
-/**
- * Generated by JsPbCodeGenerator.
- * @param {Array=} opt_data Optional initial data array, typically from a
- * server response, or constructed directly in Javascript. The array is used
- * in place and becomes part of the constructed object. It is not cloned.
- * If no data is provided, the constructed object will be empty, but still
- * valid.
- * @extends {jspb.Message}
- * @constructor
- */
-proto.envoy.api.v2.route.RouteMatch.TlsContextMatchOptions = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
-};
-goog.inherits(proto.envoy.api.v2.route.RouteMatch.TlsContextMatchOptions, jspb.Message);
-if (goog.DEBUG && !COMPILED) {
-  proto.envoy.api.v2.route.RouteMatch.TlsContextMatchOptions.displayName = 'proto.envoy.api.v2.route.RouteMatch.TlsContextMatchOptions';
-}
 
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
 /**
- * Creates an object representation of this proto suitable for use in Soy templates.
+ * Creates an object representation of this proto.
  * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
  * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
  * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
  * @return {!Object}
  */
 proto.envoy.api.v2.route.RouteMatch.TlsContextMatchOptions.prototype.toObject = function(opt_includeInstance) {
@@ -2989,8 +3945,8 @@ proto.envoy.api.v2.route.RouteMatch.TlsContextMatchOptions.prototype.toObject = 
 
 /**
  * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
  * @param {!proto.envoy.api.v2.route.RouteMatch.TlsContextMatchOptions} msg The msg instance to transform.
  * @return {!Object}
@@ -3090,14 +4046,21 @@ proto.envoy.api.v2.route.RouteMatch.TlsContextMatchOptions.prototype.getPresente
 };
 
 
-/** @param {?proto.google.protobuf.BoolValue|undefined} value */
+/**
+ * @param {?proto.google.protobuf.BoolValue|undefined} value
+ * @return {!proto.envoy.api.v2.route.RouteMatch.TlsContextMatchOptions} returns this
+*/
 proto.envoy.api.v2.route.RouteMatch.TlsContextMatchOptions.prototype.setPresented = function(value) {
-  jspb.Message.setWrapperField(this, 1, value);
+  return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.RouteMatch.TlsContextMatchOptions} returns this
+ */
 proto.envoy.api.v2.route.RouteMatch.TlsContextMatchOptions.prototype.clearPresented = function() {
-  this.setPresented(undefined);
+  return this.setPresented(undefined);
 };
 
 
@@ -3119,14 +4082,21 @@ proto.envoy.api.v2.route.RouteMatch.prototype.getPrefix = function() {
 };
 
 
-/** @param {string} value */
+/**
+ * @param {string} value
+ * @return {!proto.envoy.api.v2.route.RouteMatch} returns this
+ */
 proto.envoy.api.v2.route.RouteMatch.prototype.setPrefix = function(value) {
-  jspb.Message.setOneofField(this, 1, proto.envoy.api.v2.route.RouteMatch.oneofGroups_[0], value);
+  return jspb.Message.setOneofField(this, 1, proto.envoy.api.v2.route.RouteMatch.oneofGroups_[0], value);
 };
 
 
+/**
+ * Clears the field making it undefined.
+ * @return {!proto.envoy.api.v2.route.RouteMatch} returns this
+ */
 proto.envoy.api.v2.route.RouteMatch.prototype.clearPrefix = function() {
-  jspb.Message.setOneofField(this, 1, proto.envoy.api.v2.route.RouteMatch.oneofGroups_[0], undefined);
+  return jspb.Message.setOneofField(this, 1, proto.envoy.api.v2.route.RouteMatch.oneofGroups_[0], undefined);
 };
 
 
@@ -3148,14 +4118,21 @@ proto.envoy.api.v2.route.RouteMatch.prototype.getPath = function() {
 };
 
 
-/** @param {string} value */
+/**
+ * @param {string} value
+ * @return {!proto.envoy.api.v2.route.RouteMatch} returns this
+ */
 proto.envoy.api.v2.route.RouteMatch.prototype.setPath = function(value) {
-  jspb.Message.setOneofField(this, 2, proto.envoy.api.v2.route.RouteMatch.oneofGroups_[0], value);
+  return jspb.Message.setOneofField(this, 2, proto.envoy.api.v2.route.RouteMatch.oneofGroups_[0], value);
 };
 
 
+/**
+ * Clears the field making it undefined.
+ * @return {!proto.envoy.api.v2.route.RouteMatch} returns this
+ */
 proto.envoy.api.v2.route.RouteMatch.prototype.clearPath = function() {
-  jspb.Message.setOneofField(this, 2, proto.envoy.api.v2.route.RouteMatch.oneofGroups_[0], undefined);
+  return jspb.Message.setOneofField(this, 2, proto.envoy.api.v2.route.RouteMatch.oneofGroups_[0], undefined);
 };
 
 
@@ -3177,14 +4154,21 @@ proto.envoy.api.v2.route.RouteMatch.prototype.getRegex = function() {
 };
 
 
-/** @param {string} value */
+/**
+ * @param {string} value
+ * @return {!proto.envoy.api.v2.route.RouteMatch} returns this
+ */
 proto.envoy.api.v2.route.RouteMatch.prototype.setRegex = function(value) {
-  jspb.Message.setOneofField(this, 3, proto.envoy.api.v2.route.RouteMatch.oneofGroups_[0], value);
+  return jspb.Message.setOneofField(this, 3, proto.envoy.api.v2.route.RouteMatch.oneofGroups_[0], value);
 };
 
 
+/**
+ * Clears the field making it undefined.
+ * @return {!proto.envoy.api.v2.route.RouteMatch} returns this
+ */
 proto.envoy.api.v2.route.RouteMatch.prototype.clearRegex = function() {
-  jspb.Message.setOneofField(this, 3, proto.envoy.api.v2.route.RouteMatch.oneofGroups_[0], undefined);
+  return jspb.Message.setOneofField(this, 3, proto.envoy.api.v2.route.RouteMatch.oneofGroups_[0], undefined);
 };
 
 
@@ -3207,14 +4191,21 @@ proto.envoy.api.v2.route.RouteMatch.prototype.getSafeRegex = function() {
 };
 
 
-/** @param {?proto.envoy.type.matcher.RegexMatcher|undefined} value */
+/**
+ * @param {?proto.envoy.type.matcher.RegexMatcher|undefined} value
+ * @return {!proto.envoy.api.v2.route.RouteMatch} returns this
+*/
 proto.envoy.api.v2.route.RouteMatch.prototype.setSafeRegex = function(value) {
-  jspb.Message.setOneofWrapperField(this, 10, proto.envoy.api.v2.route.RouteMatch.oneofGroups_[0], value);
+  return jspb.Message.setOneofWrapperField(this, 10, proto.envoy.api.v2.route.RouteMatch.oneofGroups_[0], value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.RouteMatch} returns this
+ */
 proto.envoy.api.v2.route.RouteMatch.prototype.clearSafeRegex = function() {
-  this.setSafeRegex(undefined);
+  return this.setSafeRegex(undefined);
 };
 
 
@@ -3237,14 +4228,21 @@ proto.envoy.api.v2.route.RouteMatch.prototype.getCaseSensitive = function() {
 };
 
 
-/** @param {?proto.google.protobuf.BoolValue|undefined} value */
+/**
+ * @param {?proto.google.protobuf.BoolValue|undefined} value
+ * @return {!proto.envoy.api.v2.route.RouteMatch} returns this
+*/
 proto.envoy.api.v2.route.RouteMatch.prototype.setCaseSensitive = function(value) {
-  jspb.Message.setWrapperField(this, 4, value);
+  return jspb.Message.setWrapperField(this, 4, value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.RouteMatch} returns this
+ */
 proto.envoy.api.v2.route.RouteMatch.prototype.clearCaseSensitive = function() {
-  this.setCaseSensitive(undefined);
+  return this.setCaseSensitive(undefined);
 };
 
 
@@ -3267,14 +4265,21 @@ proto.envoy.api.v2.route.RouteMatch.prototype.getRuntimeFraction = function() {
 };
 
 
-/** @param {?proto.envoy.api.v2.core.RuntimeFractionalPercent|undefined} value */
+/**
+ * @param {?proto.envoy.api.v2.core.RuntimeFractionalPercent|undefined} value
+ * @return {!proto.envoy.api.v2.route.RouteMatch} returns this
+*/
 proto.envoy.api.v2.route.RouteMatch.prototype.setRuntimeFraction = function(value) {
-  jspb.Message.setWrapperField(this, 9, value);
+  return jspb.Message.setWrapperField(this, 9, value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.RouteMatch} returns this
+ */
 proto.envoy.api.v2.route.RouteMatch.prototype.clearRuntimeFraction = function() {
-  this.setRuntimeFraction(undefined);
+  return this.setRuntimeFraction(undefined);
 };
 
 
@@ -3297,9 +4302,12 @@ proto.envoy.api.v2.route.RouteMatch.prototype.getHeadersList = function() {
 };
 
 
-/** @param {!Array<!proto.envoy.api.v2.route.HeaderMatcher>} value */
+/**
+ * @param {!Array<!proto.envoy.api.v2.route.HeaderMatcher>} value
+ * @return {!proto.envoy.api.v2.route.RouteMatch} returns this
+*/
 proto.envoy.api.v2.route.RouteMatch.prototype.setHeadersList = function(value) {
-  jspb.Message.setRepeatedWrapperField(this, 6, value);
+  return jspb.Message.setRepeatedWrapperField(this, 6, value);
 };
 
 
@@ -3313,8 +4321,12 @@ proto.envoy.api.v2.route.RouteMatch.prototype.addHeaders = function(opt_value, o
 };
 
 
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.envoy.api.v2.route.RouteMatch} returns this
+ */
 proto.envoy.api.v2.route.RouteMatch.prototype.clearHeadersList = function() {
-  this.setHeadersList([]);
+  return this.setHeadersList([]);
 };
 
 
@@ -3328,9 +4340,12 @@ proto.envoy.api.v2.route.RouteMatch.prototype.getQueryParametersList = function(
 };
 
 
-/** @param {!Array<!proto.envoy.api.v2.route.QueryParameterMatcher>} value */
+/**
+ * @param {!Array<!proto.envoy.api.v2.route.QueryParameterMatcher>} value
+ * @return {!proto.envoy.api.v2.route.RouteMatch} returns this
+*/
 proto.envoy.api.v2.route.RouteMatch.prototype.setQueryParametersList = function(value) {
-  jspb.Message.setRepeatedWrapperField(this, 7, value);
+  return jspb.Message.setRepeatedWrapperField(this, 7, value);
 };
 
 
@@ -3344,8 +4359,12 @@ proto.envoy.api.v2.route.RouteMatch.prototype.addQueryParameters = function(opt_
 };
 
 
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.envoy.api.v2.route.RouteMatch} returns this
+ */
 proto.envoy.api.v2.route.RouteMatch.prototype.clearQueryParametersList = function() {
-  this.setQueryParametersList([]);
+  return this.setQueryParametersList([]);
 };
 
 
@@ -3359,14 +4378,21 @@ proto.envoy.api.v2.route.RouteMatch.prototype.getGrpc = function() {
 };
 
 
-/** @param {?proto.envoy.api.v2.route.RouteMatch.GrpcRouteMatchOptions|undefined} value */
+/**
+ * @param {?proto.envoy.api.v2.route.RouteMatch.GrpcRouteMatchOptions|undefined} value
+ * @return {!proto.envoy.api.v2.route.RouteMatch} returns this
+*/
 proto.envoy.api.v2.route.RouteMatch.prototype.setGrpc = function(value) {
-  jspb.Message.setWrapperField(this, 8, value);
+  return jspb.Message.setWrapperField(this, 8, value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.RouteMatch} returns this
+ */
 proto.envoy.api.v2.route.RouteMatch.prototype.clearGrpc = function() {
-  this.setGrpc(undefined);
+  return this.setGrpc(undefined);
 };
 
 
@@ -3389,14 +4415,21 @@ proto.envoy.api.v2.route.RouteMatch.prototype.getTlsContext = function() {
 };
 
 
-/** @param {?proto.envoy.api.v2.route.RouteMatch.TlsContextMatchOptions|undefined} value */
+/**
+ * @param {?proto.envoy.api.v2.route.RouteMatch.TlsContextMatchOptions|undefined} value
+ * @return {!proto.envoy.api.v2.route.RouteMatch} returns this
+*/
 proto.envoy.api.v2.route.RouteMatch.prototype.setTlsContext = function(value) {
-  jspb.Message.setWrapperField(this, 11, value);
+  return jspb.Message.setWrapperField(this, 11, value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.RouteMatch} returns this
+ */
 proto.envoy.api.v2.route.RouteMatch.prototype.clearTlsContext = function() {
-  this.setTlsContext(undefined);
+  return this.setTlsContext(undefined);
 };
 
 
@@ -3410,23 +4443,6 @@ proto.envoy.api.v2.route.RouteMatch.prototype.hasTlsContext = function() {
 
 
 
-/**
- * Generated by JsPbCodeGenerator.
- * @param {Array=} opt_data Optional initial data array, typically from a
- * server response, or constructed directly in Javascript. The array is used
- * in place and becomes part of the constructed object. It is not cloned.
- * If no data is provided, the constructed object will be empty, but still
- * valid.
- * @extends {jspb.Message}
- * @constructor
- */
-proto.envoy.api.v2.route.CorsPolicy = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.envoy.api.v2.route.CorsPolicy.repeatedFields_, proto.envoy.api.v2.route.CorsPolicy.oneofGroups_);
-};
-goog.inherits(proto.envoy.api.v2.route.CorsPolicy, jspb.Message);
-if (goog.DEBUG && !COMPILED) {
-  proto.envoy.api.v2.route.CorsPolicy.displayName = 'proto.envoy.api.v2.route.CorsPolicy';
-}
 /**
  * List of repeated fields within this message type.
  * @private {!Array<number>}
@@ -3464,13 +4480,15 @@ proto.envoy.api.v2.route.CorsPolicy.prototype.getEnabledSpecifierCase = function
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
 /**
- * Creates an object representation of this proto suitable for use in Soy templates.
+ * Creates an object representation of this proto.
  * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
  * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
  * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
  * @return {!Object}
  */
 proto.envoy.api.v2.route.CorsPolicy.prototype.toObject = function(opt_includeInstance) {
@@ -3480,8 +4498,8 @@ proto.envoy.api.v2.route.CorsPolicy.prototype.toObject = function(opt_includeIns
 
 /**
  * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
  * @param {!proto.envoy.api.v2.route.CorsPolicy} msg The msg instance to transform.
  * @return {!Object}
@@ -3489,8 +4507,8 @@ proto.envoy.api.v2.route.CorsPolicy.prototype.toObject = function(opt_includeIns
  */
 proto.envoy.api.v2.route.CorsPolicy.toObject = function(includeInstance, msg) {
   var f, obj = {
-    allowOriginList: jspb.Message.getRepeatedField(msg, 1),
-    allowOriginRegexList: jspb.Message.getRepeatedField(msg, 8),
+    allowOriginList: (f = jspb.Message.getRepeatedField(msg, 1)) == null ? undefined : f,
+    allowOriginRegexList: (f = jspb.Message.getRepeatedField(msg, 8)) == null ? undefined : f,
     allowOriginStringMatchList: jspb.Message.toObjectList(msg.getAllowOriginStringMatchList(),
     envoy_type_matcher_string_pb.StringMatcher.toObject, includeInstance),
     allowMethods: jspb.Message.getFieldWithDefault(msg, 2, ""),
@@ -3709,23 +4727,31 @@ proto.envoy.api.v2.route.CorsPolicy.prototype.getAllowOriginList = function() {
 };
 
 
-/** @param {!Array<string>} value */
+/**
+ * @param {!Array<string>} value
+ * @return {!proto.envoy.api.v2.route.CorsPolicy} returns this
+ */
 proto.envoy.api.v2.route.CorsPolicy.prototype.setAllowOriginList = function(value) {
-  jspb.Message.setField(this, 1, value || []);
+  return jspb.Message.setField(this, 1, value || []);
 };
 
 
 /**
  * @param {string} value
  * @param {number=} opt_index
+ * @return {!proto.envoy.api.v2.route.CorsPolicy} returns this
  */
 proto.envoy.api.v2.route.CorsPolicy.prototype.addAllowOrigin = function(value, opt_index) {
-  jspb.Message.addToRepeatedField(this, 1, value, opt_index);
+  return jspb.Message.addToRepeatedField(this, 1, value, opt_index);
 };
 
 
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.envoy.api.v2.route.CorsPolicy} returns this
+ */
 proto.envoy.api.v2.route.CorsPolicy.prototype.clearAllowOriginList = function() {
-  this.setAllowOriginList([]);
+  return this.setAllowOriginList([]);
 };
 
 
@@ -3738,23 +4764,31 @@ proto.envoy.api.v2.route.CorsPolicy.prototype.getAllowOriginRegexList = function
 };
 
 
-/** @param {!Array<string>} value */
+/**
+ * @param {!Array<string>} value
+ * @return {!proto.envoy.api.v2.route.CorsPolicy} returns this
+ */
 proto.envoy.api.v2.route.CorsPolicy.prototype.setAllowOriginRegexList = function(value) {
-  jspb.Message.setField(this, 8, value || []);
+  return jspb.Message.setField(this, 8, value || []);
 };
 
 
 /**
  * @param {string} value
  * @param {number=} opt_index
+ * @return {!proto.envoy.api.v2.route.CorsPolicy} returns this
  */
 proto.envoy.api.v2.route.CorsPolicy.prototype.addAllowOriginRegex = function(value, opt_index) {
-  jspb.Message.addToRepeatedField(this, 8, value, opt_index);
+  return jspb.Message.addToRepeatedField(this, 8, value, opt_index);
 };
 
 
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.envoy.api.v2.route.CorsPolicy} returns this
+ */
 proto.envoy.api.v2.route.CorsPolicy.prototype.clearAllowOriginRegexList = function() {
-  this.setAllowOriginRegexList([]);
+  return this.setAllowOriginRegexList([]);
 };
 
 
@@ -3768,9 +4802,12 @@ proto.envoy.api.v2.route.CorsPolicy.prototype.getAllowOriginStringMatchList = fu
 };
 
 
-/** @param {!Array<!proto.envoy.type.matcher.StringMatcher>} value */
+/**
+ * @param {!Array<!proto.envoy.type.matcher.StringMatcher>} value
+ * @return {!proto.envoy.api.v2.route.CorsPolicy} returns this
+*/
 proto.envoy.api.v2.route.CorsPolicy.prototype.setAllowOriginStringMatchList = function(value) {
-  jspb.Message.setRepeatedWrapperField(this, 11, value);
+  return jspb.Message.setRepeatedWrapperField(this, 11, value);
 };
 
 
@@ -3784,8 +4821,12 @@ proto.envoy.api.v2.route.CorsPolicy.prototype.addAllowOriginStringMatch = functi
 };
 
 
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.envoy.api.v2.route.CorsPolicy} returns this
+ */
 proto.envoy.api.v2.route.CorsPolicy.prototype.clearAllowOriginStringMatchList = function() {
-  this.setAllowOriginStringMatchList([]);
+  return this.setAllowOriginStringMatchList([]);
 };
 
 
@@ -3798,9 +4839,12 @@ proto.envoy.api.v2.route.CorsPolicy.prototype.getAllowMethods = function() {
 };
 
 
-/** @param {string} value */
+/**
+ * @param {string} value
+ * @return {!proto.envoy.api.v2.route.CorsPolicy} returns this
+ */
 proto.envoy.api.v2.route.CorsPolicy.prototype.setAllowMethods = function(value) {
-  jspb.Message.setProto3StringField(this, 2, value);
+  return jspb.Message.setProto3StringField(this, 2, value);
 };
 
 
@@ -3813,9 +4857,12 @@ proto.envoy.api.v2.route.CorsPolicy.prototype.getAllowHeaders = function() {
 };
 
 
-/** @param {string} value */
+/**
+ * @param {string} value
+ * @return {!proto.envoy.api.v2.route.CorsPolicy} returns this
+ */
 proto.envoy.api.v2.route.CorsPolicy.prototype.setAllowHeaders = function(value) {
-  jspb.Message.setProto3StringField(this, 3, value);
+  return jspb.Message.setProto3StringField(this, 3, value);
 };
 
 
@@ -3828,9 +4875,12 @@ proto.envoy.api.v2.route.CorsPolicy.prototype.getExposeHeaders = function() {
 };
 
 
-/** @param {string} value */
+/**
+ * @param {string} value
+ * @return {!proto.envoy.api.v2.route.CorsPolicy} returns this
+ */
 proto.envoy.api.v2.route.CorsPolicy.prototype.setExposeHeaders = function(value) {
-  jspb.Message.setProto3StringField(this, 4, value);
+  return jspb.Message.setProto3StringField(this, 4, value);
 };
 
 
@@ -3843,9 +4893,12 @@ proto.envoy.api.v2.route.CorsPolicy.prototype.getMaxAge = function() {
 };
 
 
-/** @param {string} value */
+/**
+ * @param {string} value
+ * @return {!proto.envoy.api.v2.route.CorsPolicy} returns this
+ */
 proto.envoy.api.v2.route.CorsPolicy.prototype.setMaxAge = function(value) {
-  jspb.Message.setProto3StringField(this, 5, value);
+  return jspb.Message.setProto3StringField(this, 5, value);
 };
 
 
@@ -3859,14 +4912,21 @@ proto.envoy.api.v2.route.CorsPolicy.prototype.getAllowCredentials = function() {
 };
 
 
-/** @param {?proto.google.protobuf.BoolValue|undefined} value */
+/**
+ * @param {?proto.google.protobuf.BoolValue|undefined} value
+ * @return {!proto.envoy.api.v2.route.CorsPolicy} returns this
+*/
 proto.envoy.api.v2.route.CorsPolicy.prototype.setAllowCredentials = function(value) {
-  jspb.Message.setWrapperField(this, 6, value);
+  return jspb.Message.setWrapperField(this, 6, value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.CorsPolicy} returns this
+ */
 proto.envoy.api.v2.route.CorsPolicy.prototype.clearAllowCredentials = function() {
-  this.setAllowCredentials(undefined);
+  return this.setAllowCredentials(undefined);
 };
 
 
@@ -3889,14 +4949,21 @@ proto.envoy.api.v2.route.CorsPolicy.prototype.getEnabled = function() {
 };
 
 
-/** @param {?proto.google.protobuf.BoolValue|undefined} value */
+/**
+ * @param {?proto.google.protobuf.BoolValue|undefined} value
+ * @return {!proto.envoy.api.v2.route.CorsPolicy} returns this
+*/
 proto.envoy.api.v2.route.CorsPolicy.prototype.setEnabled = function(value) {
-  jspb.Message.setOneofWrapperField(this, 7, proto.envoy.api.v2.route.CorsPolicy.oneofGroups_[0], value);
+  return jspb.Message.setOneofWrapperField(this, 7, proto.envoy.api.v2.route.CorsPolicy.oneofGroups_[0], value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.CorsPolicy} returns this
+ */
 proto.envoy.api.v2.route.CorsPolicy.prototype.clearEnabled = function() {
-  this.setEnabled(undefined);
+  return this.setEnabled(undefined);
 };
 
 
@@ -3919,14 +4986,21 @@ proto.envoy.api.v2.route.CorsPolicy.prototype.getFilterEnabled = function() {
 };
 
 
-/** @param {?proto.envoy.api.v2.core.RuntimeFractionalPercent|undefined} value */
+/**
+ * @param {?proto.envoy.api.v2.core.RuntimeFractionalPercent|undefined} value
+ * @return {!proto.envoy.api.v2.route.CorsPolicy} returns this
+*/
 proto.envoy.api.v2.route.CorsPolicy.prototype.setFilterEnabled = function(value) {
-  jspb.Message.setOneofWrapperField(this, 9, proto.envoy.api.v2.route.CorsPolicy.oneofGroups_[0], value);
+  return jspb.Message.setOneofWrapperField(this, 9, proto.envoy.api.v2.route.CorsPolicy.oneofGroups_[0], value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.CorsPolicy} returns this
+ */
 proto.envoy.api.v2.route.CorsPolicy.prototype.clearFilterEnabled = function() {
-  this.setFilterEnabled(undefined);
+  return this.setFilterEnabled(undefined);
 };
 
 
@@ -3949,14 +5023,21 @@ proto.envoy.api.v2.route.CorsPolicy.prototype.getShadowEnabled = function() {
 };
 
 
-/** @param {?proto.envoy.api.v2.core.RuntimeFractionalPercent|undefined} value */
+/**
+ * @param {?proto.envoy.api.v2.core.RuntimeFractionalPercent|undefined} value
+ * @return {!proto.envoy.api.v2.route.CorsPolicy} returns this
+*/
 proto.envoy.api.v2.route.CorsPolicy.prototype.setShadowEnabled = function(value) {
-  jspb.Message.setWrapperField(this, 10, value);
+  return jspb.Message.setWrapperField(this, 10, value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.CorsPolicy} returns this
+ */
 proto.envoy.api.v2.route.CorsPolicy.prototype.clearShadowEnabled = function() {
-  this.setShadowEnabled(undefined);
+  return this.setShadowEnabled(undefined);
 };
 
 
@@ -3970,23 +5051,6 @@ proto.envoy.api.v2.route.CorsPolicy.prototype.hasShadowEnabled = function() {
 
 
 
-/**
- * Generated by JsPbCodeGenerator.
- * @param {Array=} opt_data Optional initial data array, typically from a
- * server response, or constructed directly in Javascript. The array is used
- * in place and becomes part of the constructed object. It is not cloned.
- * If no data is provided, the constructed object will be empty, but still
- * valid.
- * @extends {jspb.Message}
- * @constructor
- */
-proto.envoy.api.v2.route.RouteAction = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.envoy.api.v2.route.RouteAction.repeatedFields_, proto.envoy.api.v2.route.RouteAction.oneofGroups_);
-};
-goog.inherits(proto.envoy.api.v2.route.RouteAction, jspb.Message);
-if (goog.DEBUG && !COMPILED) {
-  proto.envoy.api.v2.route.RouteAction.displayName = 'proto.envoy.api.v2.route.RouteAction';
-}
 /**
  * List of repeated fields within this message type.
  * @private {!Array<number>}
@@ -4042,13 +5106,15 @@ proto.envoy.api.v2.route.RouteAction.prototype.getHostRewriteSpecifierCase = fun
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
 /**
- * Creates an object representation of this proto suitable for use in Soy templates.
+ * Creates an object representation of this proto.
  * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
  * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
  * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
  * @return {!Object}
  */
 proto.envoy.api.v2.route.RouteAction.prototype.toObject = function(opt_includeInstance) {
@@ -4058,8 +5124,8 @@ proto.envoy.api.v2.route.RouteAction.prototype.toObject = function(opt_includeIn
 
 /**
  * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
  * @param {!proto.envoy.api.v2.route.RouteAction} msg The msg instance to transform.
  * @return {!Object}
@@ -4461,34 +5527,19 @@ proto.envoy.api.v2.route.RouteAction.InternalRedirectAction = {
 };
 
 
-/**
- * Generated by JsPbCodeGenerator.
- * @param {Array=} opt_data Optional initial data array, typically from a
- * server response, or constructed directly in Javascript. The array is used
- * in place and becomes part of the constructed object. It is not cloned.
- * If no data is provided, the constructed object will be empty, but still
- * valid.
- * @extends {jspb.Message}
- * @constructor
- */
-proto.envoy.api.v2.route.RouteAction.RequestMirrorPolicy = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
-};
-goog.inherits(proto.envoy.api.v2.route.RouteAction.RequestMirrorPolicy, jspb.Message);
-if (goog.DEBUG && !COMPILED) {
-  proto.envoy.api.v2.route.RouteAction.RequestMirrorPolicy.displayName = 'proto.envoy.api.v2.route.RouteAction.RequestMirrorPolicy';
-}
 
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
 /**
- * Creates an object representation of this proto suitable for use in Soy templates.
+ * Creates an object representation of this proto.
  * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
  * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
  * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
  * @return {!Object}
  */
 proto.envoy.api.v2.route.RouteAction.RequestMirrorPolicy.prototype.toObject = function(opt_includeInstance) {
@@ -4498,8 +5549,8 @@ proto.envoy.api.v2.route.RouteAction.RequestMirrorPolicy.prototype.toObject = fu
 
 /**
  * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
  * @param {!proto.envoy.api.v2.route.RouteAction.RequestMirrorPolicy} msg The msg instance to transform.
  * @return {!Object}
@@ -4622,9 +5673,12 @@ proto.envoy.api.v2.route.RouteAction.RequestMirrorPolicy.prototype.getCluster = 
 };
 
 
-/** @param {string} value */
+/**
+ * @param {string} value
+ * @return {!proto.envoy.api.v2.route.RouteAction.RequestMirrorPolicy} returns this
+ */
 proto.envoy.api.v2.route.RouteAction.RequestMirrorPolicy.prototype.setCluster = function(value) {
-  jspb.Message.setProto3StringField(this, 1, value);
+  return jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
@@ -4637,9 +5691,12 @@ proto.envoy.api.v2.route.RouteAction.RequestMirrorPolicy.prototype.getRuntimeKey
 };
 
 
-/** @param {string} value */
+/**
+ * @param {string} value
+ * @return {!proto.envoy.api.v2.route.RouteAction.RequestMirrorPolicy} returns this
+ */
 proto.envoy.api.v2.route.RouteAction.RequestMirrorPolicy.prototype.setRuntimeKey = function(value) {
-  jspb.Message.setProto3StringField(this, 2, value);
+  return jspb.Message.setProto3StringField(this, 2, value);
 };
 
 
@@ -4653,14 +5710,21 @@ proto.envoy.api.v2.route.RouteAction.RequestMirrorPolicy.prototype.getRuntimeFra
 };
 
 
-/** @param {?proto.envoy.api.v2.core.RuntimeFractionalPercent|undefined} value */
+/**
+ * @param {?proto.envoy.api.v2.core.RuntimeFractionalPercent|undefined} value
+ * @return {!proto.envoy.api.v2.route.RouteAction.RequestMirrorPolicy} returns this
+*/
 proto.envoy.api.v2.route.RouteAction.RequestMirrorPolicy.prototype.setRuntimeFraction = function(value) {
-  jspb.Message.setWrapperField(this, 3, value);
+  return jspb.Message.setWrapperField(this, 3, value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.RouteAction.RequestMirrorPolicy} returns this
+ */
 proto.envoy.api.v2.route.RouteAction.RequestMirrorPolicy.prototype.clearRuntimeFraction = function() {
-  this.setRuntimeFraction(undefined);
+  return this.setRuntimeFraction(undefined);
 };
 
 
@@ -4674,23 +5738,6 @@ proto.envoy.api.v2.route.RouteAction.RequestMirrorPolicy.prototype.hasRuntimeFra
 
 
 
-/**
- * Generated by JsPbCodeGenerator.
- * @param {Array=} opt_data Optional initial data array, typically from a
- * server response, or constructed directly in Javascript. The array is used
- * in place and becomes part of the constructed object. It is not cloned.
- * If no data is provided, the constructed object will be empty, but still
- * valid.
- * @extends {jspb.Message}
- * @constructor
- */
-proto.envoy.api.v2.route.RouteAction.HashPolicy = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, null, proto.envoy.api.v2.route.RouteAction.HashPolicy.oneofGroups_);
-};
-goog.inherits(proto.envoy.api.v2.route.RouteAction.HashPolicy, jspb.Message);
-if (goog.DEBUG && !COMPILED) {
-  proto.envoy.api.v2.route.RouteAction.HashPolicy.displayName = 'proto.envoy.api.v2.route.RouteAction.HashPolicy';
-}
 /**
  * Oneof group definitions for this message. Each group defines the field
  * numbers belonging to that group. When of these fields' value is set, all
@@ -4723,13 +5770,15 @@ proto.envoy.api.v2.route.RouteAction.HashPolicy.prototype.getPolicySpecifierCase
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
 /**
- * Creates an object representation of this proto suitable for use in Soy templates.
+ * Creates an object representation of this proto.
  * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
  * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
  * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
  * @return {!Object}
  */
 proto.envoy.api.v2.route.RouteAction.HashPolicy.prototype.toObject = function(opt_includeInstance) {
@@ -4739,8 +5788,8 @@ proto.envoy.api.v2.route.RouteAction.HashPolicy.prototype.toObject = function(op
 
 /**
  * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
  * @param {!proto.envoy.api.v2.route.RouteAction.HashPolicy} msg The msg instance to transform.
  * @return {!Object}
@@ -4752,7 +5801,7 @@ proto.envoy.api.v2.route.RouteAction.HashPolicy.toObject = function(includeInsta
     cookie: (f = msg.getCookie()) && proto.envoy.api.v2.route.RouteAction.HashPolicy.Cookie.toObject(includeInstance, f),
     connectionProperties: (f = msg.getConnectionProperties()) && proto.envoy.api.v2.route.RouteAction.HashPolicy.ConnectionProperties.toObject(includeInstance, f),
     queryParameter: (f = msg.getQueryParameter()) && proto.envoy.api.v2.route.RouteAction.HashPolicy.QueryParameter.toObject(includeInstance, f),
-    terminal: jspb.Message.getFieldWithDefault(msg, 4, false)
+    terminal: jspb.Message.getBooleanFieldWithDefault(msg, 4, false)
   };
 
   if (includeInstance) {
@@ -4885,34 +5934,19 @@ proto.envoy.api.v2.route.RouteAction.HashPolicy.serializeBinaryToWriter = functi
 
 
 
-/**
- * Generated by JsPbCodeGenerator.
- * @param {Array=} opt_data Optional initial data array, typically from a
- * server response, or constructed directly in Javascript. The array is used
- * in place and becomes part of the constructed object. It is not cloned.
- * If no data is provided, the constructed object will be empty, but still
- * valid.
- * @extends {jspb.Message}
- * @constructor
- */
-proto.envoy.api.v2.route.RouteAction.HashPolicy.Header = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
-};
-goog.inherits(proto.envoy.api.v2.route.RouteAction.HashPolicy.Header, jspb.Message);
-if (goog.DEBUG && !COMPILED) {
-  proto.envoy.api.v2.route.RouteAction.HashPolicy.Header.displayName = 'proto.envoy.api.v2.route.RouteAction.HashPolicy.Header';
-}
 
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
 /**
- * Creates an object representation of this proto suitable for use in Soy templates.
+ * Creates an object representation of this proto.
  * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
  * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
  * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
  * @return {!Object}
  */
 proto.envoy.api.v2.route.RouteAction.HashPolicy.Header.prototype.toObject = function(opt_includeInstance) {
@@ -4922,8 +5956,8 @@ proto.envoy.api.v2.route.RouteAction.HashPolicy.Header.prototype.toObject = func
 
 /**
  * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
  * @param {!proto.envoy.api.v2.route.RouteAction.HashPolicy.Header} msg The msg instance to transform.
  * @return {!Object}
@@ -5020,41 +6054,29 @@ proto.envoy.api.v2.route.RouteAction.HashPolicy.Header.prototype.getHeaderName =
 };
 
 
-/** @param {string} value */
-proto.envoy.api.v2.route.RouteAction.HashPolicy.Header.prototype.setHeaderName = function(value) {
-  jspb.Message.setProto3StringField(this, 1, value);
-};
-
-
-
 /**
- * Generated by JsPbCodeGenerator.
- * @param {Array=} opt_data Optional initial data array, typically from a
- * server response, or constructed directly in Javascript. The array is used
- * in place and becomes part of the constructed object. It is not cloned.
- * If no data is provided, the constructed object will be empty, but still
- * valid.
- * @extends {jspb.Message}
- * @constructor
+ * @param {string} value
+ * @return {!proto.envoy.api.v2.route.RouteAction.HashPolicy.Header} returns this
  */
-proto.envoy.api.v2.route.RouteAction.HashPolicy.Cookie = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+proto.envoy.api.v2.route.RouteAction.HashPolicy.Header.prototype.setHeaderName = function(value) {
+  return jspb.Message.setProto3StringField(this, 1, value);
 };
-goog.inherits(proto.envoy.api.v2.route.RouteAction.HashPolicy.Cookie, jspb.Message);
-if (goog.DEBUG && !COMPILED) {
-  proto.envoy.api.v2.route.RouteAction.HashPolicy.Cookie.displayName = 'proto.envoy.api.v2.route.RouteAction.HashPolicy.Cookie';
-}
+
+
+
 
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
 /**
- * Creates an object representation of this proto suitable for use in Soy templates.
+ * Creates an object representation of this proto.
  * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
  * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
  * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
  * @return {!Object}
  */
 proto.envoy.api.v2.route.RouteAction.HashPolicy.Cookie.prototype.toObject = function(opt_includeInstance) {
@@ -5064,8 +6086,8 @@ proto.envoy.api.v2.route.RouteAction.HashPolicy.Cookie.prototype.toObject = func
 
 /**
  * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
  * @param {!proto.envoy.api.v2.route.RouteAction.HashPolicy.Cookie} msg The msg instance to transform.
  * @return {!Object}
@@ -5188,9 +6210,12 @@ proto.envoy.api.v2.route.RouteAction.HashPolicy.Cookie.prototype.getName = funct
 };
 
 
-/** @param {string} value */
+/**
+ * @param {string} value
+ * @return {!proto.envoy.api.v2.route.RouteAction.HashPolicy.Cookie} returns this
+ */
 proto.envoy.api.v2.route.RouteAction.HashPolicy.Cookie.prototype.setName = function(value) {
-  jspb.Message.setProto3StringField(this, 1, value);
+  return jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
@@ -5204,14 +6229,21 @@ proto.envoy.api.v2.route.RouteAction.HashPolicy.Cookie.prototype.getTtl = functi
 };
 
 
-/** @param {?proto.google.protobuf.Duration|undefined} value */
+/**
+ * @param {?proto.google.protobuf.Duration|undefined} value
+ * @return {!proto.envoy.api.v2.route.RouteAction.HashPolicy.Cookie} returns this
+*/
 proto.envoy.api.v2.route.RouteAction.HashPolicy.Cookie.prototype.setTtl = function(value) {
-  jspb.Message.setWrapperField(this, 2, value);
+  return jspb.Message.setWrapperField(this, 2, value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.RouteAction.HashPolicy.Cookie} returns this
+ */
 proto.envoy.api.v2.route.RouteAction.HashPolicy.Cookie.prototype.clearTtl = function() {
-  this.setTtl(undefined);
+  return this.setTtl(undefined);
 };
 
 
@@ -5233,41 +6265,29 @@ proto.envoy.api.v2.route.RouteAction.HashPolicy.Cookie.prototype.getPath = funct
 };
 
 
-/** @param {string} value */
-proto.envoy.api.v2.route.RouteAction.HashPolicy.Cookie.prototype.setPath = function(value) {
-  jspb.Message.setProto3StringField(this, 3, value);
-};
-
-
-
 /**
- * Generated by JsPbCodeGenerator.
- * @param {Array=} opt_data Optional initial data array, typically from a
- * server response, or constructed directly in Javascript. The array is used
- * in place and becomes part of the constructed object. It is not cloned.
- * If no data is provided, the constructed object will be empty, but still
- * valid.
- * @extends {jspb.Message}
- * @constructor
+ * @param {string} value
+ * @return {!proto.envoy.api.v2.route.RouteAction.HashPolicy.Cookie} returns this
  */
-proto.envoy.api.v2.route.RouteAction.HashPolicy.ConnectionProperties = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+proto.envoy.api.v2.route.RouteAction.HashPolicy.Cookie.prototype.setPath = function(value) {
+  return jspb.Message.setProto3StringField(this, 3, value);
 };
-goog.inherits(proto.envoy.api.v2.route.RouteAction.HashPolicy.ConnectionProperties, jspb.Message);
-if (goog.DEBUG && !COMPILED) {
-  proto.envoy.api.v2.route.RouteAction.HashPolicy.ConnectionProperties.displayName = 'proto.envoy.api.v2.route.RouteAction.HashPolicy.ConnectionProperties';
-}
+
+
+
 
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
 /**
- * Creates an object representation of this proto suitable for use in Soy templates.
+ * Creates an object representation of this proto.
  * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
  * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
  * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
  * @return {!Object}
  */
 proto.envoy.api.v2.route.RouteAction.HashPolicy.ConnectionProperties.prototype.toObject = function(opt_includeInstance) {
@@ -5277,8 +6297,8 @@ proto.envoy.api.v2.route.RouteAction.HashPolicy.ConnectionProperties.prototype.t
 
 /**
  * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
  * @param {!proto.envoy.api.v2.route.RouteAction.HashPolicy.ConnectionProperties} msg The msg instance to transform.
  * @return {!Object}
@@ -5286,7 +6306,7 @@ proto.envoy.api.v2.route.RouteAction.HashPolicy.ConnectionProperties.prototype.t
  */
 proto.envoy.api.v2.route.RouteAction.HashPolicy.ConnectionProperties.toObject = function(includeInstance, msg) {
   var f, obj = {
-    sourceIp: jspb.Message.getFieldWithDefault(msg, 1, false)
+    sourceIp: jspb.Message.getBooleanFieldWithDefault(msg, 1, false)
   };
 
   if (includeInstance) {
@@ -5368,50 +6388,36 @@ proto.envoy.api.v2.route.RouteAction.HashPolicy.ConnectionProperties.serializeBi
 
 /**
  * optional bool source_ip = 1;
- * Note that Boolean fields may be set to 0/1 when serialized from a Java server.
- * You should avoid comparisons like {@code val === true/false} in those cases.
  * @return {boolean}
  */
 proto.envoy.api.v2.route.RouteAction.HashPolicy.ConnectionProperties.prototype.getSourceIp = function() {
-  return /** @type {boolean} */ (jspb.Message.getFieldWithDefault(this, 1, false));
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 1, false));
 };
-
-
-/** @param {boolean} value */
-proto.envoy.api.v2.route.RouteAction.HashPolicy.ConnectionProperties.prototype.setSourceIp = function(value) {
-  jspb.Message.setProto3BooleanField(this, 1, value);
-};
-
 
 
 /**
- * Generated by JsPbCodeGenerator.
- * @param {Array=} opt_data Optional initial data array, typically from a
- * server response, or constructed directly in Javascript. The array is used
- * in place and becomes part of the constructed object. It is not cloned.
- * If no data is provided, the constructed object will be empty, but still
- * valid.
- * @extends {jspb.Message}
- * @constructor
+ * @param {boolean} value
+ * @return {!proto.envoy.api.v2.route.RouteAction.HashPolicy.ConnectionProperties} returns this
  */
-proto.envoy.api.v2.route.RouteAction.HashPolicy.QueryParameter = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+proto.envoy.api.v2.route.RouteAction.HashPolicy.ConnectionProperties.prototype.setSourceIp = function(value) {
+  return jspb.Message.setProto3BooleanField(this, 1, value);
 };
-goog.inherits(proto.envoy.api.v2.route.RouteAction.HashPolicy.QueryParameter, jspb.Message);
-if (goog.DEBUG && !COMPILED) {
-  proto.envoy.api.v2.route.RouteAction.HashPolicy.QueryParameter.displayName = 'proto.envoy.api.v2.route.RouteAction.HashPolicy.QueryParameter';
-}
+
+
+
 
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
 /**
- * Creates an object representation of this proto suitable for use in Soy templates.
+ * Creates an object representation of this proto.
  * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
  * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
  * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
  * @return {!Object}
  */
 proto.envoy.api.v2.route.RouteAction.HashPolicy.QueryParameter.prototype.toObject = function(opt_includeInstance) {
@@ -5421,8 +6427,8 @@ proto.envoy.api.v2.route.RouteAction.HashPolicy.QueryParameter.prototype.toObjec
 
 /**
  * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
  * @param {!proto.envoy.api.v2.route.RouteAction.HashPolicy.QueryParameter} msg The msg instance to transform.
  * @return {!Object}
@@ -5519,9 +6525,12 @@ proto.envoy.api.v2.route.RouteAction.HashPolicy.QueryParameter.prototype.getName
 };
 
 
-/** @param {string} value */
+/**
+ * @param {string} value
+ * @return {!proto.envoy.api.v2.route.RouteAction.HashPolicy.QueryParameter} returns this
+ */
 proto.envoy.api.v2.route.RouteAction.HashPolicy.QueryParameter.prototype.setName = function(value) {
-  jspb.Message.setProto3StringField(this, 1, value);
+  return jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
@@ -5535,14 +6544,21 @@ proto.envoy.api.v2.route.RouteAction.HashPolicy.prototype.getHeader = function()
 };
 
 
-/** @param {?proto.envoy.api.v2.route.RouteAction.HashPolicy.Header|undefined} value */
+/**
+ * @param {?proto.envoy.api.v2.route.RouteAction.HashPolicy.Header|undefined} value
+ * @return {!proto.envoy.api.v2.route.RouteAction.HashPolicy} returns this
+*/
 proto.envoy.api.v2.route.RouteAction.HashPolicy.prototype.setHeader = function(value) {
-  jspb.Message.setOneofWrapperField(this, 1, proto.envoy.api.v2.route.RouteAction.HashPolicy.oneofGroups_[0], value);
+  return jspb.Message.setOneofWrapperField(this, 1, proto.envoy.api.v2.route.RouteAction.HashPolicy.oneofGroups_[0], value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.RouteAction.HashPolicy} returns this
+ */
 proto.envoy.api.v2.route.RouteAction.HashPolicy.prototype.clearHeader = function() {
-  this.setHeader(undefined);
+  return this.setHeader(undefined);
 };
 
 
@@ -5565,14 +6581,21 @@ proto.envoy.api.v2.route.RouteAction.HashPolicy.prototype.getCookie = function()
 };
 
 
-/** @param {?proto.envoy.api.v2.route.RouteAction.HashPolicy.Cookie|undefined} value */
+/**
+ * @param {?proto.envoy.api.v2.route.RouteAction.HashPolicy.Cookie|undefined} value
+ * @return {!proto.envoy.api.v2.route.RouteAction.HashPolicy} returns this
+*/
 proto.envoy.api.v2.route.RouteAction.HashPolicy.prototype.setCookie = function(value) {
-  jspb.Message.setOneofWrapperField(this, 2, proto.envoy.api.v2.route.RouteAction.HashPolicy.oneofGroups_[0], value);
+  return jspb.Message.setOneofWrapperField(this, 2, proto.envoy.api.v2.route.RouteAction.HashPolicy.oneofGroups_[0], value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.RouteAction.HashPolicy} returns this
+ */
 proto.envoy.api.v2.route.RouteAction.HashPolicy.prototype.clearCookie = function() {
-  this.setCookie(undefined);
+  return this.setCookie(undefined);
 };
 
 
@@ -5595,14 +6618,21 @@ proto.envoy.api.v2.route.RouteAction.HashPolicy.prototype.getConnectionPropertie
 };
 
 
-/** @param {?proto.envoy.api.v2.route.RouteAction.HashPolicy.ConnectionProperties|undefined} value */
+/**
+ * @param {?proto.envoy.api.v2.route.RouteAction.HashPolicy.ConnectionProperties|undefined} value
+ * @return {!proto.envoy.api.v2.route.RouteAction.HashPolicy} returns this
+*/
 proto.envoy.api.v2.route.RouteAction.HashPolicy.prototype.setConnectionProperties = function(value) {
-  jspb.Message.setOneofWrapperField(this, 3, proto.envoy.api.v2.route.RouteAction.HashPolicy.oneofGroups_[0], value);
+  return jspb.Message.setOneofWrapperField(this, 3, proto.envoy.api.v2.route.RouteAction.HashPolicy.oneofGroups_[0], value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.RouteAction.HashPolicy} returns this
+ */
 proto.envoy.api.v2.route.RouteAction.HashPolicy.prototype.clearConnectionProperties = function() {
-  this.setConnectionProperties(undefined);
+  return this.setConnectionProperties(undefined);
 };
 
 
@@ -5625,14 +6655,21 @@ proto.envoy.api.v2.route.RouteAction.HashPolicy.prototype.getQueryParameter = fu
 };
 
 
-/** @param {?proto.envoy.api.v2.route.RouteAction.HashPolicy.QueryParameter|undefined} value */
+/**
+ * @param {?proto.envoy.api.v2.route.RouteAction.HashPolicy.QueryParameter|undefined} value
+ * @return {!proto.envoy.api.v2.route.RouteAction.HashPolicy} returns this
+*/
 proto.envoy.api.v2.route.RouteAction.HashPolicy.prototype.setQueryParameter = function(value) {
-  jspb.Message.setOneofWrapperField(this, 5, proto.envoy.api.v2.route.RouteAction.HashPolicy.oneofGroups_[0], value);
+  return jspb.Message.setOneofWrapperField(this, 5, proto.envoy.api.v2.route.RouteAction.HashPolicy.oneofGroups_[0], value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.RouteAction.HashPolicy} returns this
+ */
 proto.envoy.api.v2.route.RouteAction.HashPolicy.prototype.clearQueryParameter = function() {
-  this.setQueryParameter(undefined);
+  return this.setQueryParameter(undefined);
 };
 
 
@@ -5647,50 +6684,36 @@ proto.envoy.api.v2.route.RouteAction.HashPolicy.prototype.hasQueryParameter = fu
 
 /**
  * optional bool terminal = 4;
- * Note that Boolean fields may be set to 0/1 when serialized from a Java server.
- * You should avoid comparisons like {@code val === true/false} in those cases.
  * @return {boolean}
  */
 proto.envoy.api.v2.route.RouteAction.HashPolicy.prototype.getTerminal = function() {
-  return /** @type {boolean} */ (jspb.Message.getFieldWithDefault(this, 4, false));
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 4, false));
 };
-
-
-/** @param {boolean} value */
-proto.envoy.api.v2.route.RouteAction.HashPolicy.prototype.setTerminal = function(value) {
-  jspb.Message.setProto3BooleanField(this, 4, value);
-};
-
 
 
 /**
- * Generated by JsPbCodeGenerator.
- * @param {Array=} opt_data Optional initial data array, typically from a
- * server response, or constructed directly in Javascript. The array is used
- * in place and becomes part of the constructed object. It is not cloned.
- * If no data is provided, the constructed object will be empty, but still
- * valid.
- * @extends {jspb.Message}
- * @constructor
+ * @param {boolean} value
+ * @return {!proto.envoy.api.v2.route.RouteAction.HashPolicy} returns this
  */
-proto.envoy.api.v2.route.RouteAction.UpgradeConfig = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+proto.envoy.api.v2.route.RouteAction.HashPolicy.prototype.setTerminal = function(value) {
+  return jspb.Message.setProto3BooleanField(this, 4, value);
 };
-goog.inherits(proto.envoy.api.v2.route.RouteAction.UpgradeConfig, jspb.Message);
-if (goog.DEBUG && !COMPILED) {
-  proto.envoy.api.v2.route.RouteAction.UpgradeConfig.displayName = 'proto.envoy.api.v2.route.RouteAction.UpgradeConfig';
-}
+
+
+
 
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
 /**
- * Creates an object representation of this proto suitable for use in Soy templates.
+ * Creates an object representation of this proto.
  * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
  * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
  * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
  * @return {!Object}
  */
 proto.envoy.api.v2.route.RouteAction.UpgradeConfig.prototype.toObject = function(opt_includeInstance) {
@@ -5700,8 +6723,8 @@ proto.envoy.api.v2.route.RouteAction.UpgradeConfig.prototype.toObject = function
 
 /**
  * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
  * @param {!proto.envoy.api.v2.route.RouteAction.UpgradeConfig} msg The msg instance to transform.
  * @return {!Object}
@@ -5812,9 +6835,12 @@ proto.envoy.api.v2.route.RouteAction.UpgradeConfig.prototype.getUpgradeType = fu
 };
 
 
-/** @param {string} value */
+/**
+ * @param {string} value
+ * @return {!proto.envoy.api.v2.route.RouteAction.UpgradeConfig} returns this
+ */
 proto.envoy.api.v2.route.RouteAction.UpgradeConfig.prototype.setUpgradeType = function(value) {
-  jspb.Message.setProto3StringField(this, 1, value);
+  return jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
@@ -5828,14 +6854,21 @@ proto.envoy.api.v2.route.RouteAction.UpgradeConfig.prototype.getEnabled = functi
 };
 
 
-/** @param {?proto.google.protobuf.BoolValue|undefined} value */
+/**
+ * @param {?proto.google.protobuf.BoolValue|undefined} value
+ * @return {!proto.envoy.api.v2.route.RouteAction.UpgradeConfig} returns this
+*/
 proto.envoy.api.v2.route.RouteAction.UpgradeConfig.prototype.setEnabled = function(value) {
-  jspb.Message.setWrapperField(this, 2, value);
+  return jspb.Message.setWrapperField(this, 2, value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.RouteAction.UpgradeConfig} returns this
+ */
 proto.envoy.api.v2.route.RouteAction.UpgradeConfig.prototype.clearEnabled = function() {
-  this.setEnabled(undefined);
+  return this.setEnabled(undefined);
 };
 
 
@@ -5857,14 +6890,21 @@ proto.envoy.api.v2.route.RouteAction.prototype.getCluster = function() {
 };
 
 
-/** @param {string} value */
+/**
+ * @param {string} value
+ * @return {!proto.envoy.api.v2.route.RouteAction} returns this
+ */
 proto.envoy.api.v2.route.RouteAction.prototype.setCluster = function(value) {
-  jspb.Message.setOneofField(this, 1, proto.envoy.api.v2.route.RouteAction.oneofGroups_[0], value);
+  return jspb.Message.setOneofField(this, 1, proto.envoy.api.v2.route.RouteAction.oneofGroups_[0], value);
 };
 
 
+/**
+ * Clears the field making it undefined.
+ * @return {!proto.envoy.api.v2.route.RouteAction} returns this
+ */
 proto.envoy.api.v2.route.RouteAction.prototype.clearCluster = function() {
-  jspb.Message.setOneofField(this, 1, proto.envoy.api.v2.route.RouteAction.oneofGroups_[0], undefined);
+  return jspb.Message.setOneofField(this, 1, proto.envoy.api.v2.route.RouteAction.oneofGroups_[0], undefined);
 };
 
 
@@ -5886,14 +6926,21 @@ proto.envoy.api.v2.route.RouteAction.prototype.getClusterHeader = function() {
 };
 
 
-/** @param {string} value */
+/**
+ * @param {string} value
+ * @return {!proto.envoy.api.v2.route.RouteAction} returns this
+ */
 proto.envoy.api.v2.route.RouteAction.prototype.setClusterHeader = function(value) {
-  jspb.Message.setOneofField(this, 2, proto.envoy.api.v2.route.RouteAction.oneofGroups_[0], value);
+  return jspb.Message.setOneofField(this, 2, proto.envoy.api.v2.route.RouteAction.oneofGroups_[0], value);
 };
 
 
+/**
+ * Clears the field making it undefined.
+ * @return {!proto.envoy.api.v2.route.RouteAction} returns this
+ */
 proto.envoy.api.v2.route.RouteAction.prototype.clearClusterHeader = function() {
-  jspb.Message.setOneofField(this, 2, proto.envoy.api.v2.route.RouteAction.oneofGroups_[0], undefined);
+  return jspb.Message.setOneofField(this, 2, proto.envoy.api.v2.route.RouteAction.oneofGroups_[0], undefined);
 };
 
 
@@ -5916,14 +6963,21 @@ proto.envoy.api.v2.route.RouteAction.prototype.getWeightedClusters = function() 
 };
 
 
-/** @param {?proto.envoy.api.v2.route.WeightedCluster|undefined} value */
+/**
+ * @param {?proto.envoy.api.v2.route.WeightedCluster|undefined} value
+ * @return {!proto.envoy.api.v2.route.RouteAction} returns this
+*/
 proto.envoy.api.v2.route.RouteAction.prototype.setWeightedClusters = function(value) {
-  jspb.Message.setOneofWrapperField(this, 3, proto.envoy.api.v2.route.RouteAction.oneofGroups_[0], value);
+  return jspb.Message.setOneofWrapperField(this, 3, proto.envoy.api.v2.route.RouteAction.oneofGroups_[0], value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.RouteAction} returns this
+ */
 proto.envoy.api.v2.route.RouteAction.prototype.clearWeightedClusters = function() {
-  this.setWeightedClusters(undefined);
+  return this.setWeightedClusters(undefined);
 };
 
 
@@ -5945,9 +6999,12 @@ proto.envoy.api.v2.route.RouteAction.prototype.getClusterNotFoundResponseCode = 
 };
 
 
-/** @param {!proto.envoy.api.v2.route.RouteAction.ClusterNotFoundResponseCode} value */
+/**
+ * @param {!proto.envoy.api.v2.route.RouteAction.ClusterNotFoundResponseCode} value
+ * @return {!proto.envoy.api.v2.route.RouteAction} returns this
+ */
 proto.envoy.api.v2.route.RouteAction.prototype.setClusterNotFoundResponseCode = function(value) {
-  jspb.Message.setProto3EnumField(this, 20, value);
+  return jspb.Message.setProto3EnumField(this, 20, value);
 };
 
 
@@ -5961,14 +7018,21 @@ proto.envoy.api.v2.route.RouteAction.prototype.getMetadataMatch = function() {
 };
 
 
-/** @param {?proto.envoy.api.v2.core.Metadata|undefined} value */
+/**
+ * @param {?proto.envoy.api.v2.core.Metadata|undefined} value
+ * @return {!proto.envoy.api.v2.route.RouteAction} returns this
+*/
 proto.envoy.api.v2.route.RouteAction.prototype.setMetadataMatch = function(value) {
-  jspb.Message.setWrapperField(this, 4, value);
+  return jspb.Message.setWrapperField(this, 4, value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.RouteAction} returns this
+ */
 proto.envoy.api.v2.route.RouteAction.prototype.clearMetadataMatch = function() {
-  this.setMetadataMatch(undefined);
+  return this.setMetadataMatch(undefined);
 };
 
 
@@ -5990,9 +7054,12 @@ proto.envoy.api.v2.route.RouteAction.prototype.getPrefixRewrite = function() {
 };
 
 
-/** @param {string} value */
+/**
+ * @param {string} value
+ * @return {!proto.envoy.api.v2.route.RouteAction} returns this
+ */
 proto.envoy.api.v2.route.RouteAction.prototype.setPrefixRewrite = function(value) {
-  jspb.Message.setProto3StringField(this, 5, value);
+  return jspb.Message.setProto3StringField(this, 5, value);
 };
 
 
@@ -6005,14 +7072,21 @@ proto.envoy.api.v2.route.RouteAction.prototype.getHostRewrite = function() {
 };
 
 
-/** @param {string} value */
+/**
+ * @param {string} value
+ * @return {!proto.envoy.api.v2.route.RouteAction} returns this
+ */
 proto.envoy.api.v2.route.RouteAction.prototype.setHostRewrite = function(value) {
-  jspb.Message.setOneofField(this, 6, proto.envoy.api.v2.route.RouteAction.oneofGroups_[1], value);
+  return jspb.Message.setOneofField(this, 6, proto.envoy.api.v2.route.RouteAction.oneofGroups_[1], value);
 };
 
 
+/**
+ * Clears the field making it undefined.
+ * @return {!proto.envoy.api.v2.route.RouteAction} returns this
+ */
 proto.envoy.api.v2.route.RouteAction.prototype.clearHostRewrite = function() {
-  jspb.Message.setOneofField(this, 6, proto.envoy.api.v2.route.RouteAction.oneofGroups_[1], undefined);
+  return jspb.Message.setOneofField(this, 6, proto.envoy.api.v2.route.RouteAction.oneofGroups_[1], undefined);
 };
 
 
@@ -6035,14 +7109,21 @@ proto.envoy.api.v2.route.RouteAction.prototype.getAutoHostRewrite = function() {
 };
 
 
-/** @param {?proto.google.protobuf.BoolValue|undefined} value */
+/**
+ * @param {?proto.google.protobuf.BoolValue|undefined} value
+ * @return {!proto.envoy.api.v2.route.RouteAction} returns this
+*/
 proto.envoy.api.v2.route.RouteAction.prototype.setAutoHostRewrite = function(value) {
-  jspb.Message.setOneofWrapperField(this, 7, proto.envoy.api.v2.route.RouteAction.oneofGroups_[1], value);
+  return jspb.Message.setOneofWrapperField(this, 7, proto.envoy.api.v2.route.RouteAction.oneofGroups_[1], value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.RouteAction} returns this
+ */
 proto.envoy.api.v2.route.RouteAction.prototype.clearAutoHostRewrite = function() {
-  this.setAutoHostRewrite(undefined);
+  return this.setAutoHostRewrite(undefined);
 };
 
 
@@ -6064,14 +7145,21 @@ proto.envoy.api.v2.route.RouteAction.prototype.getAutoHostRewriteHeader = functi
 };
 
 
-/** @param {string} value */
+/**
+ * @param {string} value
+ * @return {!proto.envoy.api.v2.route.RouteAction} returns this
+ */
 proto.envoy.api.v2.route.RouteAction.prototype.setAutoHostRewriteHeader = function(value) {
-  jspb.Message.setOneofField(this, 29, proto.envoy.api.v2.route.RouteAction.oneofGroups_[1], value);
+  return jspb.Message.setOneofField(this, 29, proto.envoy.api.v2.route.RouteAction.oneofGroups_[1], value);
 };
 
 
+/**
+ * Clears the field making it undefined.
+ * @return {!proto.envoy.api.v2.route.RouteAction} returns this
+ */
 proto.envoy.api.v2.route.RouteAction.prototype.clearAutoHostRewriteHeader = function() {
-  jspb.Message.setOneofField(this, 29, proto.envoy.api.v2.route.RouteAction.oneofGroups_[1], undefined);
+  return jspb.Message.setOneofField(this, 29, proto.envoy.api.v2.route.RouteAction.oneofGroups_[1], undefined);
 };
 
 
@@ -6094,14 +7182,21 @@ proto.envoy.api.v2.route.RouteAction.prototype.getTimeout = function() {
 };
 
 
-/** @param {?proto.google.protobuf.Duration|undefined} value */
+/**
+ * @param {?proto.google.protobuf.Duration|undefined} value
+ * @return {!proto.envoy.api.v2.route.RouteAction} returns this
+*/
 proto.envoy.api.v2.route.RouteAction.prototype.setTimeout = function(value) {
-  jspb.Message.setWrapperField(this, 8, value);
+  return jspb.Message.setWrapperField(this, 8, value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.RouteAction} returns this
+ */
 proto.envoy.api.v2.route.RouteAction.prototype.clearTimeout = function() {
-  this.setTimeout(undefined);
+  return this.setTimeout(undefined);
 };
 
 
@@ -6124,14 +7219,21 @@ proto.envoy.api.v2.route.RouteAction.prototype.getIdleTimeout = function() {
 };
 
 
-/** @param {?proto.google.protobuf.Duration|undefined} value */
+/**
+ * @param {?proto.google.protobuf.Duration|undefined} value
+ * @return {!proto.envoy.api.v2.route.RouteAction} returns this
+*/
 proto.envoy.api.v2.route.RouteAction.prototype.setIdleTimeout = function(value) {
-  jspb.Message.setWrapperField(this, 24, value);
+  return jspb.Message.setWrapperField(this, 24, value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.RouteAction} returns this
+ */
 proto.envoy.api.v2.route.RouteAction.prototype.clearIdleTimeout = function() {
-  this.setIdleTimeout(undefined);
+  return this.setIdleTimeout(undefined);
 };
 
 
@@ -6154,14 +7256,21 @@ proto.envoy.api.v2.route.RouteAction.prototype.getRetryPolicy = function() {
 };
 
 
-/** @param {?proto.envoy.api.v2.route.RetryPolicy|undefined} value */
+/**
+ * @param {?proto.envoy.api.v2.route.RetryPolicy|undefined} value
+ * @return {!proto.envoy.api.v2.route.RouteAction} returns this
+*/
 proto.envoy.api.v2.route.RouteAction.prototype.setRetryPolicy = function(value) {
-  jspb.Message.setWrapperField(this, 9, value);
+  return jspb.Message.setWrapperField(this, 9, value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.RouteAction} returns this
+ */
 proto.envoy.api.v2.route.RouteAction.prototype.clearRetryPolicy = function() {
-  this.setRetryPolicy(undefined);
+  return this.setRetryPolicy(undefined);
 };
 
 
@@ -6184,14 +7293,21 @@ proto.envoy.api.v2.route.RouteAction.prototype.getRequestMirrorPolicy = function
 };
 
 
-/** @param {?proto.envoy.api.v2.route.RouteAction.RequestMirrorPolicy|undefined} value */
+/**
+ * @param {?proto.envoy.api.v2.route.RouteAction.RequestMirrorPolicy|undefined} value
+ * @return {!proto.envoy.api.v2.route.RouteAction} returns this
+*/
 proto.envoy.api.v2.route.RouteAction.prototype.setRequestMirrorPolicy = function(value) {
-  jspb.Message.setWrapperField(this, 10, value);
+  return jspb.Message.setWrapperField(this, 10, value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.RouteAction} returns this
+ */
 proto.envoy.api.v2.route.RouteAction.prototype.clearRequestMirrorPolicy = function() {
-  this.setRequestMirrorPolicy(undefined);
+  return this.setRequestMirrorPolicy(undefined);
 };
 
 
@@ -6213,9 +7329,12 @@ proto.envoy.api.v2.route.RouteAction.prototype.getPriority = function() {
 };
 
 
-/** @param {!proto.envoy.api.v2.core.RoutingPriority} value */
+/**
+ * @param {!proto.envoy.api.v2.core.RoutingPriority} value
+ * @return {!proto.envoy.api.v2.route.RouteAction} returns this
+ */
 proto.envoy.api.v2.route.RouteAction.prototype.setPriority = function(value) {
-  jspb.Message.setProto3EnumField(this, 11, value);
+  return jspb.Message.setProto3EnumField(this, 11, value);
 };
 
 
@@ -6229,9 +7348,12 @@ proto.envoy.api.v2.route.RouteAction.prototype.getRateLimitsList = function() {
 };
 
 
-/** @param {!Array<!proto.envoy.api.v2.route.RateLimit>} value */
+/**
+ * @param {!Array<!proto.envoy.api.v2.route.RateLimit>} value
+ * @return {!proto.envoy.api.v2.route.RouteAction} returns this
+*/
 proto.envoy.api.v2.route.RouteAction.prototype.setRateLimitsList = function(value) {
-  jspb.Message.setRepeatedWrapperField(this, 13, value);
+  return jspb.Message.setRepeatedWrapperField(this, 13, value);
 };
 
 
@@ -6245,8 +7367,12 @@ proto.envoy.api.v2.route.RouteAction.prototype.addRateLimits = function(opt_valu
 };
 
 
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.envoy.api.v2.route.RouteAction} returns this
+ */
 proto.envoy.api.v2.route.RouteAction.prototype.clearRateLimitsList = function() {
-  this.setRateLimitsList([]);
+  return this.setRateLimitsList([]);
 };
 
 
@@ -6260,14 +7386,21 @@ proto.envoy.api.v2.route.RouteAction.prototype.getIncludeVhRateLimits = function
 };
 
 
-/** @param {?proto.google.protobuf.BoolValue|undefined} value */
+/**
+ * @param {?proto.google.protobuf.BoolValue|undefined} value
+ * @return {!proto.envoy.api.v2.route.RouteAction} returns this
+*/
 proto.envoy.api.v2.route.RouteAction.prototype.setIncludeVhRateLimits = function(value) {
-  jspb.Message.setWrapperField(this, 14, value);
+  return jspb.Message.setWrapperField(this, 14, value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.RouteAction} returns this
+ */
 proto.envoy.api.v2.route.RouteAction.prototype.clearIncludeVhRateLimits = function() {
-  this.setIncludeVhRateLimits(undefined);
+  return this.setIncludeVhRateLimits(undefined);
 };
 
 
@@ -6290,9 +7423,12 @@ proto.envoy.api.v2.route.RouteAction.prototype.getHashPolicyList = function() {
 };
 
 
-/** @param {!Array<!proto.envoy.api.v2.route.RouteAction.HashPolicy>} value */
+/**
+ * @param {!Array<!proto.envoy.api.v2.route.RouteAction.HashPolicy>} value
+ * @return {!proto.envoy.api.v2.route.RouteAction} returns this
+*/
 proto.envoy.api.v2.route.RouteAction.prototype.setHashPolicyList = function(value) {
-  jspb.Message.setRepeatedWrapperField(this, 15, value);
+  return jspb.Message.setRepeatedWrapperField(this, 15, value);
 };
 
 
@@ -6306,8 +7442,12 @@ proto.envoy.api.v2.route.RouteAction.prototype.addHashPolicy = function(opt_valu
 };
 
 
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.envoy.api.v2.route.RouteAction} returns this
+ */
 proto.envoy.api.v2.route.RouteAction.prototype.clearHashPolicyList = function() {
-  this.setHashPolicyList([]);
+  return this.setHashPolicyList([]);
 };
 
 
@@ -6321,14 +7461,21 @@ proto.envoy.api.v2.route.RouteAction.prototype.getCors = function() {
 };
 
 
-/** @param {?proto.envoy.api.v2.route.CorsPolicy|undefined} value */
+/**
+ * @param {?proto.envoy.api.v2.route.CorsPolicy|undefined} value
+ * @return {!proto.envoy.api.v2.route.RouteAction} returns this
+*/
 proto.envoy.api.v2.route.RouteAction.prototype.setCors = function(value) {
-  jspb.Message.setWrapperField(this, 17, value);
+  return jspb.Message.setWrapperField(this, 17, value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.RouteAction} returns this
+ */
 proto.envoy.api.v2.route.RouteAction.prototype.clearCors = function() {
-  this.setCors(undefined);
+  return this.setCors(undefined);
 };
 
 
@@ -6351,14 +7498,21 @@ proto.envoy.api.v2.route.RouteAction.prototype.getMaxGrpcTimeout = function() {
 };
 
 
-/** @param {?proto.google.protobuf.Duration|undefined} value */
+/**
+ * @param {?proto.google.protobuf.Duration|undefined} value
+ * @return {!proto.envoy.api.v2.route.RouteAction} returns this
+*/
 proto.envoy.api.v2.route.RouteAction.prototype.setMaxGrpcTimeout = function(value) {
-  jspb.Message.setWrapperField(this, 23, value);
+  return jspb.Message.setWrapperField(this, 23, value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.RouteAction} returns this
+ */
 proto.envoy.api.v2.route.RouteAction.prototype.clearMaxGrpcTimeout = function() {
-  this.setMaxGrpcTimeout(undefined);
+  return this.setMaxGrpcTimeout(undefined);
 };
 
 
@@ -6381,14 +7535,21 @@ proto.envoy.api.v2.route.RouteAction.prototype.getGrpcTimeoutOffset = function()
 };
 
 
-/** @param {?proto.google.protobuf.Duration|undefined} value */
+/**
+ * @param {?proto.google.protobuf.Duration|undefined} value
+ * @return {!proto.envoy.api.v2.route.RouteAction} returns this
+*/
 proto.envoy.api.v2.route.RouteAction.prototype.setGrpcTimeoutOffset = function(value) {
-  jspb.Message.setWrapperField(this, 28, value);
+  return jspb.Message.setWrapperField(this, 28, value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.RouteAction} returns this
+ */
 proto.envoy.api.v2.route.RouteAction.prototype.clearGrpcTimeoutOffset = function() {
-  this.setGrpcTimeoutOffset(undefined);
+  return this.setGrpcTimeoutOffset(undefined);
 };
 
 
@@ -6411,9 +7572,12 @@ proto.envoy.api.v2.route.RouteAction.prototype.getUpgradeConfigsList = function(
 };
 
 
-/** @param {!Array<!proto.envoy.api.v2.route.RouteAction.UpgradeConfig>} value */
+/**
+ * @param {!Array<!proto.envoy.api.v2.route.RouteAction.UpgradeConfig>} value
+ * @return {!proto.envoy.api.v2.route.RouteAction} returns this
+*/
 proto.envoy.api.v2.route.RouteAction.prototype.setUpgradeConfigsList = function(value) {
-  jspb.Message.setRepeatedWrapperField(this, 25, value);
+  return jspb.Message.setRepeatedWrapperField(this, 25, value);
 };
 
 
@@ -6427,8 +7591,12 @@ proto.envoy.api.v2.route.RouteAction.prototype.addUpgradeConfigs = function(opt_
 };
 
 
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.envoy.api.v2.route.RouteAction} returns this
+ */
 proto.envoy.api.v2.route.RouteAction.prototype.clearUpgradeConfigsList = function() {
-  this.setUpgradeConfigsList([]);
+  return this.setUpgradeConfigsList([]);
 };
 
 
@@ -6441,9 +7609,12 @@ proto.envoy.api.v2.route.RouteAction.prototype.getInternalRedirectAction = funct
 };
 
 
-/** @param {!proto.envoy.api.v2.route.RouteAction.InternalRedirectAction} value */
+/**
+ * @param {!proto.envoy.api.v2.route.RouteAction.InternalRedirectAction} value
+ * @return {!proto.envoy.api.v2.route.RouteAction} returns this
+ */
 proto.envoy.api.v2.route.RouteAction.prototype.setInternalRedirectAction = function(value) {
-  jspb.Message.setProto3EnumField(this, 26, value);
+  return jspb.Message.setProto3EnumField(this, 26, value);
 };
 
 
@@ -6457,14 +7628,21 @@ proto.envoy.api.v2.route.RouteAction.prototype.getHedgePolicy = function() {
 };
 
 
-/** @param {?proto.envoy.api.v2.route.HedgePolicy|undefined} value */
+/**
+ * @param {?proto.envoy.api.v2.route.HedgePolicy|undefined} value
+ * @return {!proto.envoy.api.v2.route.RouteAction} returns this
+*/
 proto.envoy.api.v2.route.RouteAction.prototype.setHedgePolicy = function(value) {
-  jspb.Message.setWrapperField(this, 27, value);
+  return jspb.Message.setWrapperField(this, 27, value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.RouteAction} returns this
+ */
 proto.envoy.api.v2.route.RouteAction.prototype.clearHedgePolicy = function() {
-  this.setHedgePolicy(undefined);
+  return this.setHedgePolicy(undefined);
 };
 
 
@@ -6479,23 +7657,6 @@ proto.envoy.api.v2.route.RouteAction.prototype.hasHedgePolicy = function() {
 
 
 /**
- * Generated by JsPbCodeGenerator.
- * @param {Array=} opt_data Optional initial data array, typically from a
- * server response, or constructed directly in Javascript. The array is used
- * in place and becomes part of the constructed object. It is not cloned.
- * If no data is provided, the constructed object will be empty, but still
- * valid.
- * @extends {jspb.Message}
- * @constructor
- */
-proto.envoy.api.v2.route.RetryPolicy = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.envoy.api.v2.route.RetryPolicy.repeatedFields_, null);
-};
-goog.inherits(proto.envoy.api.v2.route.RetryPolicy, jspb.Message);
-if (goog.DEBUG && !COMPILED) {
-  proto.envoy.api.v2.route.RetryPolicy.displayName = 'proto.envoy.api.v2.route.RetryPolicy';
-}
-/**
  * List of repeated fields within this message type.
  * @private {!Array<number>}
  * @const
@@ -6506,13 +7667,15 @@ proto.envoy.api.v2.route.RetryPolicy.repeatedFields_ = [5,7,9,10];
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
 /**
- * Creates an object representation of this proto suitable for use in Soy templates.
+ * Creates an object representation of this proto.
  * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
  * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
  * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
  * @return {!Object}
  */
 proto.envoy.api.v2.route.RetryPolicy.prototype.toObject = function(opt_includeInstance) {
@@ -6522,8 +7685,8 @@ proto.envoy.api.v2.route.RetryPolicy.prototype.toObject = function(opt_includeIn
 
 /**
  * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
  * @param {!proto.envoy.api.v2.route.RetryPolicy} msg The msg instance to transform.
  * @return {!Object}
@@ -6538,7 +7701,7 @@ proto.envoy.api.v2.route.RetryPolicy.toObject = function(includeInstance, msg) {
     retryHostPredicateList: jspb.Message.toObjectList(msg.getRetryHostPredicateList(),
     proto.envoy.api.v2.route.RetryPolicy.RetryHostPredicate.toObject, includeInstance),
     hostSelectionRetryMaxAttempts: jspb.Message.getFieldWithDefault(msg, 6, 0),
-    retriableStatusCodesList: jspb.Message.getRepeatedField(msg, 7),
+    retriableStatusCodesList: (f = jspb.Message.getRepeatedField(msg, 7)) == null ? undefined : f,
     retryBackOff: (f = msg.getRetryBackOff()) && proto.envoy.api.v2.route.RetryPolicy.RetryBackOff.toObject(includeInstance, f),
     retriableHeadersList: jspb.Message.toObjectList(msg.getRetriableHeadersList(),
     proto.envoy.api.v2.route.HeaderMatcher.toObject, includeInstance),
@@ -6738,23 +7901,6 @@ proto.envoy.api.v2.route.RetryPolicy.serializeBinaryToWriter = function(message,
 
 
 /**
- * Generated by JsPbCodeGenerator.
- * @param {Array=} opt_data Optional initial data array, typically from a
- * server response, or constructed directly in Javascript. The array is used
- * in place and becomes part of the constructed object. It is not cloned.
- * If no data is provided, the constructed object will be empty, but still
- * valid.
- * @extends {jspb.Message}
- * @constructor
- */
-proto.envoy.api.v2.route.RetryPolicy.RetryPriority = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, null, proto.envoy.api.v2.route.RetryPolicy.RetryPriority.oneofGroups_);
-};
-goog.inherits(proto.envoy.api.v2.route.RetryPolicy.RetryPriority, jspb.Message);
-if (goog.DEBUG && !COMPILED) {
-  proto.envoy.api.v2.route.RetryPolicy.RetryPriority.displayName = 'proto.envoy.api.v2.route.RetryPolicy.RetryPriority';
-}
-/**
  * Oneof group definitions for this message. Each group defines the field
  * numbers belonging to that group. When of these fields' value is set, all
  * other fields in the group are cleared. During deserialization, if multiple
@@ -6784,13 +7930,15 @@ proto.envoy.api.v2.route.RetryPolicy.RetryPriority.prototype.getConfigTypeCase =
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
 /**
- * Creates an object representation of this proto suitable for use in Soy templates.
+ * Creates an object representation of this proto.
  * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
  * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
  * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
  * @return {!Object}
  */
 proto.envoy.api.v2.route.RetryPolicy.RetryPriority.prototype.toObject = function(opt_includeInstance) {
@@ -6800,8 +7948,8 @@ proto.envoy.api.v2.route.RetryPolicy.RetryPriority.prototype.toObject = function
 
 /**
  * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
  * @param {!proto.envoy.api.v2.route.RetryPolicy.RetryPriority} msg The msg instance to transform.
  * @return {!Object}
@@ -6926,9 +8074,12 @@ proto.envoy.api.v2.route.RetryPolicy.RetryPriority.prototype.getName = function(
 };
 
 
-/** @param {string} value */
+/**
+ * @param {string} value
+ * @return {!proto.envoy.api.v2.route.RetryPolicy.RetryPriority} returns this
+ */
 proto.envoy.api.v2.route.RetryPolicy.RetryPriority.prototype.setName = function(value) {
-  jspb.Message.setProto3StringField(this, 1, value);
+  return jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
@@ -6942,14 +8093,21 @@ proto.envoy.api.v2.route.RetryPolicy.RetryPriority.prototype.getConfig = functio
 };
 
 
-/** @param {?proto.google.protobuf.Struct|undefined} value */
+/**
+ * @param {?proto.google.protobuf.Struct|undefined} value
+ * @return {!proto.envoy.api.v2.route.RetryPolicy.RetryPriority} returns this
+*/
 proto.envoy.api.v2.route.RetryPolicy.RetryPriority.prototype.setConfig = function(value) {
-  jspb.Message.setOneofWrapperField(this, 2, proto.envoy.api.v2.route.RetryPolicy.RetryPriority.oneofGroups_[0], value);
+  return jspb.Message.setOneofWrapperField(this, 2, proto.envoy.api.v2.route.RetryPolicy.RetryPriority.oneofGroups_[0], value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.RetryPolicy.RetryPriority} returns this
+ */
 proto.envoy.api.v2.route.RetryPolicy.RetryPriority.prototype.clearConfig = function() {
-  this.setConfig(undefined);
+  return this.setConfig(undefined);
 };
 
 
@@ -6972,14 +8130,21 @@ proto.envoy.api.v2.route.RetryPolicy.RetryPriority.prototype.getTypedConfig = fu
 };
 
 
-/** @param {?proto.google.protobuf.Any|undefined} value */
+/**
+ * @param {?proto.google.protobuf.Any|undefined} value
+ * @return {!proto.envoy.api.v2.route.RetryPolicy.RetryPriority} returns this
+*/
 proto.envoy.api.v2.route.RetryPolicy.RetryPriority.prototype.setTypedConfig = function(value) {
-  jspb.Message.setOneofWrapperField(this, 3, proto.envoy.api.v2.route.RetryPolicy.RetryPriority.oneofGroups_[0], value);
+  return jspb.Message.setOneofWrapperField(this, 3, proto.envoy.api.v2.route.RetryPolicy.RetryPriority.oneofGroups_[0], value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.RetryPolicy.RetryPriority} returns this
+ */
 proto.envoy.api.v2.route.RetryPolicy.RetryPriority.prototype.clearTypedConfig = function() {
-  this.setTypedConfig(undefined);
+  return this.setTypedConfig(undefined);
 };
 
 
@@ -6993,23 +8158,6 @@ proto.envoy.api.v2.route.RetryPolicy.RetryPriority.prototype.hasTypedConfig = fu
 
 
 
-/**
- * Generated by JsPbCodeGenerator.
- * @param {Array=} opt_data Optional initial data array, typically from a
- * server response, or constructed directly in Javascript. The array is used
- * in place and becomes part of the constructed object. It is not cloned.
- * If no data is provided, the constructed object will be empty, but still
- * valid.
- * @extends {jspb.Message}
- * @constructor
- */
-proto.envoy.api.v2.route.RetryPolicy.RetryHostPredicate = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, null, proto.envoy.api.v2.route.RetryPolicy.RetryHostPredicate.oneofGroups_);
-};
-goog.inherits(proto.envoy.api.v2.route.RetryPolicy.RetryHostPredicate, jspb.Message);
-if (goog.DEBUG && !COMPILED) {
-  proto.envoy.api.v2.route.RetryPolicy.RetryHostPredicate.displayName = 'proto.envoy.api.v2.route.RetryPolicy.RetryHostPredicate';
-}
 /**
  * Oneof group definitions for this message. Each group defines the field
  * numbers belonging to that group. When of these fields' value is set, all
@@ -7040,13 +8188,15 @@ proto.envoy.api.v2.route.RetryPolicy.RetryHostPredicate.prototype.getConfigTypeC
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
 /**
- * Creates an object representation of this proto suitable for use in Soy templates.
+ * Creates an object representation of this proto.
  * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
  * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
  * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
  * @return {!Object}
  */
 proto.envoy.api.v2.route.RetryPolicy.RetryHostPredicate.prototype.toObject = function(opt_includeInstance) {
@@ -7056,8 +8206,8 @@ proto.envoy.api.v2.route.RetryPolicy.RetryHostPredicate.prototype.toObject = fun
 
 /**
  * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
  * @param {!proto.envoy.api.v2.route.RetryPolicy.RetryHostPredicate} msg The msg instance to transform.
  * @return {!Object}
@@ -7182,9 +8332,12 @@ proto.envoy.api.v2.route.RetryPolicy.RetryHostPredicate.prototype.getName = func
 };
 
 
-/** @param {string} value */
+/**
+ * @param {string} value
+ * @return {!proto.envoy.api.v2.route.RetryPolicy.RetryHostPredicate} returns this
+ */
 proto.envoy.api.v2.route.RetryPolicy.RetryHostPredicate.prototype.setName = function(value) {
-  jspb.Message.setProto3StringField(this, 1, value);
+  return jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
@@ -7198,14 +8351,21 @@ proto.envoy.api.v2.route.RetryPolicy.RetryHostPredicate.prototype.getConfig = fu
 };
 
 
-/** @param {?proto.google.protobuf.Struct|undefined} value */
+/**
+ * @param {?proto.google.protobuf.Struct|undefined} value
+ * @return {!proto.envoy.api.v2.route.RetryPolicy.RetryHostPredicate} returns this
+*/
 proto.envoy.api.v2.route.RetryPolicy.RetryHostPredicate.prototype.setConfig = function(value) {
-  jspb.Message.setOneofWrapperField(this, 2, proto.envoy.api.v2.route.RetryPolicy.RetryHostPredicate.oneofGroups_[0], value);
+  return jspb.Message.setOneofWrapperField(this, 2, proto.envoy.api.v2.route.RetryPolicy.RetryHostPredicate.oneofGroups_[0], value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.RetryPolicy.RetryHostPredicate} returns this
+ */
 proto.envoy.api.v2.route.RetryPolicy.RetryHostPredicate.prototype.clearConfig = function() {
-  this.setConfig(undefined);
+  return this.setConfig(undefined);
 };
 
 
@@ -7228,14 +8388,21 @@ proto.envoy.api.v2.route.RetryPolicy.RetryHostPredicate.prototype.getTypedConfig
 };
 
 
-/** @param {?proto.google.protobuf.Any|undefined} value */
+/**
+ * @param {?proto.google.protobuf.Any|undefined} value
+ * @return {!proto.envoy.api.v2.route.RetryPolicy.RetryHostPredicate} returns this
+*/
 proto.envoy.api.v2.route.RetryPolicy.RetryHostPredicate.prototype.setTypedConfig = function(value) {
-  jspb.Message.setOneofWrapperField(this, 3, proto.envoy.api.v2.route.RetryPolicy.RetryHostPredicate.oneofGroups_[0], value);
+  return jspb.Message.setOneofWrapperField(this, 3, proto.envoy.api.v2.route.RetryPolicy.RetryHostPredicate.oneofGroups_[0], value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.RetryPolicy.RetryHostPredicate} returns this
+ */
 proto.envoy.api.v2.route.RetryPolicy.RetryHostPredicate.prototype.clearTypedConfig = function() {
-  this.setTypedConfig(undefined);
+  return this.setTypedConfig(undefined);
 };
 
 
@@ -7249,34 +8416,19 @@ proto.envoy.api.v2.route.RetryPolicy.RetryHostPredicate.prototype.hasTypedConfig
 
 
 
-/**
- * Generated by JsPbCodeGenerator.
- * @param {Array=} opt_data Optional initial data array, typically from a
- * server response, or constructed directly in Javascript. The array is used
- * in place and becomes part of the constructed object. It is not cloned.
- * If no data is provided, the constructed object will be empty, but still
- * valid.
- * @extends {jspb.Message}
- * @constructor
- */
-proto.envoy.api.v2.route.RetryPolicy.RetryBackOff = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
-};
-goog.inherits(proto.envoy.api.v2.route.RetryPolicy.RetryBackOff, jspb.Message);
-if (goog.DEBUG && !COMPILED) {
-  proto.envoy.api.v2.route.RetryPolicy.RetryBackOff.displayName = 'proto.envoy.api.v2.route.RetryPolicy.RetryBackOff';
-}
 
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
 /**
- * Creates an object representation of this proto suitable for use in Soy templates.
+ * Creates an object representation of this proto.
  * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
  * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
  * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
  * @return {!Object}
  */
 proto.envoy.api.v2.route.RetryPolicy.RetryBackOff.prototype.toObject = function(opt_includeInstance) {
@@ -7286,8 +8438,8 @@ proto.envoy.api.v2.route.RetryPolicy.RetryBackOff.prototype.toObject = function(
 
 /**
  * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
  * @param {!proto.envoy.api.v2.route.RetryPolicy.RetryBackOff} msg The msg instance to transform.
  * @return {!Object}
@@ -7401,14 +8553,21 @@ proto.envoy.api.v2.route.RetryPolicy.RetryBackOff.prototype.getBaseInterval = fu
 };
 
 
-/** @param {?proto.google.protobuf.Duration|undefined} value */
+/**
+ * @param {?proto.google.protobuf.Duration|undefined} value
+ * @return {!proto.envoy.api.v2.route.RetryPolicy.RetryBackOff} returns this
+*/
 proto.envoy.api.v2.route.RetryPolicy.RetryBackOff.prototype.setBaseInterval = function(value) {
-  jspb.Message.setWrapperField(this, 1, value);
+  return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.RetryPolicy.RetryBackOff} returns this
+ */
 proto.envoy.api.v2.route.RetryPolicy.RetryBackOff.prototype.clearBaseInterval = function() {
-  this.setBaseInterval(undefined);
+  return this.setBaseInterval(undefined);
 };
 
 
@@ -7431,14 +8590,21 @@ proto.envoy.api.v2.route.RetryPolicy.RetryBackOff.prototype.getMaxInterval = fun
 };
 
 
-/** @param {?proto.google.protobuf.Duration|undefined} value */
+/**
+ * @param {?proto.google.protobuf.Duration|undefined} value
+ * @return {!proto.envoy.api.v2.route.RetryPolicy.RetryBackOff} returns this
+*/
 proto.envoy.api.v2.route.RetryPolicy.RetryBackOff.prototype.setMaxInterval = function(value) {
-  jspb.Message.setWrapperField(this, 2, value);
+  return jspb.Message.setWrapperField(this, 2, value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.RetryPolicy.RetryBackOff} returns this
+ */
 proto.envoy.api.v2.route.RetryPolicy.RetryBackOff.prototype.clearMaxInterval = function() {
-  this.setMaxInterval(undefined);
+  return this.setMaxInterval(undefined);
 };
 
 
@@ -7460,9 +8626,12 @@ proto.envoy.api.v2.route.RetryPolicy.prototype.getRetryOn = function() {
 };
 
 
-/** @param {string} value */
+/**
+ * @param {string} value
+ * @return {!proto.envoy.api.v2.route.RetryPolicy} returns this
+ */
 proto.envoy.api.v2.route.RetryPolicy.prototype.setRetryOn = function(value) {
-  jspb.Message.setProto3StringField(this, 1, value);
+  return jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
@@ -7476,14 +8645,21 @@ proto.envoy.api.v2.route.RetryPolicy.prototype.getNumRetries = function() {
 };
 
 
-/** @param {?proto.google.protobuf.UInt32Value|undefined} value */
+/**
+ * @param {?proto.google.protobuf.UInt32Value|undefined} value
+ * @return {!proto.envoy.api.v2.route.RetryPolicy} returns this
+*/
 proto.envoy.api.v2.route.RetryPolicy.prototype.setNumRetries = function(value) {
-  jspb.Message.setWrapperField(this, 2, value);
+  return jspb.Message.setWrapperField(this, 2, value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.RetryPolicy} returns this
+ */
 proto.envoy.api.v2.route.RetryPolicy.prototype.clearNumRetries = function() {
-  this.setNumRetries(undefined);
+  return this.setNumRetries(undefined);
 };
 
 
@@ -7506,14 +8682,21 @@ proto.envoy.api.v2.route.RetryPolicy.prototype.getPerTryTimeout = function() {
 };
 
 
-/** @param {?proto.google.protobuf.Duration|undefined} value */
+/**
+ * @param {?proto.google.protobuf.Duration|undefined} value
+ * @return {!proto.envoy.api.v2.route.RetryPolicy} returns this
+*/
 proto.envoy.api.v2.route.RetryPolicy.prototype.setPerTryTimeout = function(value) {
-  jspb.Message.setWrapperField(this, 3, value);
+  return jspb.Message.setWrapperField(this, 3, value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.RetryPolicy} returns this
+ */
 proto.envoy.api.v2.route.RetryPolicy.prototype.clearPerTryTimeout = function() {
-  this.setPerTryTimeout(undefined);
+  return this.setPerTryTimeout(undefined);
 };
 
 
@@ -7536,14 +8719,21 @@ proto.envoy.api.v2.route.RetryPolicy.prototype.getRetryPriority = function() {
 };
 
 
-/** @param {?proto.envoy.api.v2.route.RetryPolicy.RetryPriority|undefined} value */
+/**
+ * @param {?proto.envoy.api.v2.route.RetryPolicy.RetryPriority|undefined} value
+ * @return {!proto.envoy.api.v2.route.RetryPolicy} returns this
+*/
 proto.envoy.api.v2.route.RetryPolicy.prototype.setRetryPriority = function(value) {
-  jspb.Message.setWrapperField(this, 4, value);
+  return jspb.Message.setWrapperField(this, 4, value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.RetryPolicy} returns this
+ */
 proto.envoy.api.v2.route.RetryPolicy.prototype.clearRetryPriority = function() {
-  this.setRetryPriority(undefined);
+  return this.setRetryPriority(undefined);
 };
 
 
@@ -7566,9 +8756,12 @@ proto.envoy.api.v2.route.RetryPolicy.prototype.getRetryHostPredicateList = funct
 };
 
 
-/** @param {!Array<!proto.envoy.api.v2.route.RetryPolicy.RetryHostPredicate>} value */
+/**
+ * @param {!Array<!proto.envoy.api.v2.route.RetryPolicy.RetryHostPredicate>} value
+ * @return {!proto.envoy.api.v2.route.RetryPolicy} returns this
+*/
 proto.envoy.api.v2.route.RetryPolicy.prototype.setRetryHostPredicateList = function(value) {
-  jspb.Message.setRepeatedWrapperField(this, 5, value);
+  return jspb.Message.setRepeatedWrapperField(this, 5, value);
 };
 
 
@@ -7582,8 +8775,12 @@ proto.envoy.api.v2.route.RetryPolicy.prototype.addRetryHostPredicate = function(
 };
 
 
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.envoy.api.v2.route.RetryPolicy} returns this
+ */
 proto.envoy.api.v2.route.RetryPolicy.prototype.clearRetryHostPredicateList = function() {
-  this.setRetryHostPredicateList([]);
+  return this.setRetryHostPredicateList([]);
 };
 
 
@@ -7596,9 +8793,12 @@ proto.envoy.api.v2.route.RetryPolicy.prototype.getHostSelectionRetryMaxAttempts 
 };
 
 
-/** @param {number} value */
+/**
+ * @param {number} value
+ * @return {!proto.envoy.api.v2.route.RetryPolicy} returns this
+ */
 proto.envoy.api.v2.route.RetryPolicy.prototype.setHostSelectionRetryMaxAttempts = function(value) {
-  jspb.Message.setProto3IntField(this, 6, value);
+  return jspb.Message.setProto3IntField(this, 6, value);
 };
 
 
@@ -7611,23 +8811,31 @@ proto.envoy.api.v2.route.RetryPolicy.prototype.getRetriableStatusCodesList = fun
 };
 
 
-/** @param {!Array<number>} value */
+/**
+ * @param {!Array<number>} value
+ * @return {!proto.envoy.api.v2.route.RetryPolicy} returns this
+ */
 proto.envoy.api.v2.route.RetryPolicy.prototype.setRetriableStatusCodesList = function(value) {
-  jspb.Message.setField(this, 7, value || []);
+  return jspb.Message.setField(this, 7, value || []);
 };
 
 
 /**
  * @param {number} value
  * @param {number=} opt_index
+ * @return {!proto.envoy.api.v2.route.RetryPolicy} returns this
  */
 proto.envoy.api.v2.route.RetryPolicy.prototype.addRetriableStatusCodes = function(value, opt_index) {
-  jspb.Message.addToRepeatedField(this, 7, value, opt_index);
+  return jspb.Message.addToRepeatedField(this, 7, value, opt_index);
 };
 
 
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.envoy.api.v2.route.RetryPolicy} returns this
+ */
 proto.envoy.api.v2.route.RetryPolicy.prototype.clearRetriableStatusCodesList = function() {
-  this.setRetriableStatusCodesList([]);
+  return this.setRetriableStatusCodesList([]);
 };
 
 
@@ -7641,14 +8849,21 @@ proto.envoy.api.v2.route.RetryPolicy.prototype.getRetryBackOff = function() {
 };
 
 
-/** @param {?proto.envoy.api.v2.route.RetryPolicy.RetryBackOff|undefined} value */
+/**
+ * @param {?proto.envoy.api.v2.route.RetryPolicy.RetryBackOff|undefined} value
+ * @return {!proto.envoy.api.v2.route.RetryPolicy} returns this
+*/
 proto.envoy.api.v2.route.RetryPolicy.prototype.setRetryBackOff = function(value) {
-  jspb.Message.setWrapperField(this, 8, value);
+  return jspb.Message.setWrapperField(this, 8, value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.RetryPolicy} returns this
+ */
 proto.envoy.api.v2.route.RetryPolicy.prototype.clearRetryBackOff = function() {
-  this.setRetryBackOff(undefined);
+  return this.setRetryBackOff(undefined);
 };
 
 
@@ -7671,9 +8886,12 @@ proto.envoy.api.v2.route.RetryPolicy.prototype.getRetriableHeadersList = functio
 };
 
 
-/** @param {!Array<!proto.envoy.api.v2.route.HeaderMatcher>} value */
+/**
+ * @param {!Array<!proto.envoy.api.v2.route.HeaderMatcher>} value
+ * @return {!proto.envoy.api.v2.route.RetryPolicy} returns this
+*/
 proto.envoy.api.v2.route.RetryPolicy.prototype.setRetriableHeadersList = function(value) {
-  jspb.Message.setRepeatedWrapperField(this, 9, value);
+  return jspb.Message.setRepeatedWrapperField(this, 9, value);
 };
 
 
@@ -7687,8 +8905,12 @@ proto.envoy.api.v2.route.RetryPolicy.prototype.addRetriableHeaders = function(op
 };
 
 
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.envoy.api.v2.route.RetryPolicy} returns this
+ */
 proto.envoy.api.v2.route.RetryPolicy.prototype.clearRetriableHeadersList = function() {
-  this.setRetriableHeadersList([]);
+  return this.setRetriableHeadersList([]);
 };
 
 
@@ -7702,9 +8924,12 @@ proto.envoy.api.v2.route.RetryPolicy.prototype.getRetriableRequestHeadersList = 
 };
 
 
-/** @param {!Array<!proto.envoy.api.v2.route.HeaderMatcher>} value */
+/**
+ * @param {!Array<!proto.envoy.api.v2.route.HeaderMatcher>} value
+ * @return {!proto.envoy.api.v2.route.RetryPolicy} returns this
+*/
 proto.envoy.api.v2.route.RetryPolicy.prototype.setRetriableRequestHeadersList = function(value) {
-  jspb.Message.setRepeatedWrapperField(this, 10, value);
+  return jspb.Message.setRepeatedWrapperField(this, 10, value);
 };
 
 
@@ -7718,40 +8943,29 @@ proto.envoy.api.v2.route.RetryPolicy.prototype.addRetriableRequestHeaders = func
 };
 
 
-proto.envoy.api.v2.route.RetryPolicy.prototype.clearRetriableRequestHeadersList = function() {
-  this.setRetriableRequestHeadersList([]);
-};
-
-
-
 /**
- * Generated by JsPbCodeGenerator.
- * @param {Array=} opt_data Optional initial data array, typically from a
- * server response, or constructed directly in Javascript. The array is used
- * in place and becomes part of the constructed object. It is not cloned.
- * If no data is provided, the constructed object will be empty, but still
- * valid.
- * @extends {jspb.Message}
- * @constructor
+ * Clears the list making it empty but non-null.
+ * @return {!proto.envoy.api.v2.route.RetryPolicy} returns this
  */
-proto.envoy.api.v2.route.HedgePolicy = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+proto.envoy.api.v2.route.RetryPolicy.prototype.clearRetriableRequestHeadersList = function() {
+  return this.setRetriableRequestHeadersList([]);
 };
-goog.inherits(proto.envoy.api.v2.route.HedgePolicy, jspb.Message);
-if (goog.DEBUG && !COMPILED) {
-  proto.envoy.api.v2.route.HedgePolicy.displayName = 'proto.envoy.api.v2.route.HedgePolicy';
-}
+
+
+
 
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
 /**
- * Creates an object representation of this proto suitable for use in Soy templates.
+ * Creates an object representation of this proto.
  * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
  * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
  * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
  * @return {!Object}
  */
 proto.envoy.api.v2.route.HedgePolicy.prototype.toObject = function(opt_includeInstance) {
@@ -7761,8 +8975,8 @@ proto.envoy.api.v2.route.HedgePolicy.prototype.toObject = function(opt_includeIn
 
 /**
  * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
  * @param {!proto.envoy.api.v2.route.HedgePolicy} msg The msg instance to transform.
  * @return {!Object}
@@ -7772,7 +8986,7 @@ proto.envoy.api.v2.route.HedgePolicy.toObject = function(includeInstance, msg) {
   var f, obj = {
     initialRequests: (f = msg.getInitialRequests()) && google_protobuf_wrappers_pb.UInt32Value.toObject(includeInstance, f),
     additionalRequestChance: (f = msg.getAdditionalRequestChance()) && envoy_type_percent_pb.FractionalPercent.toObject(includeInstance, f),
-    hedgeOnPerTryTimeout: jspb.Message.getFieldWithDefault(msg, 3, false)
+    hedgeOnPerTryTimeout: jspb.Message.getBooleanFieldWithDefault(msg, 3, false)
   };
 
   if (includeInstance) {
@@ -7888,14 +9102,21 @@ proto.envoy.api.v2.route.HedgePolicy.prototype.getInitialRequests = function() {
 };
 
 
-/** @param {?proto.google.protobuf.UInt32Value|undefined} value */
+/**
+ * @param {?proto.google.protobuf.UInt32Value|undefined} value
+ * @return {!proto.envoy.api.v2.route.HedgePolicy} returns this
+*/
 proto.envoy.api.v2.route.HedgePolicy.prototype.setInitialRequests = function(value) {
-  jspb.Message.setWrapperField(this, 1, value);
+  return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.HedgePolicy} returns this
+ */
 proto.envoy.api.v2.route.HedgePolicy.prototype.clearInitialRequests = function() {
-  this.setInitialRequests(undefined);
+  return this.setInitialRequests(undefined);
 };
 
 
@@ -7918,14 +9139,21 @@ proto.envoy.api.v2.route.HedgePolicy.prototype.getAdditionalRequestChance = func
 };
 
 
-/** @param {?proto.envoy.type.FractionalPercent|undefined} value */
+/**
+ * @param {?proto.envoy.type.FractionalPercent|undefined} value
+ * @return {!proto.envoy.api.v2.route.HedgePolicy} returns this
+*/
 proto.envoy.api.v2.route.HedgePolicy.prototype.setAdditionalRequestChance = function(value) {
-  jspb.Message.setWrapperField(this, 2, value);
+  return jspb.Message.setWrapperField(this, 2, value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.HedgePolicy} returns this
+ */
 proto.envoy.api.v2.route.HedgePolicy.prototype.clearAdditionalRequestChance = function() {
-  this.setAdditionalRequestChance(undefined);
+  return this.setAdditionalRequestChance(undefined);
 };
 
 
@@ -7940,39 +9168,23 @@ proto.envoy.api.v2.route.HedgePolicy.prototype.hasAdditionalRequestChance = func
 
 /**
  * optional bool hedge_on_per_try_timeout = 3;
- * Note that Boolean fields may be set to 0/1 when serialized from a Java server.
- * You should avoid comparisons like {@code val === true/false} in those cases.
  * @return {boolean}
  */
 proto.envoy.api.v2.route.HedgePolicy.prototype.getHedgeOnPerTryTimeout = function() {
-  return /** @type {boolean} */ (jspb.Message.getFieldWithDefault(this, 3, false));
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 3, false));
 };
-
-
-/** @param {boolean} value */
-proto.envoy.api.v2.route.HedgePolicy.prototype.setHedgeOnPerTryTimeout = function(value) {
-  jspb.Message.setProto3BooleanField(this, 3, value);
-};
-
 
 
 /**
- * Generated by JsPbCodeGenerator.
- * @param {Array=} opt_data Optional initial data array, typically from a
- * server response, or constructed directly in Javascript. The array is used
- * in place and becomes part of the constructed object. It is not cloned.
- * If no data is provided, the constructed object will be empty, but still
- * valid.
- * @extends {jspb.Message}
- * @constructor
+ * @param {boolean} value
+ * @return {!proto.envoy.api.v2.route.HedgePolicy} returns this
  */
-proto.envoy.api.v2.route.RedirectAction = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, null, proto.envoy.api.v2.route.RedirectAction.oneofGroups_);
+proto.envoy.api.v2.route.HedgePolicy.prototype.setHedgeOnPerTryTimeout = function(value) {
+  return jspb.Message.setProto3BooleanField(this, 3, value);
 };
-goog.inherits(proto.envoy.api.v2.route.RedirectAction, jspb.Message);
-if (goog.DEBUG && !COMPILED) {
-  proto.envoy.api.v2.route.RedirectAction.displayName = 'proto.envoy.api.v2.route.RedirectAction';
-}
+
+
+
 /**
  * Oneof group definitions for this message. Each group defines the field
  * numbers belonging to that group. When of these fields' value is set, all
@@ -8019,13 +9231,15 @@ proto.envoy.api.v2.route.RedirectAction.prototype.getPathRewriteSpecifierCase = 
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
 /**
- * Creates an object representation of this proto suitable for use in Soy templates.
+ * Creates an object representation of this proto.
  * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
  * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
  * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
  * @return {!Object}
  */
 proto.envoy.api.v2.route.RedirectAction.prototype.toObject = function(opt_includeInstance) {
@@ -8035,8 +9249,8 @@ proto.envoy.api.v2.route.RedirectAction.prototype.toObject = function(opt_includ
 
 /**
  * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
  * @param {!proto.envoy.api.v2.route.RedirectAction} msg The msg instance to transform.
  * @return {!Object}
@@ -8044,14 +9258,14 @@ proto.envoy.api.v2.route.RedirectAction.prototype.toObject = function(opt_includ
  */
 proto.envoy.api.v2.route.RedirectAction.toObject = function(includeInstance, msg) {
   var f, obj = {
-    httpsRedirect: jspb.Message.getFieldWithDefault(msg, 4, false),
+    httpsRedirect: jspb.Message.getBooleanFieldWithDefault(msg, 4, false),
     schemeRedirect: jspb.Message.getFieldWithDefault(msg, 7, ""),
     hostRedirect: jspb.Message.getFieldWithDefault(msg, 1, ""),
     portRedirect: jspb.Message.getFieldWithDefault(msg, 8, 0),
     pathRedirect: jspb.Message.getFieldWithDefault(msg, 2, ""),
     prefixRewrite: jspb.Message.getFieldWithDefault(msg, 5, ""),
     responseCode: jspb.Message.getFieldWithDefault(msg, 3, 0),
-    stripQuery: jspb.Message.getFieldWithDefault(msg, 6, false)
+    stripQuery: jspb.Message.getBooleanFieldWithDefault(msg, 6, false)
   };
 
   if (includeInstance) {
@@ -8221,23 +9435,28 @@ proto.envoy.api.v2.route.RedirectAction.RedirectResponseCode = {
 
 /**
  * optional bool https_redirect = 4;
- * Note that Boolean fields may be set to 0/1 when serialized from a Java server.
- * You should avoid comparisons like {@code val === true/false} in those cases.
  * @return {boolean}
  */
 proto.envoy.api.v2.route.RedirectAction.prototype.getHttpsRedirect = function() {
-  return /** @type {boolean} */ (jspb.Message.getFieldWithDefault(this, 4, false));
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 4, false));
 };
 
 
-/** @param {boolean} value */
+/**
+ * @param {boolean} value
+ * @return {!proto.envoy.api.v2.route.RedirectAction} returns this
+ */
 proto.envoy.api.v2.route.RedirectAction.prototype.setHttpsRedirect = function(value) {
-  jspb.Message.setOneofField(this, 4, proto.envoy.api.v2.route.RedirectAction.oneofGroups_[0], value);
+  return jspb.Message.setOneofField(this, 4, proto.envoy.api.v2.route.RedirectAction.oneofGroups_[0], value);
 };
 
 
+/**
+ * Clears the field making it undefined.
+ * @return {!proto.envoy.api.v2.route.RedirectAction} returns this
+ */
 proto.envoy.api.v2.route.RedirectAction.prototype.clearHttpsRedirect = function() {
-  jspb.Message.setOneofField(this, 4, proto.envoy.api.v2.route.RedirectAction.oneofGroups_[0], undefined);
+  return jspb.Message.setOneofField(this, 4, proto.envoy.api.v2.route.RedirectAction.oneofGroups_[0], undefined);
 };
 
 
@@ -8259,14 +9478,21 @@ proto.envoy.api.v2.route.RedirectAction.prototype.getSchemeRedirect = function()
 };
 
 
-/** @param {string} value */
+/**
+ * @param {string} value
+ * @return {!proto.envoy.api.v2.route.RedirectAction} returns this
+ */
 proto.envoy.api.v2.route.RedirectAction.prototype.setSchemeRedirect = function(value) {
-  jspb.Message.setOneofField(this, 7, proto.envoy.api.v2.route.RedirectAction.oneofGroups_[0], value);
+  return jspb.Message.setOneofField(this, 7, proto.envoy.api.v2.route.RedirectAction.oneofGroups_[0], value);
 };
 
 
+/**
+ * Clears the field making it undefined.
+ * @return {!proto.envoy.api.v2.route.RedirectAction} returns this
+ */
 proto.envoy.api.v2.route.RedirectAction.prototype.clearSchemeRedirect = function() {
-  jspb.Message.setOneofField(this, 7, proto.envoy.api.v2.route.RedirectAction.oneofGroups_[0], undefined);
+  return jspb.Message.setOneofField(this, 7, proto.envoy.api.v2.route.RedirectAction.oneofGroups_[0], undefined);
 };
 
 
@@ -8288,9 +9514,12 @@ proto.envoy.api.v2.route.RedirectAction.prototype.getHostRedirect = function() {
 };
 
 
-/** @param {string} value */
+/**
+ * @param {string} value
+ * @return {!proto.envoy.api.v2.route.RedirectAction} returns this
+ */
 proto.envoy.api.v2.route.RedirectAction.prototype.setHostRedirect = function(value) {
-  jspb.Message.setProto3StringField(this, 1, value);
+  return jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
@@ -8303,9 +9532,12 @@ proto.envoy.api.v2.route.RedirectAction.prototype.getPortRedirect = function() {
 };
 
 
-/** @param {number} value */
+/**
+ * @param {number} value
+ * @return {!proto.envoy.api.v2.route.RedirectAction} returns this
+ */
 proto.envoy.api.v2.route.RedirectAction.prototype.setPortRedirect = function(value) {
-  jspb.Message.setProto3IntField(this, 8, value);
+  return jspb.Message.setProto3IntField(this, 8, value);
 };
 
 
@@ -8318,14 +9550,21 @@ proto.envoy.api.v2.route.RedirectAction.prototype.getPathRedirect = function() {
 };
 
 
-/** @param {string} value */
+/**
+ * @param {string} value
+ * @return {!proto.envoy.api.v2.route.RedirectAction} returns this
+ */
 proto.envoy.api.v2.route.RedirectAction.prototype.setPathRedirect = function(value) {
-  jspb.Message.setOneofField(this, 2, proto.envoy.api.v2.route.RedirectAction.oneofGroups_[1], value);
+  return jspb.Message.setOneofField(this, 2, proto.envoy.api.v2.route.RedirectAction.oneofGroups_[1], value);
 };
 
 
+/**
+ * Clears the field making it undefined.
+ * @return {!proto.envoy.api.v2.route.RedirectAction} returns this
+ */
 proto.envoy.api.v2.route.RedirectAction.prototype.clearPathRedirect = function() {
-  jspb.Message.setOneofField(this, 2, proto.envoy.api.v2.route.RedirectAction.oneofGroups_[1], undefined);
+  return jspb.Message.setOneofField(this, 2, proto.envoy.api.v2.route.RedirectAction.oneofGroups_[1], undefined);
 };
 
 
@@ -8347,14 +9586,21 @@ proto.envoy.api.v2.route.RedirectAction.prototype.getPrefixRewrite = function() 
 };
 
 
-/** @param {string} value */
+/**
+ * @param {string} value
+ * @return {!proto.envoy.api.v2.route.RedirectAction} returns this
+ */
 proto.envoy.api.v2.route.RedirectAction.prototype.setPrefixRewrite = function(value) {
-  jspb.Message.setOneofField(this, 5, proto.envoy.api.v2.route.RedirectAction.oneofGroups_[1], value);
+  return jspb.Message.setOneofField(this, 5, proto.envoy.api.v2.route.RedirectAction.oneofGroups_[1], value);
 };
 
 
+/**
+ * Clears the field making it undefined.
+ * @return {!proto.envoy.api.v2.route.RedirectAction} returns this
+ */
 proto.envoy.api.v2.route.RedirectAction.prototype.clearPrefixRewrite = function() {
-  jspb.Message.setOneofField(this, 5, proto.envoy.api.v2.route.RedirectAction.oneofGroups_[1], undefined);
+  return jspb.Message.setOneofField(this, 5, proto.envoy.api.v2.route.RedirectAction.oneofGroups_[1], undefined);
 };
 
 
@@ -8376,58 +9622,47 @@ proto.envoy.api.v2.route.RedirectAction.prototype.getResponseCode = function() {
 };
 
 
-/** @param {!proto.envoy.api.v2.route.RedirectAction.RedirectResponseCode} value */
+/**
+ * @param {!proto.envoy.api.v2.route.RedirectAction.RedirectResponseCode} value
+ * @return {!proto.envoy.api.v2.route.RedirectAction} returns this
+ */
 proto.envoy.api.v2.route.RedirectAction.prototype.setResponseCode = function(value) {
-  jspb.Message.setProto3EnumField(this, 3, value);
+  return jspb.Message.setProto3EnumField(this, 3, value);
 };
 
 
 /**
  * optional bool strip_query = 6;
- * Note that Boolean fields may be set to 0/1 when serialized from a Java server.
- * You should avoid comparisons like {@code val === true/false} in those cases.
  * @return {boolean}
  */
 proto.envoy.api.v2.route.RedirectAction.prototype.getStripQuery = function() {
-  return /** @type {boolean} */ (jspb.Message.getFieldWithDefault(this, 6, false));
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 6, false));
 };
-
-
-/** @param {boolean} value */
-proto.envoy.api.v2.route.RedirectAction.prototype.setStripQuery = function(value) {
-  jspb.Message.setProto3BooleanField(this, 6, value);
-};
-
 
 
 /**
- * Generated by JsPbCodeGenerator.
- * @param {Array=} opt_data Optional initial data array, typically from a
- * server response, or constructed directly in Javascript. The array is used
- * in place and becomes part of the constructed object. It is not cloned.
- * If no data is provided, the constructed object will be empty, but still
- * valid.
- * @extends {jspb.Message}
- * @constructor
+ * @param {boolean} value
+ * @return {!proto.envoy.api.v2.route.RedirectAction} returns this
  */
-proto.envoy.api.v2.route.DirectResponseAction = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+proto.envoy.api.v2.route.RedirectAction.prototype.setStripQuery = function(value) {
+  return jspb.Message.setProto3BooleanField(this, 6, value);
 };
-goog.inherits(proto.envoy.api.v2.route.DirectResponseAction, jspb.Message);
-if (goog.DEBUG && !COMPILED) {
-  proto.envoy.api.v2.route.DirectResponseAction.displayName = 'proto.envoy.api.v2.route.DirectResponseAction';
-}
+
+
+
 
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
 /**
- * Creates an object representation of this proto suitable for use in Soy templates.
+ * Creates an object representation of this proto.
  * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
  * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
  * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
  * @return {!Object}
  */
 proto.envoy.api.v2.route.DirectResponseAction.prototype.toObject = function(opt_includeInstance) {
@@ -8437,8 +9672,8 @@ proto.envoy.api.v2.route.DirectResponseAction.prototype.toObject = function(opt_
 
 /**
  * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
  * @param {!proto.envoy.api.v2.route.DirectResponseAction} msg The msg instance to transform.
  * @return {!Object}
@@ -8549,9 +9784,12 @@ proto.envoy.api.v2.route.DirectResponseAction.prototype.getStatus = function() {
 };
 
 
-/** @param {number} value */
+/**
+ * @param {number} value
+ * @return {!proto.envoy.api.v2.route.DirectResponseAction} returns this
+ */
 proto.envoy.api.v2.route.DirectResponseAction.prototype.setStatus = function(value) {
-  jspb.Message.setProto3IntField(this, 1, value);
+  return jspb.Message.setProto3IntField(this, 1, value);
 };
 
 
@@ -8565,14 +9803,21 @@ proto.envoy.api.v2.route.DirectResponseAction.prototype.getBody = function() {
 };
 
 
-/** @param {?proto.envoy.api.v2.core.DataSource|undefined} value */
+/**
+ * @param {?proto.envoy.api.v2.core.DataSource|undefined} value
+ * @return {!proto.envoy.api.v2.route.DirectResponseAction} returns this
+*/
 proto.envoy.api.v2.route.DirectResponseAction.prototype.setBody = function(value) {
-  jspb.Message.setWrapperField(this, 2, value);
+  return jspb.Message.setWrapperField(this, 2, value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.DirectResponseAction} returns this
+ */
 proto.envoy.api.v2.route.DirectResponseAction.prototype.clearBody = function() {
-  this.setBody(undefined);
+  return this.setBody(undefined);
 };
 
 
@@ -8586,34 +9831,19 @@ proto.envoy.api.v2.route.DirectResponseAction.prototype.hasBody = function() {
 
 
 
-/**
- * Generated by JsPbCodeGenerator.
- * @param {Array=} opt_data Optional initial data array, typically from a
- * server response, or constructed directly in Javascript. The array is used
- * in place and becomes part of the constructed object. It is not cloned.
- * If no data is provided, the constructed object will be empty, but still
- * valid.
- * @extends {jspb.Message}
- * @constructor
- */
-proto.envoy.api.v2.route.Decorator = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
-};
-goog.inherits(proto.envoy.api.v2.route.Decorator, jspb.Message);
-if (goog.DEBUG && !COMPILED) {
-  proto.envoy.api.v2.route.Decorator.displayName = 'proto.envoy.api.v2.route.Decorator';
-}
 
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
 /**
- * Creates an object representation of this proto suitable for use in Soy templates.
+ * Creates an object representation of this proto.
  * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
  * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
  * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
  * @return {!Object}
  */
 proto.envoy.api.v2.route.Decorator.prototype.toObject = function(opt_includeInstance) {
@@ -8623,8 +9853,8 @@ proto.envoy.api.v2.route.Decorator.prototype.toObject = function(opt_includeInst
 
 /**
  * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
  * @param {!proto.envoy.api.v2.route.Decorator} msg The msg instance to transform.
  * @return {!Object}
@@ -8721,30 +9951,16 @@ proto.envoy.api.v2.route.Decorator.prototype.getOperation = function() {
 };
 
 
-/** @param {string} value */
-proto.envoy.api.v2.route.Decorator.prototype.setOperation = function(value) {
-  jspb.Message.setProto3StringField(this, 1, value);
-};
-
-
-
 /**
- * Generated by JsPbCodeGenerator.
- * @param {Array=} opt_data Optional initial data array, typically from a
- * server response, or constructed directly in Javascript. The array is used
- * in place and becomes part of the constructed object. It is not cloned.
- * If no data is provided, the constructed object will be empty, but still
- * valid.
- * @extends {jspb.Message}
- * @constructor
+ * @param {string} value
+ * @return {!proto.envoy.api.v2.route.Decorator} returns this
  */
-proto.envoy.api.v2.route.Tracing = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.envoy.api.v2.route.Tracing.repeatedFields_, null);
+proto.envoy.api.v2.route.Decorator.prototype.setOperation = function(value) {
+  return jspb.Message.setProto3StringField(this, 1, value);
 };
-goog.inherits(proto.envoy.api.v2.route.Tracing, jspb.Message);
-if (goog.DEBUG && !COMPILED) {
-  proto.envoy.api.v2.route.Tracing.displayName = 'proto.envoy.api.v2.route.Tracing';
-}
+
+
+
 /**
  * List of repeated fields within this message type.
  * @private {!Array<number>}
@@ -8756,13 +9972,15 @@ proto.envoy.api.v2.route.Tracing.repeatedFields_ = [4];
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
 /**
- * Creates an object representation of this proto suitable for use in Soy templates.
+ * Creates an object representation of this proto.
  * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
  * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
  * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
  * @return {!Object}
  */
 proto.envoy.api.v2.route.Tracing.prototype.toObject = function(opt_includeInstance) {
@@ -8772,8 +9990,8 @@ proto.envoy.api.v2.route.Tracing.prototype.toObject = function(opt_includeInstan
 
 /**
  * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
  * @param {!proto.envoy.api.v2.route.Tracing} msg The msg instance to transform.
  * @return {!Object}
@@ -8916,14 +10134,21 @@ proto.envoy.api.v2.route.Tracing.prototype.getClientSampling = function() {
 };
 
 
-/** @param {?proto.envoy.type.FractionalPercent|undefined} value */
+/**
+ * @param {?proto.envoy.type.FractionalPercent|undefined} value
+ * @return {!proto.envoy.api.v2.route.Tracing} returns this
+*/
 proto.envoy.api.v2.route.Tracing.prototype.setClientSampling = function(value) {
-  jspb.Message.setWrapperField(this, 1, value);
+  return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.Tracing} returns this
+ */
 proto.envoy.api.v2.route.Tracing.prototype.clearClientSampling = function() {
-  this.setClientSampling(undefined);
+  return this.setClientSampling(undefined);
 };
 
 
@@ -8946,14 +10171,21 @@ proto.envoy.api.v2.route.Tracing.prototype.getRandomSampling = function() {
 };
 
 
-/** @param {?proto.envoy.type.FractionalPercent|undefined} value */
+/**
+ * @param {?proto.envoy.type.FractionalPercent|undefined} value
+ * @return {!proto.envoy.api.v2.route.Tracing} returns this
+*/
 proto.envoy.api.v2.route.Tracing.prototype.setRandomSampling = function(value) {
-  jspb.Message.setWrapperField(this, 2, value);
+  return jspb.Message.setWrapperField(this, 2, value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.Tracing} returns this
+ */
 proto.envoy.api.v2.route.Tracing.prototype.clearRandomSampling = function() {
-  this.setRandomSampling(undefined);
+  return this.setRandomSampling(undefined);
 };
 
 
@@ -8976,14 +10208,21 @@ proto.envoy.api.v2.route.Tracing.prototype.getOverallSampling = function() {
 };
 
 
-/** @param {?proto.envoy.type.FractionalPercent|undefined} value */
+/**
+ * @param {?proto.envoy.type.FractionalPercent|undefined} value
+ * @return {!proto.envoy.api.v2.route.Tracing} returns this
+*/
 proto.envoy.api.v2.route.Tracing.prototype.setOverallSampling = function(value) {
-  jspb.Message.setWrapperField(this, 3, value);
+  return jspb.Message.setWrapperField(this, 3, value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.Tracing} returns this
+ */
 proto.envoy.api.v2.route.Tracing.prototype.clearOverallSampling = function() {
-  this.setOverallSampling(undefined);
+  return this.setOverallSampling(undefined);
 };
 
 
@@ -9006,9 +10245,12 @@ proto.envoy.api.v2.route.Tracing.prototype.getCustomTagsList = function() {
 };
 
 
-/** @param {!Array<!proto.envoy.type.tracing.v2.CustomTag>} value */
+/**
+ * @param {!Array<!proto.envoy.type.tracing.v2.CustomTag>} value
+ * @return {!proto.envoy.api.v2.route.Tracing} returns this
+*/
 proto.envoy.api.v2.route.Tracing.prototype.setCustomTagsList = function(value) {
-  jspb.Message.setRepeatedWrapperField(this, 4, value);
+  return jspb.Message.setRepeatedWrapperField(this, 4, value);
 };
 
 
@@ -9022,29 +10264,16 @@ proto.envoy.api.v2.route.Tracing.prototype.addCustomTags = function(opt_value, o
 };
 
 
-proto.envoy.api.v2.route.Tracing.prototype.clearCustomTagsList = function() {
-  this.setCustomTagsList([]);
-};
-
-
-
 /**
- * Generated by JsPbCodeGenerator.
- * @param {Array=} opt_data Optional initial data array, typically from a
- * server response, or constructed directly in Javascript. The array is used
- * in place and becomes part of the constructed object. It is not cloned.
- * If no data is provided, the constructed object will be empty, but still
- * valid.
- * @extends {jspb.Message}
- * @constructor
+ * Clears the list making it empty but non-null.
+ * @return {!proto.envoy.api.v2.route.Tracing} returns this
  */
-proto.envoy.api.v2.route.VirtualCluster = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.envoy.api.v2.route.VirtualCluster.repeatedFields_, null);
+proto.envoy.api.v2.route.Tracing.prototype.clearCustomTagsList = function() {
+  return this.setCustomTagsList([]);
 };
-goog.inherits(proto.envoy.api.v2.route.VirtualCluster, jspb.Message);
-if (goog.DEBUG && !COMPILED) {
-  proto.envoy.api.v2.route.VirtualCluster.displayName = 'proto.envoy.api.v2.route.VirtualCluster';
-}
+
+
+
 /**
  * List of repeated fields within this message type.
  * @private {!Array<number>}
@@ -9056,13 +10285,15 @@ proto.envoy.api.v2.route.VirtualCluster.repeatedFields_ = [4];
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
 /**
- * Creates an object representation of this proto suitable for use in Soy templates.
+ * Creates an object representation of this proto.
  * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
  * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
  * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
  * @return {!Object}
  */
 proto.envoy.api.v2.route.VirtualCluster.prototype.toObject = function(opt_includeInstance) {
@@ -9072,8 +10303,8 @@ proto.envoy.api.v2.route.VirtualCluster.prototype.toObject = function(opt_includ
 
 /**
  * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
  * @param {!proto.envoy.api.v2.route.VirtualCluster} msg The msg instance to transform.
  * @return {!Object}
@@ -9209,9 +10440,12 @@ proto.envoy.api.v2.route.VirtualCluster.prototype.getPattern = function() {
 };
 
 
-/** @param {string} value */
+/**
+ * @param {string} value
+ * @return {!proto.envoy.api.v2.route.VirtualCluster} returns this
+ */
 proto.envoy.api.v2.route.VirtualCluster.prototype.setPattern = function(value) {
-  jspb.Message.setProto3StringField(this, 1, value);
+  return jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
@@ -9225,9 +10459,12 @@ proto.envoy.api.v2.route.VirtualCluster.prototype.getHeadersList = function() {
 };
 
 
-/** @param {!Array<!proto.envoy.api.v2.route.HeaderMatcher>} value */
+/**
+ * @param {!Array<!proto.envoy.api.v2.route.HeaderMatcher>} value
+ * @return {!proto.envoy.api.v2.route.VirtualCluster} returns this
+*/
 proto.envoy.api.v2.route.VirtualCluster.prototype.setHeadersList = function(value) {
-  jspb.Message.setRepeatedWrapperField(this, 4, value);
+  return jspb.Message.setRepeatedWrapperField(this, 4, value);
 };
 
 
@@ -9241,8 +10478,12 @@ proto.envoy.api.v2.route.VirtualCluster.prototype.addHeaders = function(opt_valu
 };
 
 
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.envoy.api.v2.route.VirtualCluster} returns this
+ */
 proto.envoy.api.v2.route.VirtualCluster.prototype.clearHeadersList = function() {
-  this.setHeadersList([]);
+  return this.setHeadersList([]);
 };
 
 
@@ -9255,9 +10496,12 @@ proto.envoy.api.v2.route.VirtualCluster.prototype.getName = function() {
 };
 
 
-/** @param {string} value */
+/**
+ * @param {string} value
+ * @return {!proto.envoy.api.v2.route.VirtualCluster} returns this
+ */
 proto.envoy.api.v2.route.VirtualCluster.prototype.setName = function(value) {
-  jspb.Message.setProto3StringField(this, 2, value);
+  return jspb.Message.setProto3StringField(this, 2, value);
 };
 
 
@@ -9270,30 +10514,16 @@ proto.envoy.api.v2.route.VirtualCluster.prototype.getMethod = function() {
 };
 
 
-/** @param {!proto.envoy.api.v2.core.RequestMethod} value */
-proto.envoy.api.v2.route.VirtualCluster.prototype.setMethod = function(value) {
-  jspb.Message.setProto3EnumField(this, 3, value);
-};
-
-
-
 /**
- * Generated by JsPbCodeGenerator.
- * @param {Array=} opt_data Optional initial data array, typically from a
- * server response, or constructed directly in Javascript. The array is used
- * in place and becomes part of the constructed object. It is not cloned.
- * If no data is provided, the constructed object will be empty, but still
- * valid.
- * @extends {jspb.Message}
- * @constructor
+ * @param {!proto.envoy.api.v2.core.RequestMethod} value
+ * @return {!proto.envoy.api.v2.route.VirtualCluster} returns this
  */
-proto.envoy.api.v2.route.RateLimit = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.envoy.api.v2.route.RateLimit.repeatedFields_, null);
+proto.envoy.api.v2.route.VirtualCluster.prototype.setMethod = function(value) {
+  return jspb.Message.setProto3EnumField(this, 3, value);
 };
-goog.inherits(proto.envoy.api.v2.route.RateLimit, jspb.Message);
-if (goog.DEBUG && !COMPILED) {
-  proto.envoy.api.v2.route.RateLimit.displayName = 'proto.envoy.api.v2.route.RateLimit';
-}
+
+
+
 /**
  * List of repeated fields within this message type.
  * @private {!Array<number>}
@@ -9305,13 +10535,15 @@ proto.envoy.api.v2.route.RateLimit.repeatedFields_ = [3];
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
 /**
- * Creates an object representation of this proto suitable for use in Soy templates.
+ * Creates an object representation of this proto.
  * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
  * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
  * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
  * @return {!Object}
  */
 proto.envoy.api.v2.route.RateLimit.prototype.toObject = function(opt_includeInstance) {
@@ -9321,8 +10553,8 @@ proto.envoy.api.v2.route.RateLimit.prototype.toObject = function(opt_includeInst
 
 /**
  * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
  * @param {!proto.envoy.api.v2.route.RateLimit} msg The msg instance to transform.
  * @return {!Object}
@@ -9441,23 +10673,6 @@ proto.envoy.api.v2.route.RateLimit.serializeBinaryToWriter = function(message, w
 
 
 /**
- * Generated by JsPbCodeGenerator.
- * @param {Array=} opt_data Optional initial data array, typically from a
- * server response, or constructed directly in Javascript. The array is used
- * in place and becomes part of the constructed object. It is not cloned.
- * If no data is provided, the constructed object will be empty, but still
- * valid.
- * @extends {jspb.Message}
- * @constructor
- */
-proto.envoy.api.v2.route.RateLimit.Action = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, null, proto.envoy.api.v2.route.RateLimit.Action.oneofGroups_);
-};
-goog.inherits(proto.envoy.api.v2.route.RateLimit.Action, jspb.Message);
-if (goog.DEBUG && !COMPILED) {
-  proto.envoy.api.v2.route.RateLimit.Action.displayName = 'proto.envoy.api.v2.route.RateLimit.Action';
-}
-/**
  * Oneof group definitions for this message. Each group defines the field
  * numbers belonging to that group. When of these fields' value is set, all
  * other fields in the group are cleared. During deserialization, if multiple
@@ -9491,13 +10706,15 @@ proto.envoy.api.v2.route.RateLimit.Action.prototype.getActionSpecifierCase = fun
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
 /**
- * Creates an object representation of this proto suitable for use in Soy templates.
+ * Creates an object representation of this proto.
  * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
  * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
  * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
  * @return {!Object}
  */
 proto.envoy.api.v2.route.RateLimit.Action.prototype.toObject = function(opt_includeInstance) {
@@ -9507,8 +10724,8 @@ proto.envoy.api.v2.route.RateLimit.Action.prototype.toObject = function(opt_incl
 
 /**
  * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
  * @param {!proto.envoy.api.v2.route.RateLimit.Action} msg The msg instance to transform.
  * @return {!Object}
@@ -9669,34 +10886,19 @@ proto.envoy.api.v2.route.RateLimit.Action.serializeBinaryToWriter = function(mes
 
 
 
-/**
- * Generated by JsPbCodeGenerator.
- * @param {Array=} opt_data Optional initial data array, typically from a
- * server response, or constructed directly in Javascript. The array is used
- * in place and becomes part of the constructed object. It is not cloned.
- * If no data is provided, the constructed object will be empty, but still
- * valid.
- * @extends {jspb.Message}
- * @constructor
- */
-proto.envoy.api.v2.route.RateLimit.Action.SourceCluster = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
-};
-goog.inherits(proto.envoy.api.v2.route.RateLimit.Action.SourceCluster, jspb.Message);
-if (goog.DEBUG && !COMPILED) {
-  proto.envoy.api.v2.route.RateLimit.Action.SourceCluster.displayName = 'proto.envoy.api.v2.route.RateLimit.Action.SourceCluster';
-}
 
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
 /**
- * Creates an object representation of this proto suitable for use in Soy templates.
+ * Creates an object representation of this proto.
  * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
  * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
  * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
  * @return {!Object}
  */
 proto.envoy.api.v2.route.RateLimit.Action.SourceCluster.prototype.toObject = function(opt_includeInstance) {
@@ -9706,8 +10908,8 @@ proto.envoy.api.v2.route.RateLimit.Action.SourceCluster.prototype.toObject = fun
 
 /**
  * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
  * @param {!proto.envoy.api.v2.route.RateLimit.Action.SourceCluster} msg The msg instance to transform.
  * @return {!Object}
@@ -9785,34 +10987,19 @@ proto.envoy.api.v2.route.RateLimit.Action.SourceCluster.serializeBinaryToWriter 
 
 
 
-/**
- * Generated by JsPbCodeGenerator.
- * @param {Array=} opt_data Optional initial data array, typically from a
- * server response, or constructed directly in Javascript. The array is used
- * in place and becomes part of the constructed object. It is not cloned.
- * If no data is provided, the constructed object will be empty, but still
- * valid.
- * @extends {jspb.Message}
- * @constructor
- */
-proto.envoy.api.v2.route.RateLimit.Action.DestinationCluster = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
-};
-goog.inherits(proto.envoy.api.v2.route.RateLimit.Action.DestinationCluster, jspb.Message);
-if (goog.DEBUG && !COMPILED) {
-  proto.envoy.api.v2.route.RateLimit.Action.DestinationCluster.displayName = 'proto.envoy.api.v2.route.RateLimit.Action.DestinationCluster';
-}
 
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
 /**
- * Creates an object representation of this proto suitable for use in Soy templates.
+ * Creates an object representation of this proto.
  * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
  * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
  * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
  * @return {!Object}
  */
 proto.envoy.api.v2.route.RateLimit.Action.DestinationCluster.prototype.toObject = function(opt_includeInstance) {
@@ -9822,8 +11009,8 @@ proto.envoy.api.v2.route.RateLimit.Action.DestinationCluster.prototype.toObject 
 
 /**
  * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
  * @param {!proto.envoy.api.v2.route.RateLimit.Action.DestinationCluster} msg The msg instance to transform.
  * @return {!Object}
@@ -9901,34 +11088,19 @@ proto.envoy.api.v2.route.RateLimit.Action.DestinationCluster.serializeBinaryToWr
 
 
 
-/**
- * Generated by JsPbCodeGenerator.
- * @param {Array=} opt_data Optional initial data array, typically from a
- * server response, or constructed directly in Javascript. The array is used
- * in place and becomes part of the constructed object. It is not cloned.
- * If no data is provided, the constructed object will be empty, but still
- * valid.
- * @extends {jspb.Message}
- * @constructor
- */
-proto.envoy.api.v2.route.RateLimit.Action.RequestHeaders = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
-};
-goog.inherits(proto.envoy.api.v2.route.RateLimit.Action.RequestHeaders, jspb.Message);
-if (goog.DEBUG && !COMPILED) {
-  proto.envoy.api.v2.route.RateLimit.Action.RequestHeaders.displayName = 'proto.envoy.api.v2.route.RateLimit.Action.RequestHeaders';
-}
 
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
 /**
- * Creates an object representation of this proto suitable for use in Soy templates.
+ * Creates an object representation of this proto.
  * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
  * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
  * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
  * @return {!Object}
  */
 proto.envoy.api.v2.route.RateLimit.Action.RequestHeaders.prototype.toObject = function(opt_includeInstance) {
@@ -9938,8 +11110,8 @@ proto.envoy.api.v2.route.RateLimit.Action.RequestHeaders.prototype.toObject = fu
 
 /**
  * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
  * @param {!proto.envoy.api.v2.route.RateLimit.Action.RequestHeaders} msg The msg instance to transform.
  * @return {!Object}
@@ -10048,9 +11220,12 @@ proto.envoy.api.v2.route.RateLimit.Action.RequestHeaders.prototype.getHeaderName
 };
 
 
-/** @param {string} value */
+/**
+ * @param {string} value
+ * @return {!proto.envoy.api.v2.route.RateLimit.Action.RequestHeaders} returns this
+ */
 proto.envoy.api.v2.route.RateLimit.Action.RequestHeaders.prototype.setHeaderName = function(value) {
-  jspb.Message.setProto3StringField(this, 1, value);
+  return jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
@@ -10063,41 +11238,29 @@ proto.envoy.api.v2.route.RateLimit.Action.RequestHeaders.prototype.getDescriptor
 };
 
 
-/** @param {string} value */
-proto.envoy.api.v2.route.RateLimit.Action.RequestHeaders.prototype.setDescriptorKey = function(value) {
-  jspb.Message.setProto3StringField(this, 2, value);
-};
-
-
-
 /**
- * Generated by JsPbCodeGenerator.
- * @param {Array=} opt_data Optional initial data array, typically from a
- * server response, or constructed directly in Javascript. The array is used
- * in place and becomes part of the constructed object. It is not cloned.
- * If no data is provided, the constructed object will be empty, but still
- * valid.
- * @extends {jspb.Message}
- * @constructor
+ * @param {string} value
+ * @return {!proto.envoy.api.v2.route.RateLimit.Action.RequestHeaders} returns this
  */
-proto.envoy.api.v2.route.RateLimit.Action.RemoteAddress = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+proto.envoy.api.v2.route.RateLimit.Action.RequestHeaders.prototype.setDescriptorKey = function(value) {
+  return jspb.Message.setProto3StringField(this, 2, value);
 };
-goog.inherits(proto.envoy.api.v2.route.RateLimit.Action.RemoteAddress, jspb.Message);
-if (goog.DEBUG && !COMPILED) {
-  proto.envoy.api.v2.route.RateLimit.Action.RemoteAddress.displayName = 'proto.envoy.api.v2.route.RateLimit.Action.RemoteAddress';
-}
+
+
+
 
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
 /**
- * Creates an object representation of this proto suitable for use in Soy templates.
+ * Creates an object representation of this proto.
  * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
  * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
  * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
  * @return {!Object}
  */
 proto.envoy.api.v2.route.RateLimit.Action.RemoteAddress.prototype.toObject = function(opt_includeInstance) {
@@ -10107,8 +11270,8 @@ proto.envoy.api.v2.route.RateLimit.Action.RemoteAddress.prototype.toObject = fun
 
 /**
  * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
  * @param {!proto.envoy.api.v2.route.RateLimit.Action.RemoteAddress} msg The msg instance to transform.
  * @return {!Object}
@@ -10186,34 +11349,19 @@ proto.envoy.api.v2.route.RateLimit.Action.RemoteAddress.serializeBinaryToWriter 
 
 
 
-/**
- * Generated by JsPbCodeGenerator.
- * @param {Array=} opt_data Optional initial data array, typically from a
- * server response, or constructed directly in Javascript. The array is used
- * in place and becomes part of the constructed object. It is not cloned.
- * If no data is provided, the constructed object will be empty, but still
- * valid.
- * @extends {jspb.Message}
- * @constructor
- */
-proto.envoy.api.v2.route.RateLimit.Action.GenericKey = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
-};
-goog.inherits(proto.envoy.api.v2.route.RateLimit.Action.GenericKey, jspb.Message);
-if (goog.DEBUG && !COMPILED) {
-  proto.envoy.api.v2.route.RateLimit.Action.GenericKey.displayName = 'proto.envoy.api.v2.route.RateLimit.Action.GenericKey';
-}
 
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
 /**
- * Creates an object representation of this proto suitable for use in Soy templates.
+ * Creates an object representation of this proto.
  * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
  * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
  * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
  * @return {!Object}
  */
 proto.envoy.api.v2.route.RateLimit.Action.GenericKey.prototype.toObject = function(opt_includeInstance) {
@@ -10223,8 +11371,8 @@ proto.envoy.api.v2.route.RateLimit.Action.GenericKey.prototype.toObject = functi
 
 /**
  * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
  * @param {!proto.envoy.api.v2.route.RateLimit.Action.GenericKey} msg The msg instance to transform.
  * @return {!Object}
@@ -10321,30 +11469,16 @@ proto.envoy.api.v2.route.RateLimit.Action.GenericKey.prototype.getDescriptorValu
 };
 
 
-/** @param {string} value */
-proto.envoy.api.v2.route.RateLimit.Action.GenericKey.prototype.setDescriptorValue = function(value) {
-  jspb.Message.setProto3StringField(this, 1, value);
-};
-
-
-
 /**
- * Generated by JsPbCodeGenerator.
- * @param {Array=} opt_data Optional initial data array, typically from a
- * server response, or constructed directly in Javascript. The array is used
- * in place and becomes part of the constructed object. It is not cloned.
- * If no data is provided, the constructed object will be empty, but still
- * valid.
- * @extends {jspb.Message}
- * @constructor
+ * @param {string} value
+ * @return {!proto.envoy.api.v2.route.RateLimit.Action.GenericKey} returns this
  */
-proto.envoy.api.v2.route.RateLimit.Action.HeaderValueMatch = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.envoy.api.v2.route.RateLimit.Action.HeaderValueMatch.repeatedFields_, null);
+proto.envoy.api.v2.route.RateLimit.Action.GenericKey.prototype.setDescriptorValue = function(value) {
+  return jspb.Message.setProto3StringField(this, 1, value);
 };
-goog.inherits(proto.envoy.api.v2.route.RateLimit.Action.HeaderValueMatch, jspb.Message);
-if (goog.DEBUG && !COMPILED) {
-  proto.envoy.api.v2.route.RateLimit.Action.HeaderValueMatch.displayName = 'proto.envoy.api.v2.route.RateLimit.Action.HeaderValueMatch';
-}
+
+
+
 /**
  * List of repeated fields within this message type.
  * @private {!Array<number>}
@@ -10356,13 +11490,15 @@ proto.envoy.api.v2.route.RateLimit.Action.HeaderValueMatch.repeatedFields_ = [3]
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
 /**
- * Creates an object representation of this proto suitable for use in Soy templates.
+ * Creates an object representation of this proto.
  * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
  * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
  * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
  * @return {!Object}
  */
 proto.envoy.api.v2.route.RateLimit.Action.HeaderValueMatch.prototype.toObject = function(opt_includeInstance) {
@@ -10372,8 +11508,8 @@ proto.envoy.api.v2.route.RateLimit.Action.HeaderValueMatch.prototype.toObject = 
 
 /**
  * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
  * @param {!proto.envoy.api.v2.route.RateLimit.Action.HeaderValueMatch} msg The msg instance to transform.
  * @return {!Object}
@@ -10499,9 +11635,12 @@ proto.envoy.api.v2.route.RateLimit.Action.HeaderValueMatch.prototype.getDescript
 };
 
 
-/** @param {string} value */
+/**
+ * @param {string} value
+ * @return {!proto.envoy.api.v2.route.RateLimit.Action.HeaderValueMatch} returns this
+ */
 proto.envoy.api.v2.route.RateLimit.Action.HeaderValueMatch.prototype.setDescriptorValue = function(value) {
-  jspb.Message.setProto3StringField(this, 1, value);
+  return jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
@@ -10515,14 +11654,21 @@ proto.envoy.api.v2.route.RateLimit.Action.HeaderValueMatch.prototype.getExpectMa
 };
 
 
-/** @param {?proto.google.protobuf.BoolValue|undefined} value */
+/**
+ * @param {?proto.google.protobuf.BoolValue|undefined} value
+ * @return {!proto.envoy.api.v2.route.RateLimit.Action.HeaderValueMatch} returns this
+*/
 proto.envoy.api.v2.route.RateLimit.Action.HeaderValueMatch.prototype.setExpectMatch = function(value) {
-  jspb.Message.setWrapperField(this, 2, value);
+  return jspb.Message.setWrapperField(this, 2, value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.RateLimit.Action.HeaderValueMatch} returns this
+ */
 proto.envoy.api.v2.route.RateLimit.Action.HeaderValueMatch.prototype.clearExpectMatch = function() {
-  this.setExpectMatch(undefined);
+  return this.setExpectMatch(undefined);
 };
 
 
@@ -10545,9 +11691,12 @@ proto.envoy.api.v2.route.RateLimit.Action.HeaderValueMatch.prototype.getHeadersL
 };
 
 
-/** @param {!Array<!proto.envoy.api.v2.route.HeaderMatcher>} value */
+/**
+ * @param {!Array<!proto.envoy.api.v2.route.HeaderMatcher>} value
+ * @return {!proto.envoy.api.v2.route.RateLimit.Action.HeaderValueMatch} returns this
+*/
 proto.envoy.api.v2.route.RateLimit.Action.HeaderValueMatch.prototype.setHeadersList = function(value) {
-  jspb.Message.setRepeatedWrapperField(this, 3, value);
+  return jspb.Message.setRepeatedWrapperField(this, 3, value);
 };
 
 
@@ -10561,8 +11710,12 @@ proto.envoy.api.v2.route.RateLimit.Action.HeaderValueMatch.prototype.addHeaders 
 };
 
 
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.envoy.api.v2.route.RateLimit.Action.HeaderValueMatch} returns this
+ */
 proto.envoy.api.v2.route.RateLimit.Action.HeaderValueMatch.prototype.clearHeadersList = function() {
-  this.setHeadersList([]);
+  return this.setHeadersList([]);
 };
 
 
@@ -10576,14 +11729,21 @@ proto.envoy.api.v2.route.RateLimit.Action.prototype.getSourceCluster = function(
 };
 
 
-/** @param {?proto.envoy.api.v2.route.RateLimit.Action.SourceCluster|undefined} value */
+/**
+ * @param {?proto.envoy.api.v2.route.RateLimit.Action.SourceCluster|undefined} value
+ * @return {!proto.envoy.api.v2.route.RateLimit.Action} returns this
+*/
 proto.envoy.api.v2.route.RateLimit.Action.prototype.setSourceCluster = function(value) {
-  jspb.Message.setOneofWrapperField(this, 1, proto.envoy.api.v2.route.RateLimit.Action.oneofGroups_[0], value);
+  return jspb.Message.setOneofWrapperField(this, 1, proto.envoy.api.v2.route.RateLimit.Action.oneofGroups_[0], value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.RateLimit.Action} returns this
+ */
 proto.envoy.api.v2.route.RateLimit.Action.prototype.clearSourceCluster = function() {
-  this.setSourceCluster(undefined);
+  return this.setSourceCluster(undefined);
 };
 
 
@@ -10606,14 +11766,21 @@ proto.envoy.api.v2.route.RateLimit.Action.prototype.getDestinationCluster = func
 };
 
 
-/** @param {?proto.envoy.api.v2.route.RateLimit.Action.DestinationCluster|undefined} value */
+/**
+ * @param {?proto.envoy.api.v2.route.RateLimit.Action.DestinationCluster|undefined} value
+ * @return {!proto.envoy.api.v2.route.RateLimit.Action} returns this
+*/
 proto.envoy.api.v2.route.RateLimit.Action.prototype.setDestinationCluster = function(value) {
-  jspb.Message.setOneofWrapperField(this, 2, proto.envoy.api.v2.route.RateLimit.Action.oneofGroups_[0], value);
+  return jspb.Message.setOneofWrapperField(this, 2, proto.envoy.api.v2.route.RateLimit.Action.oneofGroups_[0], value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.RateLimit.Action} returns this
+ */
 proto.envoy.api.v2.route.RateLimit.Action.prototype.clearDestinationCluster = function() {
-  this.setDestinationCluster(undefined);
+  return this.setDestinationCluster(undefined);
 };
 
 
@@ -10636,14 +11803,21 @@ proto.envoy.api.v2.route.RateLimit.Action.prototype.getRequestHeaders = function
 };
 
 
-/** @param {?proto.envoy.api.v2.route.RateLimit.Action.RequestHeaders|undefined} value */
+/**
+ * @param {?proto.envoy.api.v2.route.RateLimit.Action.RequestHeaders|undefined} value
+ * @return {!proto.envoy.api.v2.route.RateLimit.Action} returns this
+*/
 proto.envoy.api.v2.route.RateLimit.Action.prototype.setRequestHeaders = function(value) {
-  jspb.Message.setOneofWrapperField(this, 3, proto.envoy.api.v2.route.RateLimit.Action.oneofGroups_[0], value);
+  return jspb.Message.setOneofWrapperField(this, 3, proto.envoy.api.v2.route.RateLimit.Action.oneofGroups_[0], value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.RateLimit.Action} returns this
+ */
 proto.envoy.api.v2.route.RateLimit.Action.prototype.clearRequestHeaders = function() {
-  this.setRequestHeaders(undefined);
+  return this.setRequestHeaders(undefined);
 };
 
 
@@ -10666,14 +11840,21 @@ proto.envoy.api.v2.route.RateLimit.Action.prototype.getRemoteAddress = function(
 };
 
 
-/** @param {?proto.envoy.api.v2.route.RateLimit.Action.RemoteAddress|undefined} value */
+/**
+ * @param {?proto.envoy.api.v2.route.RateLimit.Action.RemoteAddress|undefined} value
+ * @return {!proto.envoy.api.v2.route.RateLimit.Action} returns this
+*/
 proto.envoy.api.v2.route.RateLimit.Action.prototype.setRemoteAddress = function(value) {
-  jspb.Message.setOneofWrapperField(this, 4, proto.envoy.api.v2.route.RateLimit.Action.oneofGroups_[0], value);
+  return jspb.Message.setOneofWrapperField(this, 4, proto.envoy.api.v2.route.RateLimit.Action.oneofGroups_[0], value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.RateLimit.Action} returns this
+ */
 proto.envoy.api.v2.route.RateLimit.Action.prototype.clearRemoteAddress = function() {
-  this.setRemoteAddress(undefined);
+  return this.setRemoteAddress(undefined);
 };
 
 
@@ -10696,14 +11877,21 @@ proto.envoy.api.v2.route.RateLimit.Action.prototype.getGenericKey = function() {
 };
 
 
-/** @param {?proto.envoy.api.v2.route.RateLimit.Action.GenericKey|undefined} value */
+/**
+ * @param {?proto.envoy.api.v2.route.RateLimit.Action.GenericKey|undefined} value
+ * @return {!proto.envoy.api.v2.route.RateLimit.Action} returns this
+*/
 proto.envoy.api.v2.route.RateLimit.Action.prototype.setGenericKey = function(value) {
-  jspb.Message.setOneofWrapperField(this, 5, proto.envoy.api.v2.route.RateLimit.Action.oneofGroups_[0], value);
+  return jspb.Message.setOneofWrapperField(this, 5, proto.envoy.api.v2.route.RateLimit.Action.oneofGroups_[0], value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.RateLimit.Action} returns this
+ */
 proto.envoy.api.v2.route.RateLimit.Action.prototype.clearGenericKey = function() {
-  this.setGenericKey(undefined);
+  return this.setGenericKey(undefined);
 };
 
 
@@ -10726,14 +11914,21 @@ proto.envoy.api.v2.route.RateLimit.Action.prototype.getHeaderValueMatch = functi
 };
 
 
-/** @param {?proto.envoy.api.v2.route.RateLimit.Action.HeaderValueMatch|undefined} value */
+/**
+ * @param {?proto.envoy.api.v2.route.RateLimit.Action.HeaderValueMatch|undefined} value
+ * @return {!proto.envoy.api.v2.route.RateLimit.Action} returns this
+*/
 proto.envoy.api.v2.route.RateLimit.Action.prototype.setHeaderValueMatch = function(value) {
-  jspb.Message.setOneofWrapperField(this, 6, proto.envoy.api.v2.route.RateLimit.Action.oneofGroups_[0], value);
+  return jspb.Message.setOneofWrapperField(this, 6, proto.envoy.api.v2.route.RateLimit.Action.oneofGroups_[0], value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.RateLimit.Action} returns this
+ */
 proto.envoy.api.v2.route.RateLimit.Action.prototype.clearHeaderValueMatch = function() {
-  this.setHeaderValueMatch(undefined);
+  return this.setHeaderValueMatch(undefined);
 };
 
 
@@ -10756,14 +11951,21 @@ proto.envoy.api.v2.route.RateLimit.prototype.getStage = function() {
 };
 
 
-/** @param {?proto.google.protobuf.UInt32Value|undefined} value */
+/**
+ * @param {?proto.google.protobuf.UInt32Value|undefined} value
+ * @return {!proto.envoy.api.v2.route.RateLimit} returns this
+*/
 proto.envoy.api.v2.route.RateLimit.prototype.setStage = function(value) {
-  jspb.Message.setWrapperField(this, 1, value);
+  return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.RateLimit} returns this
+ */
 proto.envoy.api.v2.route.RateLimit.prototype.clearStage = function() {
-  this.setStage(undefined);
+  return this.setStage(undefined);
 };
 
 
@@ -10785,9 +11987,12 @@ proto.envoy.api.v2.route.RateLimit.prototype.getDisableKey = function() {
 };
 
 
-/** @param {string} value */
+/**
+ * @param {string} value
+ * @return {!proto.envoy.api.v2.route.RateLimit} returns this
+ */
 proto.envoy.api.v2.route.RateLimit.prototype.setDisableKey = function(value) {
-  jspb.Message.setProto3StringField(this, 2, value);
+  return jspb.Message.setProto3StringField(this, 2, value);
 };
 
 
@@ -10801,9 +12006,12 @@ proto.envoy.api.v2.route.RateLimit.prototype.getActionsList = function() {
 };
 
 
-/** @param {!Array<!proto.envoy.api.v2.route.RateLimit.Action>} value */
+/**
+ * @param {!Array<!proto.envoy.api.v2.route.RateLimit.Action>} value
+ * @return {!proto.envoy.api.v2.route.RateLimit} returns this
+*/
 proto.envoy.api.v2.route.RateLimit.prototype.setActionsList = function(value) {
-  jspb.Message.setRepeatedWrapperField(this, 3, value);
+  return jspb.Message.setRepeatedWrapperField(this, 3, value);
 };
 
 
@@ -10817,29 +12025,16 @@ proto.envoy.api.v2.route.RateLimit.prototype.addActions = function(opt_value, op
 };
 
 
-proto.envoy.api.v2.route.RateLimit.prototype.clearActionsList = function() {
-  this.setActionsList([]);
-};
-
-
-
 /**
- * Generated by JsPbCodeGenerator.
- * @param {Array=} opt_data Optional initial data array, typically from a
- * server response, or constructed directly in Javascript. The array is used
- * in place and becomes part of the constructed object. It is not cloned.
- * If no data is provided, the constructed object will be empty, but still
- * valid.
- * @extends {jspb.Message}
- * @constructor
+ * Clears the list making it empty but non-null.
+ * @return {!proto.envoy.api.v2.route.RateLimit} returns this
  */
-proto.envoy.api.v2.route.HeaderMatcher = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, null, proto.envoy.api.v2.route.HeaderMatcher.oneofGroups_);
+proto.envoy.api.v2.route.RateLimit.prototype.clearActionsList = function() {
+  return this.setActionsList([]);
 };
-goog.inherits(proto.envoy.api.v2.route.HeaderMatcher, jspb.Message);
-if (goog.DEBUG && !COMPILED) {
-  proto.envoy.api.v2.route.HeaderMatcher.displayName = 'proto.envoy.api.v2.route.HeaderMatcher';
-}
+
+
+
 /**
  * Oneof group definitions for this message. Each group defines the field
  * numbers belonging to that group. When of these fields' value is set, all
@@ -10875,13 +12070,15 @@ proto.envoy.api.v2.route.HeaderMatcher.prototype.getHeaderMatchSpecifierCase = f
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
 /**
- * Creates an object representation of this proto suitable for use in Soy templates.
+ * Creates an object representation of this proto.
  * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
  * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
  * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
  * @return {!Object}
  */
 proto.envoy.api.v2.route.HeaderMatcher.prototype.toObject = function(opt_includeInstance) {
@@ -10891,8 +12088,8 @@ proto.envoy.api.v2.route.HeaderMatcher.prototype.toObject = function(opt_include
 
 /**
  * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
  * @param {!proto.envoy.api.v2.route.HeaderMatcher} msg The msg instance to transform.
  * @return {!Object}
@@ -10905,10 +12102,10 @@ proto.envoy.api.v2.route.HeaderMatcher.toObject = function(includeInstance, msg)
     regexMatch: jspb.Message.getFieldWithDefault(msg, 5, ""),
     safeRegexMatch: (f = msg.getSafeRegexMatch()) && envoy_type_matcher_regex_pb.RegexMatcher.toObject(includeInstance, f),
     rangeMatch: (f = msg.getRangeMatch()) && envoy_type_range_pb.Int64Range.toObject(includeInstance, f),
-    presentMatch: jspb.Message.getFieldWithDefault(msg, 7, false),
+    presentMatch: jspb.Message.getBooleanFieldWithDefault(msg, 7, false),
     prefixMatch: jspb.Message.getFieldWithDefault(msg, 9, ""),
     suffixMatch: jspb.Message.getFieldWithDefault(msg, 10, ""),
-    invertMatch: jspb.Message.getFieldWithDefault(msg, 8, false)
+    invertMatch: jspb.Message.getBooleanFieldWithDefault(msg, 8, false)
   };
 
   if (includeInstance) {
@@ -11089,9 +12286,12 @@ proto.envoy.api.v2.route.HeaderMatcher.prototype.getName = function() {
 };
 
 
-/** @param {string} value */
+/**
+ * @param {string} value
+ * @return {!proto.envoy.api.v2.route.HeaderMatcher} returns this
+ */
 proto.envoy.api.v2.route.HeaderMatcher.prototype.setName = function(value) {
-  jspb.Message.setProto3StringField(this, 1, value);
+  return jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
@@ -11104,14 +12304,21 @@ proto.envoy.api.v2.route.HeaderMatcher.prototype.getExactMatch = function() {
 };
 
 
-/** @param {string} value */
+/**
+ * @param {string} value
+ * @return {!proto.envoy.api.v2.route.HeaderMatcher} returns this
+ */
 proto.envoy.api.v2.route.HeaderMatcher.prototype.setExactMatch = function(value) {
-  jspb.Message.setOneofField(this, 4, proto.envoy.api.v2.route.HeaderMatcher.oneofGroups_[0], value);
+  return jspb.Message.setOneofField(this, 4, proto.envoy.api.v2.route.HeaderMatcher.oneofGroups_[0], value);
 };
 
 
+/**
+ * Clears the field making it undefined.
+ * @return {!proto.envoy.api.v2.route.HeaderMatcher} returns this
+ */
 proto.envoy.api.v2.route.HeaderMatcher.prototype.clearExactMatch = function() {
-  jspb.Message.setOneofField(this, 4, proto.envoy.api.v2.route.HeaderMatcher.oneofGroups_[0], undefined);
+  return jspb.Message.setOneofField(this, 4, proto.envoy.api.v2.route.HeaderMatcher.oneofGroups_[0], undefined);
 };
 
 
@@ -11133,14 +12340,21 @@ proto.envoy.api.v2.route.HeaderMatcher.prototype.getRegexMatch = function() {
 };
 
 
-/** @param {string} value */
+/**
+ * @param {string} value
+ * @return {!proto.envoy.api.v2.route.HeaderMatcher} returns this
+ */
 proto.envoy.api.v2.route.HeaderMatcher.prototype.setRegexMatch = function(value) {
-  jspb.Message.setOneofField(this, 5, proto.envoy.api.v2.route.HeaderMatcher.oneofGroups_[0], value);
+  return jspb.Message.setOneofField(this, 5, proto.envoy.api.v2.route.HeaderMatcher.oneofGroups_[0], value);
 };
 
 
+/**
+ * Clears the field making it undefined.
+ * @return {!proto.envoy.api.v2.route.HeaderMatcher} returns this
+ */
 proto.envoy.api.v2.route.HeaderMatcher.prototype.clearRegexMatch = function() {
-  jspb.Message.setOneofField(this, 5, proto.envoy.api.v2.route.HeaderMatcher.oneofGroups_[0], undefined);
+  return jspb.Message.setOneofField(this, 5, proto.envoy.api.v2.route.HeaderMatcher.oneofGroups_[0], undefined);
 };
 
 
@@ -11163,14 +12377,21 @@ proto.envoy.api.v2.route.HeaderMatcher.prototype.getSafeRegexMatch = function() 
 };
 
 
-/** @param {?proto.envoy.type.matcher.RegexMatcher|undefined} value */
+/**
+ * @param {?proto.envoy.type.matcher.RegexMatcher|undefined} value
+ * @return {!proto.envoy.api.v2.route.HeaderMatcher} returns this
+*/
 proto.envoy.api.v2.route.HeaderMatcher.prototype.setSafeRegexMatch = function(value) {
-  jspb.Message.setOneofWrapperField(this, 11, proto.envoy.api.v2.route.HeaderMatcher.oneofGroups_[0], value);
+  return jspb.Message.setOneofWrapperField(this, 11, proto.envoy.api.v2.route.HeaderMatcher.oneofGroups_[0], value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.HeaderMatcher} returns this
+ */
 proto.envoy.api.v2.route.HeaderMatcher.prototype.clearSafeRegexMatch = function() {
-  this.setSafeRegexMatch(undefined);
+  return this.setSafeRegexMatch(undefined);
 };
 
 
@@ -11193,14 +12414,21 @@ proto.envoy.api.v2.route.HeaderMatcher.prototype.getRangeMatch = function() {
 };
 
 
-/** @param {?proto.envoy.type.Int64Range|undefined} value */
+/**
+ * @param {?proto.envoy.type.Int64Range|undefined} value
+ * @return {!proto.envoy.api.v2.route.HeaderMatcher} returns this
+*/
 proto.envoy.api.v2.route.HeaderMatcher.prototype.setRangeMatch = function(value) {
-  jspb.Message.setOneofWrapperField(this, 6, proto.envoy.api.v2.route.HeaderMatcher.oneofGroups_[0], value);
+  return jspb.Message.setOneofWrapperField(this, 6, proto.envoy.api.v2.route.HeaderMatcher.oneofGroups_[0], value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.HeaderMatcher} returns this
+ */
 proto.envoy.api.v2.route.HeaderMatcher.prototype.clearRangeMatch = function() {
-  this.setRangeMatch(undefined);
+  return this.setRangeMatch(undefined);
 };
 
 
@@ -11215,23 +12443,28 @@ proto.envoy.api.v2.route.HeaderMatcher.prototype.hasRangeMatch = function() {
 
 /**
  * optional bool present_match = 7;
- * Note that Boolean fields may be set to 0/1 when serialized from a Java server.
- * You should avoid comparisons like {@code val === true/false} in those cases.
  * @return {boolean}
  */
 proto.envoy.api.v2.route.HeaderMatcher.prototype.getPresentMatch = function() {
-  return /** @type {boolean} */ (jspb.Message.getFieldWithDefault(this, 7, false));
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 7, false));
 };
 
 
-/** @param {boolean} value */
+/**
+ * @param {boolean} value
+ * @return {!proto.envoy.api.v2.route.HeaderMatcher} returns this
+ */
 proto.envoy.api.v2.route.HeaderMatcher.prototype.setPresentMatch = function(value) {
-  jspb.Message.setOneofField(this, 7, proto.envoy.api.v2.route.HeaderMatcher.oneofGroups_[0], value);
+  return jspb.Message.setOneofField(this, 7, proto.envoy.api.v2.route.HeaderMatcher.oneofGroups_[0], value);
 };
 
 
+/**
+ * Clears the field making it undefined.
+ * @return {!proto.envoy.api.v2.route.HeaderMatcher} returns this
+ */
 proto.envoy.api.v2.route.HeaderMatcher.prototype.clearPresentMatch = function() {
-  jspb.Message.setOneofField(this, 7, proto.envoy.api.v2.route.HeaderMatcher.oneofGroups_[0], undefined);
+  return jspb.Message.setOneofField(this, 7, proto.envoy.api.v2.route.HeaderMatcher.oneofGroups_[0], undefined);
 };
 
 
@@ -11253,14 +12486,21 @@ proto.envoy.api.v2.route.HeaderMatcher.prototype.getPrefixMatch = function() {
 };
 
 
-/** @param {string} value */
+/**
+ * @param {string} value
+ * @return {!proto.envoy.api.v2.route.HeaderMatcher} returns this
+ */
 proto.envoy.api.v2.route.HeaderMatcher.prototype.setPrefixMatch = function(value) {
-  jspb.Message.setOneofField(this, 9, proto.envoy.api.v2.route.HeaderMatcher.oneofGroups_[0], value);
+  return jspb.Message.setOneofField(this, 9, proto.envoy.api.v2.route.HeaderMatcher.oneofGroups_[0], value);
 };
 
 
+/**
+ * Clears the field making it undefined.
+ * @return {!proto.envoy.api.v2.route.HeaderMatcher} returns this
+ */
 proto.envoy.api.v2.route.HeaderMatcher.prototype.clearPrefixMatch = function() {
-  jspb.Message.setOneofField(this, 9, proto.envoy.api.v2.route.HeaderMatcher.oneofGroups_[0], undefined);
+  return jspb.Message.setOneofField(this, 9, proto.envoy.api.v2.route.HeaderMatcher.oneofGroups_[0], undefined);
 };
 
 
@@ -11282,14 +12522,21 @@ proto.envoy.api.v2.route.HeaderMatcher.prototype.getSuffixMatch = function() {
 };
 
 
-/** @param {string} value */
+/**
+ * @param {string} value
+ * @return {!proto.envoy.api.v2.route.HeaderMatcher} returns this
+ */
 proto.envoy.api.v2.route.HeaderMatcher.prototype.setSuffixMatch = function(value) {
-  jspb.Message.setOneofField(this, 10, proto.envoy.api.v2.route.HeaderMatcher.oneofGroups_[0], value);
+  return jspb.Message.setOneofField(this, 10, proto.envoy.api.v2.route.HeaderMatcher.oneofGroups_[0], value);
 };
 
 
+/**
+ * Clears the field making it undefined.
+ * @return {!proto.envoy.api.v2.route.HeaderMatcher} returns this
+ */
 proto.envoy.api.v2.route.HeaderMatcher.prototype.clearSuffixMatch = function() {
-  jspb.Message.setOneofField(this, 10, proto.envoy.api.v2.route.HeaderMatcher.oneofGroups_[0], undefined);
+  return jspb.Message.setOneofField(this, 10, proto.envoy.api.v2.route.HeaderMatcher.oneofGroups_[0], undefined);
 };
 
 
@@ -11304,39 +12551,23 @@ proto.envoy.api.v2.route.HeaderMatcher.prototype.hasSuffixMatch = function() {
 
 /**
  * optional bool invert_match = 8;
- * Note that Boolean fields may be set to 0/1 when serialized from a Java server.
- * You should avoid comparisons like {@code val === true/false} in those cases.
  * @return {boolean}
  */
 proto.envoy.api.v2.route.HeaderMatcher.prototype.getInvertMatch = function() {
-  return /** @type {boolean} */ (jspb.Message.getFieldWithDefault(this, 8, false));
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 8, false));
 };
-
-
-/** @param {boolean} value */
-proto.envoy.api.v2.route.HeaderMatcher.prototype.setInvertMatch = function(value) {
-  jspb.Message.setProto3BooleanField(this, 8, value);
-};
-
 
 
 /**
- * Generated by JsPbCodeGenerator.
- * @param {Array=} opt_data Optional initial data array, typically from a
- * server response, or constructed directly in Javascript. The array is used
- * in place and becomes part of the constructed object. It is not cloned.
- * If no data is provided, the constructed object will be empty, but still
- * valid.
- * @extends {jspb.Message}
- * @constructor
+ * @param {boolean} value
+ * @return {!proto.envoy.api.v2.route.HeaderMatcher} returns this
  */
-proto.envoy.api.v2.route.QueryParameterMatcher = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, null, proto.envoy.api.v2.route.QueryParameterMatcher.oneofGroups_);
+proto.envoy.api.v2.route.HeaderMatcher.prototype.setInvertMatch = function(value) {
+  return jspb.Message.setProto3BooleanField(this, 8, value);
 };
-goog.inherits(proto.envoy.api.v2.route.QueryParameterMatcher, jspb.Message);
-if (goog.DEBUG && !COMPILED) {
-  proto.envoy.api.v2.route.QueryParameterMatcher.displayName = 'proto.envoy.api.v2.route.QueryParameterMatcher';
-}
+
+
+
 /**
  * Oneof group definitions for this message. Each group defines the field
  * numbers belonging to that group. When of these fields' value is set, all
@@ -11367,13 +12598,15 @@ proto.envoy.api.v2.route.QueryParameterMatcher.prototype.getQueryParameterMatchS
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
 /**
- * Creates an object representation of this proto suitable for use in Soy templates.
+ * Creates an object representation of this proto.
  * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
  * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
  * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
  * @return {!Object}
  */
 proto.envoy.api.v2.route.QueryParameterMatcher.prototype.toObject = function(opt_includeInstance) {
@@ -11383,8 +12616,8 @@ proto.envoy.api.v2.route.QueryParameterMatcher.prototype.toObject = function(opt
 
 /**
  * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
  * @param {!proto.envoy.api.v2.route.QueryParameterMatcher} msg The msg instance to transform.
  * @return {!Object}
@@ -11396,7 +12629,7 @@ proto.envoy.api.v2.route.QueryParameterMatcher.toObject = function(includeInstan
     value: jspb.Message.getFieldWithDefault(msg, 3, ""),
     regex: (f = msg.getRegex()) && google_protobuf_wrappers_pb.BoolValue.toObject(includeInstance, f),
     stringMatch: (f = msg.getStringMatch()) && envoy_type_matcher_string_pb.StringMatcher.toObject(includeInstance, f),
-    presentMatch: jspb.Message.getFieldWithDefault(msg, 6, false)
+    presentMatch: jspb.Message.getBooleanFieldWithDefault(msg, 6, false)
   };
 
   if (includeInstance) {
@@ -11533,9 +12766,12 @@ proto.envoy.api.v2.route.QueryParameterMatcher.prototype.getName = function() {
 };
 
 
-/** @param {string} value */
+/**
+ * @param {string} value
+ * @return {!proto.envoy.api.v2.route.QueryParameterMatcher} returns this
+ */
 proto.envoy.api.v2.route.QueryParameterMatcher.prototype.setName = function(value) {
-  jspb.Message.setProto3StringField(this, 1, value);
+  return jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
@@ -11548,9 +12784,12 @@ proto.envoy.api.v2.route.QueryParameterMatcher.prototype.getValue = function() {
 };
 
 
-/** @param {string} value */
+/**
+ * @param {string} value
+ * @return {!proto.envoy.api.v2.route.QueryParameterMatcher} returns this
+ */
 proto.envoy.api.v2.route.QueryParameterMatcher.prototype.setValue = function(value) {
-  jspb.Message.setProto3StringField(this, 3, value);
+  return jspb.Message.setProto3StringField(this, 3, value);
 };
 
 
@@ -11564,14 +12803,21 @@ proto.envoy.api.v2.route.QueryParameterMatcher.prototype.getRegex = function() {
 };
 
 
-/** @param {?proto.google.protobuf.BoolValue|undefined} value */
+/**
+ * @param {?proto.google.protobuf.BoolValue|undefined} value
+ * @return {!proto.envoy.api.v2.route.QueryParameterMatcher} returns this
+*/
 proto.envoy.api.v2.route.QueryParameterMatcher.prototype.setRegex = function(value) {
-  jspb.Message.setWrapperField(this, 4, value);
+  return jspb.Message.setWrapperField(this, 4, value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.QueryParameterMatcher} returns this
+ */
 proto.envoy.api.v2.route.QueryParameterMatcher.prototype.clearRegex = function() {
-  this.setRegex(undefined);
+  return this.setRegex(undefined);
 };
 
 
@@ -11594,14 +12840,21 @@ proto.envoy.api.v2.route.QueryParameterMatcher.prototype.getStringMatch = functi
 };
 
 
-/** @param {?proto.envoy.type.matcher.StringMatcher|undefined} value */
+/**
+ * @param {?proto.envoy.type.matcher.StringMatcher|undefined} value
+ * @return {!proto.envoy.api.v2.route.QueryParameterMatcher} returns this
+*/
 proto.envoy.api.v2.route.QueryParameterMatcher.prototype.setStringMatch = function(value) {
-  jspb.Message.setOneofWrapperField(this, 5, proto.envoy.api.v2.route.QueryParameterMatcher.oneofGroups_[0], value);
+  return jspb.Message.setOneofWrapperField(this, 5, proto.envoy.api.v2.route.QueryParameterMatcher.oneofGroups_[0], value);
 };
 
 
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.envoy.api.v2.route.QueryParameterMatcher} returns this
+ */
 proto.envoy.api.v2.route.QueryParameterMatcher.prototype.clearStringMatch = function() {
-  this.setStringMatch(undefined);
+  return this.setStringMatch(undefined);
 };
 
 
@@ -11616,23 +12869,28 @@ proto.envoy.api.v2.route.QueryParameterMatcher.prototype.hasStringMatch = functi
 
 /**
  * optional bool present_match = 6;
- * Note that Boolean fields may be set to 0/1 when serialized from a Java server.
- * You should avoid comparisons like {@code val === true/false} in those cases.
  * @return {boolean}
  */
 proto.envoy.api.v2.route.QueryParameterMatcher.prototype.getPresentMatch = function() {
-  return /** @type {boolean} */ (jspb.Message.getFieldWithDefault(this, 6, false));
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 6, false));
 };
 
 
-/** @param {boolean} value */
+/**
+ * @param {boolean} value
+ * @return {!proto.envoy.api.v2.route.QueryParameterMatcher} returns this
+ */
 proto.envoy.api.v2.route.QueryParameterMatcher.prototype.setPresentMatch = function(value) {
-  jspb.Message.setOneofField(this, 6, proto.envoy.api.v2.route.QueryParameterMatcher.oneofGroups_[0], value);
+  return jspb.Message.setOneofField(this, 6, proto.envoy.api.v2.route.QueryParameterMatcher.oneofGroups_[0], value);
 };
 
 
+/**
+ * Clears the field making it undefined.
+ * @return {!proto.envoy.api.v2.route.QueryParameterMatcher} returns this
+ */
 proto.envoy.api.v2.route.QueryParameterMatcher.prototype.clearPresentMatch = function() {
-  jspb.Message.setOneofField(this, 6, proto.envoy.api.v2.route.QueryParameterMatcher.oneofGroups_[0], undefined);
+  return jspb.Message.setOneofField(this, 6, proto.envoy.api.v2.route.QueryParameterMatcher.oneofGroups_[0], undefined);
 };
 
 

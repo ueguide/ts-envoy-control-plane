@@ -1,5 +1,6 @@
 import { envoy } from '../conversion'
 import { HttpConnectionManager } from '../envoy/config/filter/network/http_connection_manager/v2/http_connection_manager_pb'
+import { TcpProxy } from '../envoy/config/filter/network/tcp_proxy/v2/tcp_proxy_pb'
 import { ExtAuthz } from '../envoy/config/filter/network/ext_authz/v2/ext_authz_pb'
 import { Lua } from '../envoy/config/filter/http/lua/v2/lua_pb'
 
@@ -456,28 +457,326 @@ describe( 'conversion', () => {
                     'name': 'local_route',
                     'virtual_hosts': [
                       {
-                        'name': 'service'
+                        'name': 'service',
+                        'retry_policy': {
+                          'retry_on': 'connect-failure',
+                          'num_retries': 2
+                        },
+                        'domains': [ '*' ],
+                        'routes': [
+                          {
+                            'match': {
+                              'prefix': '/route/a',
+                              'grpc': {}
+                            },
+                            'route': {
+                              'cluster': 'service-a'
+                            },
+                            'per_filter_config': {
+                              'envoy.ext_authz': {
+                                'disabled': true
+                              }
+                            }
+                            /* 'typed_per_filter_config': {
+                              'envoy.ext_authz': {
+                                'disabled': true
+                              }
+                            }*/
+                          }
+                        ]
                       }
                     ]
                   }
                 }
               }
-            ]
+            ],
+            'tls_context': {
+              'common_tls_context': {
+                'tls_certificate_sds_secret_configs': [{
+                  'name': 'spiffe://foo.bar/proxy-a',
+                  'sds_config': {
+                    'api_config_source': {
+                      'api_type': 'GRPC',
+                      'grpc_services': [{
+                        'envoy_grpc': {
+                          'cluster_name': 'spiffe-agent'
+                        }
+                      }]
+                    }
+                  }
+                }],
+                'combined_validation_context': {
+                  'default_validation_context': {
+                    'verify_subject_alt_name': [
+                      'spiffe://foo.bar/service-a'
+                    ]
+                  },
+                  'validation_context_sds_secret_config': {
+                    'name': 'spiffe://foo.bar',
+                    'sds_config': {
+                      'api_config_source': {
+                        'api_type': 'GRPC',
+                        'grpc_services': [{
+                          'envoy_grpc': {
+                            'cluster_name': 'spiffe-agent'
+                          }
+                        }]
+                      }
+                    }
+                  }
+                },
+                'tls_params': {
+                  'ecdh_curves': [ 'X25519:P-256:P-521:P-384' ]
+                }
+              }
+            }
           }
         ]
       }
 
       const msg = envoy.api.v2.Listener( data )
-      console.log( JSON.stringify( msg.toObject(), null, 2 ) )
+      // console.log( JSON.stringify( msg.toObject(), null, 2 ) )
+      expect( msg.toObject() ).toEqual({
+        'name': 'listener-a',
+        'address': {
+          'socketAddress': {
+            'protocol': 0,
+            'address': '0.0.0.0',
+            'portValue': '80',
+            'namedPort': '',
+            'resolverName': '',
+            'ipv4Compat': false
+          }
+        },
+        'filterChainsList': [
+          {
+            'tlsContext': {
+              'commonTlsContext': {
+                'tlsParams': {
+                  'tlsMinimumProtocolVersion': 0,
+                  'tlsMaximumProtocolVersion': 0,
+                  'cipherSuitesList': [],
+                  'ecdhCurvesList': [
+                    'X25519:P-256:P-521:P-384'
+                  ]
+                },
+                'tlsCertificatesList': [],
+                'tlsCertificateSdsSecretConfigsList': [
+                  {
+                    'name': 'spiffe://foo.bar/proxy-a',
+                    'sdsConfig': {
+                      'path': '',
+                      'apiConfigSource': {
+                        'apiType': 'GRPC',
+                        'clusterNamesList': [],
+                        'grpcServicesList': [
+                          {
+                            'envoyGrpc': {
+                              'clusterName': 'spiffe-agent'
+                            },
+                            'initialMetadataList': []
+                          }
+                        ],
+                        'setNodeOnFirstMessageOnly': false
+                      }
+                    }
+                  }
+                ],
+                'combinedValidationContext': {
+                  'defaultValidationContext': {
+                    'verifyCertificateSpkiList': [],
+                    'verifyCertificateHashList': [],
+                    'verifySubjectAltNameList': [
+                      'spiffe://foo.bar/service-a'
+                    ],
+                    'allowExpiredCertificate': false
+                  },
+                  'validationContextSdsSecretConfig': {
+                    'name': 'spiffe://foo.bar',
+                    'sdsConfig': {
+                      'path': '',
+                      'apiConfigSource': {
+                        'apiType': 'GRPC',
+                        'clusterNamesList': [],
+                        'grpcServicesList': [
+                          {
+                            'envoyGrpc': {
+                              'clusterName': 'spiffe-agent'
+                            },
+                            'initialMetadataList': []
+                          }
+                        ],
+                        'setNodeOnFirstMessageOnly': false
+                      }
+                    }
+                  }
+                },
+                'alpnProtocolsList': []
+              }
+            },
+            'filtersList': [
+              {
+                'name': 'envoy.http_connection_manager',
+                'typedConfig': {
+                  'typeUrl': 'type.googleapis.com/envoy.config.filter.network.http_connection_manager.v2.HttpConnectionManager',
+                  'value': 'EgxpbmdyZXNzX2h0dHAidQoLbG9jYWxfcm91dGUSZgoHc2VydmljZRIBKhpACgwKCC9yb3V0ZS9hQgASCwoJc2VydmljZS1hQiMKD2Vudm95LmV4dF9hdXRoehIQCg4KCGRpc2FibGVkEgIgAYIBFQoPY29ubmVjdC1mYWlsdXJlEgIIAip9Cg9lbnZveS5leHRfYXV0aHoiagpFdHlwZS5nb29nbGVhcGlzLmNvbS9lbnZveS5jb25maWcuZmlsdGVyLm5ldHdvcmsuZXh0X2F1dGh6LnYyLkV4dEF1dGh6EiESHQoXChVleHRlcm5hbC1hdXRoLXNlcnZpY2UaAggFGAEqfQoPZW52b3kuZXh0X2F1dGh6ImoKN3R5cGUuZ29vZ2xlYXBpcy5jb20vZW52b3kuY29uZmlnLmZpbHRlci5odHRwLmx1YS52Mi5MdWESLwotZnVuY3Rpb24gZW52b3lfb25fcmVxdWVzdChyZXF1ZXN0X2hhbmRsZSkKZW5kKhAKDGVudm95LnJvdXRlchIAWgIIAXICCAE='
+                }
+              }
+            ],
+            'name': ''
+          }
+        ],
+        'drainType': 0,
+        'listenerFiltersList': [],
+        'continueOnListenerFiltersTimeout': false,
+        'socketOptionsList': [],
+        'trafficDirection': 0,
+        'reusePort': false
+      })
 
       const a = msg.getFilterChainsList()[0].getFiltersList()[0].getTypedConfig()
       expect( a ).not.toBeNull()
       if ( a ) {
         const http = a.unpack( HttpConnectionManager.deserializeBinary, a.getTypeName() )
         expect( http ).not.toBeNull()
-        if ( http ) {
-          console.log( JSON.stringify( http.toObject(), null, 2 ) )
 
+        // check http connection manager
+        if ( http ) {
+          // console.log( JSON.stringify( http.toObject(), null, 2 ) )
+          expect( http.toObject() ).toEqual({
+            'codecType': 0,
+            'statPrefix': 'ingress_http',
+            'routeConfig': {
+              'name': 'local_route',
+              'virtualHostsList': [
+                {
+                  'name': 'service',
+                  'domainsList': [
+                    '*'
+                  ],
+                  'routesList': [
+                    {
+                      'name': '',
+                      'match': {
+                        'grpc': {},
+                        'prefix': '/route/a',
+                        'path': '',
+                        'regex': '',
+                        'headersList': [],
+                        'queryParametersList': []
+                      },
+                      'route': {
+                        'cluster': 'service-a',
+                        'clusterHeader': '',
+                        'clusterNotFoundResponseCode': 0,
+                        'prefixRewrite': '',
+                        'hostRewrite': '',
+                        'autoHostRewriteHeader': '',
+                        'priority': 0,
+                        'rateLimitsList': [],
+                        'hashPolicyList': [],
+                        'upgradeConfigsList': [],
+                        'internalRedirectAction': 0
+                      },
+                      'perFilterConfigMap': [
+                        [
+                          'envoy.ext_authz',
+                          {
+                            'fieldsMap': [
+                              [
+                                'disabled',
+                                {
+                                  'nullValue': 0,
+                                  'numberValue': 0,
+                                  'stringValue': '',
+                                  'boolValue': true
+                                }
+                              ]
+                            ]
+                          }
+                        ]
+                      ],
+                      'typedPerFilterConfigMap': [],
+                      'requestHeadersToAddList': [],
+                      'requestHeadersToRemoveList': [],
+                      'responseHeadersToAddList': [],
+                      'responseHeadersToRemoveList': []
+                    }
+                  ],
+                  'requireTls': 0,
+                  'virtualClustersList': [],
+                  'rateLimitsList': [],
+                  'requestHeadersToAddList': [],
+                  'requestHeadersToRemoveList': [],
+                  'responseHeadersToAddList': [],
+                  'responseHeadersToRemoveList': [],
+                  'perFilterConfigMap': [],
+                  'typedPerFilterConfigMap': [],
+                  'includeRequestAttemptCount': false,
+                  'retryPolicy': {
+                    'retryOn': 'connect-failure',
+                    'numRetries': {
+                      'value': 2
+                    },
+                    'retryHostPredicateList': [],
+                    'hostSelectionRetryMaxAttempts': 0,
+                    'retriableStatusCodesList': [],
+                    'retriableHeadersList': [],
+                    'retriableRequestHeadersList': []
+                  }
+                }
+              ],
+              'internalOnlyHeadersList': [],
+              'responseHeadersToAddList': [],
+              'responseHeadersToRemoveList': [],
+              'requestHeadersToAddList': [],
+              'requestHeadersToRemoveList': [],
+              'mostSpecificHeaderMutationsWins': false
+            },
+            'httpFiltersList': [
+              {
+                'name': 'envoy.ext_authz',
+                'typedConfig': {
+                  'typeUrl': 'type.googleapis.com/envoy.config.filter.network.ext_authz.v2.ExtAuthz',
+                  'value': 'Eh0KFwoVZXh0ZXJuYWwtYXV0aC1zZXJ2aWNlGgIIBRgB'
+                }
+              },
+              {
+                'name': 'envoy.ext_authz',
+                'typedConfig': {
+                  'typeUrl': 'type.googleapis.com/envoy.config.filter.http.lua.v2.Lua',
+                  'value': 'Ci1mdW5jdGlvbiBlbnZveV9vbl9yZXF1ZXN0KHJlcXVlc3RfaGFuZGxlKQplbmQ='
+                }
+              },
+              {
+                'name': 'envoy.router',
+                'config': {
+                  'fieldsMap': []
+                }
+              }
+            ],
+            'serverName': '',
+            'serverHeaderTransformation': 0,
+            'idleTimeout': {
+              'seconds': 1,
+              'nanos': 0
+            },
+            'accessLogList': [],
+            'useRemoteAddress': {
+              'value': true
+            },
+            'xffNumTrustedHops': 0,
+            'skipXffAppend': false,
+            'via': '',
+            'preserveExternalRequestId': false,
+            'forwardClientCertDetails': 0,
+            'proxy100Continue': false,
+            'representIpv4RemoteAddressAsIpv4MappedIpv6': false,
+            'upgradeConfigsList': [],
+            'mergeSlashes': false
+          })
+
+          // check ext_authz filter
           const ext = http.getHttpFiltersList()[0].getTypedConfig()
           expect( ext ).not.toBeNull()
           if ( ext ) {
@@ -502,6 +801,7 @@ describe( 'conversion', () => {
             }
           }
 
+          // check lua filter
           const l = http.getHttpFiltersList()[1].getTypedConfig()
           expect( l ).not.toBeNull()
           if ( l ) {
@@ -516,6 +816,91 @@ describe( 'conversion', () => {
 
         }
       }
+
+
+    })
+
+    //
+
+    test( 'redis listener', () => {
+      const data = {
+        'name': 'redis-listener',
+        'address': {
+          'socket_address': {
+            'address': '0.0.0.0',
+            'port_value': '80'
+          }
+        },
+        'filter_chains': [
+          {
+            'filters': [
+              {
+                'name': 'envoy.tcp_proxy',
+                'typed_config': {
+                  '@type': 'type.googleapis.com/envoy.config.filter.network.tcp_proxy.v2.TcpProxy',
+                  'stat_prefix': 'redis_tcp',
+                  'cluster': 'redis_cluster'
+                }
+              }
+            ]
+          }
+        ]
+      }
+
+      const msg = envoy.api.v2.Listener( data )
+      // console.log( JSON.stringify( msg.toObject(), null, 2 ) )
+      expect( msg.toObject() ).toEqual({
+        'name': 'redis-listener',
+        'address': {
+          'socketAddress': {
+            'protocol': 0,
+            'address': '0.0.0.0',
+            'portValue': '80',
+            'namedPort': '',
+            'resolverName': '',
+            'ipv4Compat': false
+          }
+        },
+        'filterChainsList': [
+          {
+            'filtersList': [
+              {
+                'name': 'envoy.tcp_proxy',
+                'typedConfig': {
+                  'typeUrl': 'type.googleapis.com/envoy.config.filter.network.tcp_proxy.v2.TcpProxy',
+                  'value': 'CglyZWRpc190Y3ASDXJlZGlzX2NsdXN0ZXI='
+                }
+              }
+            ],
+            'name': ''
+          }
+        ],
+        'drainType': 0,
+        'listenerFiltersList': [],
+        'continueOnListenerFiltersTimeout': false,
+        'socketOptionsList': [],
+        'trafficDirection': 0,
+        'reusePort': false
+      })
+
+      const a = msg.getFilterChainsList()[0].getFiltersList()[0].getTypedConfig()
+      expect( a ).not.toBeNull()
+      if ( a ) {
+        const tcp = a.unpack( TcpProxy.deserializeBinary, a.getTypeName() )
+        expect( tcp ).not.toBeNull()
+
+        // check tcp proxy config
+        if ( tcp ) {
+          // console.log( JSON.stringify( tcp.toObject(), null, 2 ) )
+          expect( tcp.toObject() ).toEqual({
+            'statPrefix': 'redis_tcp',
+            'cluster': 'redis_cluster',
+            'accessLogList': [],
+            'hashPolicyList': []
+          })
+        }
+      }
+
     })
   })
 

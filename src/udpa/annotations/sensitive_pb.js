@@ -1,3 +1,4 @@
+// source: udpa/annotations/sensitive.proto
 /**
  * @fileoverview
  * @enhanceable
