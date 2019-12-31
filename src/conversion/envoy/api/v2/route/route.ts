@@ -4,6 +4,7 @@ import { UInt32Value } from 'google-protobuf/google/protobuf/wrappers_pb'
 import * as jspb from 'google-protobuf'
 import { Struct } from 'google-protobuf/google/protobuf/struct_pb'
 import { Any } from 'google-protobuf/google/protobuf/any_pb'
+import * as http from '../../../config/filter/http'
 
 // https://github.com/protocolbuffers/protobuf/blob/master/js/map.js#L59
 class ExtendedRoute extends route_pb.Route {
@@ -37,6 +38,27 @@ export const Route = factory( ExtendedRoute, {
     for ( const key in val ) {
       const s = Struct.fromJavaScript( val[key] )
       m.set( key, s )
+    }
+
+    return m
+  },
+  setTypedPerFilterConfig: ( val: any ) => {
+    const m = new jspb.Map<string, Any>( [], Any )
+    for ( const key in val ) {
+      const mapVals = val[key]
+      const a = new Any
+      switch ( key ) {
+        case 'envoy.ext_authz': {
+          const msg = http.ext_authz.v2.ExtAuthzPerRoute( mapVals )
+          const packType = mapVals['@type'].replace( 'type.googleapis.com/', '' )
+          a.pack( msg.serializeBinary(), packType )
+          break
+        }
+        default: {
+          //
+        }
+      }
+      m.set( key, a )
     }
 
     return m

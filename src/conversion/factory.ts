@@ -17,7 +17,7 @@ export const factory = <T extends Message, K extends keyof T>( pb: {new(): T}, s
       // console.log( 'method>>', method )
       // if setter extended, call here
       if ( Reflect.has( out, method ) && Reflect.has( ext, method ) ) {
-        out[method]( ext[method]( val ) )
+        out[method]( ext[method]( val, obj ) )
       } else if ( Reflect.has( out, method ) && typeof val != 'object' ) {
         out[method]( val )
       }

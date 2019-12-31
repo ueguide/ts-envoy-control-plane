@@ -3,6 +3,7 @@ import { LocalityLbEndpoints, LbEndpoint, Endpoint } from '../envoy/api/v2/endpo
 import { Address, SocketAddress } from '../envoy/api/v2/core/address_pb'
 import { Cluster } from '../envoy/api/v2/cds_pb'
 import { Listener } from '../envoy/api/v2/lds_pb'
+import { RouteConfiguration } from '../envoy/api/v2/rds_pb'
 import { envoy } from '../conversion'
 
 export const createClusterLoadAssignment = (): ClusterLoadAssignment => {
@@ -89,4 +90,29 @@ export const createListener = (): Listener => {
   const msg: Listener = envoy.api.v2.Listener( data )
 
   return msg
+}
+
+export const createRoute = (): RouteConfiguration => {
+  const data = {
+    'name': 'local_route',
+    'virtual_hosts': [
+      {
+        'name': 'service',
+        'domains': [ '*' ],
+        'routes': [
+          {
+            'match': {
+              'prefix': '/route/a',
+              'grpc': {}
+            },
+            'route': {
+              'cluster': 'service-a'
+            }
+          }
+        ]
+      }
+    ]
+  }
+
+  return envoy.api.v2.RouteConfiguration( data )
 }

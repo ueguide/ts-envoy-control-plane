@@ -3,8 +3,18 @@ import { factory } from '../../../../factory'
 import { Any } from 'google-protobuf/google/protobuf/any_pb'
 import { filter } from '../../../config'
 import { DownstreamTlsContext } from '../auth'
+import { Struct } from 'google-protobuf/google/protobuf/struct_pb'
 
 export const Filter = factory( listenerPB.Filter, {
+  setConfig: ( val: any, obj: any ): Struct => {
+    const { name } = obj
+    switch ( name ) {
+      case 'envoy.http_connection_manager':
+        return Struct.fromJavaScript( val )
+      default:
+        return new Struct
+    }
+  },
   setTypedConfig: ( val: any ): Any => {
     const any = new Any
 

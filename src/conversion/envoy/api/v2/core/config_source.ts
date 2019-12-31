@@ -4,6 +4,11 @@ import { factory } from '../../../../factory'
 import { GrpcService } from './grpc_service'
 
 export const ApiConfigSource = factory( configSourcePB.ApiConfigSource, {
+  setApiType: ( val: string ) => {
+    const types = configSourcePB.ApiConfigSource.ApiType as any
+
+    return types[val] || 0
+  },
   setGrpcServicesList: ( values: any[] ): grpcServicePB.GrpcService[] => {
     return values.map( val => {
       return GrpcService( val )

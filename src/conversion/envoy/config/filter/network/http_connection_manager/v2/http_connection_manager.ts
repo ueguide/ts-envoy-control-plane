@@ -7,6 +7,13 @@ import { Any } from 'google-protobuf/google/protobuf/any_pb'
 import { ExtAuthz } from '../../ext_authz/v2/ext_authz'
 import { Lua } from '../../../http/lua/v2/lua'
 import { RouteConfiguration } from '../../../../../api/v2/rds'
+import { ConfigSource } from '../../../../../api/v2/core/config_source'
+
+export const Rds = factory( http_connection_manager_pb.Rds, {
+  setConfigSource: ( val: any ) => {
+    return ConfigSource( val )
+  }
+})
 
 export const HttpFilter = factory( http_connection_manager_pb.HttpFilter, {
   setConfig: ( val: any ): Struct => {
@@ -63,6 +70,9 @@ export const HttpConnectionManager = factory( http_connection_manager_pb.HttpCon
     return values.map( val => {
       return HttpFilter( val )
     })
+  },
+  setRds: ( val: any ) => {
+    return Rds( val )
   },
   setRouteConfig: ( val: any ) => {
     return RouteConfiguration( val )

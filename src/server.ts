@@ -196,4 +196,17 @@ export class Server {
   deltaListeners: grpc.handleBidiStreamingCall<DeltaDiscoveryRequest, DeltaDiscoveryResponse> = () => {
     //
   }
+
+  // RDS methods
+  streamRoutes: grpc.handleBidiStreamingCall<DiscoveryRequest, DiscoveryResponse> = ( call ) => {
+    return this.process( call )
+  }
+
+  fetchRoutes: grpc.handleUnaryCall<DiscoveryRequest, DiscoveryResponse> = () => {
+    //
+  }
+
+  deltaRoutes: grpc.handleBidiStreamingCall<DeltaDiscoveryRequest, DeltaDiscoveryResponse> = () => {
+    //
+  }
 }

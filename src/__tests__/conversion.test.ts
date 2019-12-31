@@ -282,7 +282,7 @@ describe( 'conversion', () => {
           'edsConfig': {
             'path': '',
             'apiConfigSource': {
-              'apiType': 'GRPC',
+              'apiType': 2,
               'clusterNamesList': [],
               'grpcServicesList': [
                 {
@@ -341,7 +341,7 @@ describe( 'conversion', () => {
                 'sdsConfig': {
                   'path': '',
                   'apiConfigSource': {
-                    'apiType': 'GRPC',
+                    'apiType': 2,
                     'clusterNamesList': [],
                     'grpcServicesList': [
                       {
@@ -370,7 +370,7 @@ describe( 'conversion', () => {
                 'sdsConfig': {
                   'path': '',
                   'apiConfigSource': {
-                    'apiType': 'GRPC',
+                    'apiType': 2,
                     'clusterNamesList': [],
                     'grpcServicesList': [
                       {
@@ -567,7 +567,7 @@ describe( 'conversion', () => {
                     'sdsConfig': {
                       'path': '',
                       'apiConfigSource': {
-                        'apiType': 'GRPC',
+                        'apiType': 2,
                         'clusterNamesList': [],
                         'grpcServicesList': [
                           {
@@ -596,7 +596,7 @@ describe( 'conversion', () => {
                     'sdsConfig': {
                       'path': '',
                       'apiConfigSource': {
-                        'apiType': 'GRPC',
+                        'apiType': 2,
                         'clusterNamesList': [],
                         'grpcServicesList': [
                           {
@@ -901,6 +901,198 @@ describe( 'conversion', () => {
         }
       }
 
+    })
+
+    test( 'listener with rds', () => {
+      const data = {
+        'address': {
+          'socket_address': {
+            'address': '0.0.0.0',
+            'port_value': '80'
+          }
+        },
+        'filter_chains': [
+          {
+            'filters': [
+              {
+                'name': 'envoy.http_connection_manager',
+                'typed_config': {
+                  '@type': 'type.googleapis.com/envoy.config.filter.network.http_connection_manager.v2.HttpConnectionManager',
+                  'codec_type': 'auto',
+                  'stat_prefix': 'ingress_http',
+                  'rds': {
+                    'route_config_name': 'local_route',
+                    'config_source': {
+                      'api_config_source': {
+                        'api_type': 'GRPC',
+                        'grpc_services': [{
+                          'envoy_grpc': {
+                            'cluster_name': 'xds_cluster'
+                          }
+                        }]
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+
+      const msg = envoy.api.v2.Listener( data )
+      // console.log( JSON.stringify( msg.toObject(), null, 2 ) )
+
+      const a = msg.getFilterChainsList()[0].getFiltersList()[0].getTypedConfig()
+      expect( a ).not.toBeNull()
+      if ( a ) {
+        const http = a.unpack( HttpConnectionManager.deserializeBinary, a.getTypeName() )
+        expect( http ).not.toBeNull()
+
+        // check http connection manager
+        if ( http ) {
+          // console.log( JSON.stringify( http.toObject(), null, 2 ) )
+          expect( http.toObject() ).toEqual({
+            'codecType': 0,
+            'statPrefix': 'ingress_http',
+            'rds': {
+              'configSource': {
+                'path': '',
+                'apiConfigSource': {
+                  'apiType': 2,
+                  'clusterNamesList': [],
+                  'grpcServicesList': [
+                    {
+                      'envoyGrpc': {
+                        'clusterName': 'xds_cluster'
+                      },
+                      'initialMetadataList': []
+                    }
+                  ],
+                  'setNodeOnFirstMessageOnly': false
+                }
+              },
+              'routeConfigName': 'local_route'
+            },
+            'httpFiltersList': [],
+            'serverName': '',
+            'serverHeaderTransformation': 0,
+            'accessLogList': [],
+            'xffNumTrustedHops': 0,
+            'skipXffAppend': false,
+            'via': '',
+            'preserveExternalRequestId': false,
+            'forwardClientCertDetails': 0,
+            'proxy100Continue': false,
+            'representIpv4RemoteAddressAsIpv4MappedIpv6': false,
+            'upgradeConfigsList': [],
+            'mergeSlashes': false
+          }
+          )
+        }
+      }
+
+    })
+
+
+  }) // end lds
+
+  describe( 'rds', () => {
+    test( 'route config with typed filter', () => {
+      const data = {
+        'name': 'local_route',
+        'virtual_hosts': [
+          {
+            'name': 'service',
+            'domains': [ '*' ],
+            'routes': [
+              {
+                'match': {
+                  'prefix': '/route/a'
+                },
+                'route': {
+                  'cluster': 'service-a'
+                },
+                'typed_per_filter_config': {
+                  'envoy.ext_authz': {
+                    '@type': 'type.googleapis.com/envoy.config.filter.http.ext_authz.v2.ExtAuthzPerRoute',
+                    'disabled': true
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+
+      const msg = envoy.api.v2.RouteConfiguration( data )
+      // console.log( JSON.stringify( msg.toObject(), null, 2 ) )
+      expect( msg.toObject() ).toEqual({
+        'name': 'local_route',
+        'virtualHostsList': [
+          {
+            'name': 'service',
+            'domainsList': [
+              '*'
+            ],
+            'routesList': [
+              {
+                'name': '',
+                'match': {
+                  'prefix': '/route/a',
+                  'path': '',
+                  'regex': '',
+                  'headersList': [],
+                  'queryParametersList': []
+                },
+                'route': {
+                  'cluster': 'service-a',
+                  'clusterHeader': '',
+                  'clusterNotFoundResponseCode': 0,
+                  'prefixRewrite': '',
+                  'hostRewrite': '',
+                  'autoHostRewriteHeader': '',
+                  'priority': 0,
+                  'rateLimitsList': [],
+                  'hashPolicyList': [],
+                  'upgradeConfigsList': [],
+                  'internalRedirectAction': 0
+                },
+                'perFilterConfigMap': [],
+                'typedPerFilterConfigMap': [
+                  [
+                    'envoy.ext_authz',
+                    {
+                      'typeUrl': 'type.googleapis.com/envoy.config.filter.http.ext_authz.v2.ExtAuthzPerRoute',
+                      'value': 'CAE='
+                    }
+                  ]
+                ],
+                'requestHeadersToAddList': [],
+                'requestHeadersToRemoveList': [],
+                'responseHeadersToAddList': [],
+                'responseHeadersToRemoveList': []
+              }
+            ],
+            'requireTls': 0,
+            'virtualClustersList': [],
+            'rateLimitsList': [],
+            'requestHeadersToAddList': [],
+            'requestHeadersToRemoveList': [],
+            'responseHeadersToAddList': [],
+            'responseHeadersToRemoveList': [],
+            'perFilterConfigMap': [],
+            'typedPerFilterConfigMap': [],
+            'includeRequestAttemptCount': false
+          }
+        ],
+        'internalOnlyHeadersList': [],
+        'responseHeadersToAddList': [],
+        'responseHeadersToRemoveList': [],
+        'requestHeadersToAddList': [],
+        'requestHeadersToRemoveList': [],
+        'mostSpecificHeaderMutationsWins': false
+      })
     })
   })
 
