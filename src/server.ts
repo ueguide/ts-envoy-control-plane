@@ -158,6 +158,7 @@ export class Server {
     })
   }
 
+  // EDS methods
   streamEndpoints: grpc.handleBidiStreamingCall<DiscoveryRequest, DiscoveryResponse> = ( call ) => {
     return this.process( call )
   }
@@ -170,6 +171,7 @@ export class Server {
     //
   }
 
+  // CDS methods
   streamClusters: grpc.handleBidiStreamingCall<DiscoveryRequest, DiscoveryResponse> = ( call ) => {
     return this.process( call )
   }
@@ -179,6 +181,19 @@ export class Server {
   }
 
   deltaClusters: grpc.handleBidiStreamingCall<DeltaDiscoveryRequest, DeltaDiscoveryResponse> = () => {
+    //
+  }
+
+  // LDS methods
+  streamListeners: grpc.handleBidiStreamingCall<DiscoveryRequest, DiscoveryResponse> = ( call ) => {
+    return this.process( call )
+  }
+
+  fetchListeners: grpc.handleUnaryCall<DiscoveryRequest, DiscoveryResponse> = () => {
+    //
+  }
+
+  deltaListeners: grpc.handleBidiStreamingCall<DeltaDiscoveryRequest, DeltaDiscoveryResponse> = () => {
     //
   }
 }
