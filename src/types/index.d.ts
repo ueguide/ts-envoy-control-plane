@@ -7,7 +7,6 @@ export type Request = DiscoveryRequest
 export type Resource = Message
 
 // Cache types
-
 export type ConfigWatcher = {
   createWatch( request: Request, subj: Subject<CacheResponse> ): CancelWatch;
 }
@@ -24,14 +23,15 @@ export type CacheResponse = {
   resources: Resource[];
 }
 
-
+// server types
+export type ResponseSubject = Subject<CacheResponse>
 export type ServerStreamValues = {
-  // endpoints: null | Subject<CacheResponse>;
-  // clusters: null | Subject<CacheResponse>;
-  // routes: null | Subject<CacheResponse>;
-  // listeners: null | Subject<CacheResponse>;
-  // secrets: null | Subject<CacheResponse>;
-  // runtimes: null | Subject<CacheResponse>;
+  endpoints: ResponseSubject;
+  clusters: ResponseSubject;
+  routes: ResponseSubject;
+  listeners: ResponseSubject;
+  secrets: ResponseSubject;
+  runtimes: ResponseSubject;
 
   endpointCancel: null | CancelWatch;
   clusterCancel: null | CancelWatch;

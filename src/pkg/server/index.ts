@@ -42,7 +42,15 @@ export class Server {
     // ignores stale nonces. nonce is only modified within send() function.
     let streamNonce = 0
 
+    // initialize server stream values
     const values: ServerStreamValues = {
+      endpoints: new Subject(),
+      clusters: new Subject(),
+      routes: new Subject(),
+      listeners: new Subject(),
+      secrets: new Subject(),
+      runtimes: new Subject(),
+
       endpointCancel: null,
       clusterCancel: null,
       routeCancel: null,
@@ -86,13 +94,27 @@ export class Server {
       return streamNonce
     }
 
+    // subscribe observers to subjects
+    values.endpoints.subscribe( ( response ) => {
+      values.endpointNonce = send( response, resourceTypes.EndpointType )
+    })
+    values.clusters.subscribe( ( response ) => {
+      values.clusterNonce = send( response, resourceTypes.ClusterType )
+    })
+    values.routes.subscribe( ( response ) => {
+      values.routeNonce = send( response, resourceTypes.RouteType )
+    })
+    values.listeners.subscribe( ( response ) => {
+      values.listenerNonce = send( response, resourceTypes.ListenerType )
+    })
+
     // On data received on stream
     call.on( 'data', async ( request: DiscoveryRequest ) => {
       // get request type url
       const typeURL = request.getTypeUrl()
 
       // get the current request nonce
-      const nonce = request.getResponseNonce()
+      const nonce = request.getResponseNonce() == '' ? 0 : parseInt( request.getResponseNonce() )
       const node = request.getNode()
 
       // log the request
@@ -107,42 +129,26 @@ export class Server {
         )
       }
 
-      if ( typeURL === resourceTypes.EndpointType && ( values.endpointNonce === 0 || values.endpointNonce.toString() === nonce ) ) {
+      if ( typeURL === resourceTypes.EndpointType && ( values.endpointNonce === 0 || values.endpointNonce === nonce ) ) {
         if ( values.endpointCancel ) {
           values.endpointCancel()
         }
-        const subj = new Subject<CacheResponse>()
-        subj.subscribe( ( response ) => {
-          values.endpointNonce = send( response, resourceTypes.EndpointType )
-        })
-        cache.createWatch( request, subj )
-      } else if ( typeURL === resourceTypes.ClusterType && ( values.clusterNonce === 0 || values.clusterNonce.toString() === nonce ) ) {
+        cache.createWatch( request, values.endpoints )
+      } else if ( typeURL === resourceTypes.ClusterType && ( values.clusterNonce === 0 || values.clusterNonce === nonce ) ) {
         if ( values.clusterCancel ) {
           values.clusterCancel()
         }
-        const subj = new Subject<CacheResponse>()
-        subj.subscribe( ( response ) => {
-          values.clusterNonce = send( response, resourceTypes.ClusterType )
-        })
-        cache.createWatch( request, subj )
-      } else if ( typeURL === resourceTypes.RouteType && ( values.routeNonce === 0 || values.routeNonce.toString() === nonce ) ) {
+        cache.createWatch( request, values.clusters )
+      } else if ( typeURL === resourceTypes.RouteType && ( values.routeNonce === 0 || values.routeNonce === nonce ) ) {
         if ( values.routeCancel ) {
           values.routeCancel()
         }
-        const subj = new Subject<CacheResponse>()
-        subj.subscribe( ( response ) => {
-          values.routeNonce = send( response, resourceTypes.RouteType )
-        })
-        cache.createWatch( request, subj )
-      } else if ( typeURL === resourceTypes.ListenerType && ( values.listenerNonce === 0 || values.listenerNonce.toString() === nonce ) ) {
+        cache.createWatch( request, values.routes )
+      } else if ( typeURL === resourceTypes.ListenerType && ( values.listenerNonce === 0 || values.listenerNonce === nonce ) ) {
         if ( values.listenerCancel ) {
           values.listenerCancel()
         }
-        const subj = new Subject<CacheResponse>()
-        subj.subscribe( ( response ) => {
-          values.listenerNonce = send( response, resourceTypes.ListenerType )
-        })
-        cache.createWatch( request, subj )
+        cache.createWatch( request, values.listeners )
       } else {
         // @TODO return error
         console.log( 'DID NOT CATCH_____', typeURL )
