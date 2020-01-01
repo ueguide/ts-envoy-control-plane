@@ -1,4 +1,4 @@
-import { Server } from '../server'
+import { Server } from '../pkg/server'
 import { RouteConfiguration } from '../envoy/api/v2/rds_pb'
 import * as discoveryMessages from '../envoy/api/v2/discovery_pb'
 import * as envoyCore from '../envoy/api/v2/core/base_pb'

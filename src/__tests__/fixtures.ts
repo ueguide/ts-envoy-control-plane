@@ -4,7 +4,7 @@ import { Address, SocketAddress } from '../envoy/api/v2/core/address_pb'
 import { Cluster } from '../envoy/api/v2/cds_pb'
 import { Listener } from '../envoy/api/v2/lds_pb'
 import { RouteConfiguration } from '../envoy/api/v2/rds_pb'
-import { envoy } from '../conversion'
+import { envoy } from '../pkg/conversion'
 
 export const createClusterLoadAssignment = (): ClusterLoadAssignment => {
   const cla = new ClusterLoadAssignment

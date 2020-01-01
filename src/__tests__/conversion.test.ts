@@ -1,4 +1,4 @@
-import { envoy } from '../conversion'
+import { envoy } from '../pkg/conversion'
 import { HttpConnectionManager } from '../envoy/config/filter/network/http_connection_manager/v2/http_connection_manager_pb'
 import { TcpProxy } from '../envoy/config/filter/network/tcp_proxy/v2/tcp_proxy_pb'
 import { ExtAuthz } from '../envoy/config/filter/network/ext_authz/v2/ext_authz_pb'

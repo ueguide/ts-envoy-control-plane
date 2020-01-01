@@ -1,4 +1,4 @@
-import { Server } from '../server'
+import { Server } from '../pkg/server'
 import { ClusterLoadAssignment } from '../envoy/api/v2/eds_pb'
 import * as discoveryMessages from '../envoy/api/v2/discovery_pb'
 import * as envoyCore from '../envoy/api/v2/core/base_pb'

@@ -1,7 +1,7 @@
 import * as grpc from 'grpc'
-import eds from '../eds'
+import eds from '../pkg/server/eds'
 import * as cache from './cache'
-import { Server } from '../server'
+import { Server } from '../pkg/server'
 
 const main = (): void => {
   const grpcServer = new grpc.Server()
