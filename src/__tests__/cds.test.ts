@@ -13,7 +13,7 @@ describe( 'Cluster Discovery Service', () => {
     let callResponse: discoveryMessages.DiscoveryResponse
     let call: any
 
-    beforeEach( () => {
+    test( 'it writes response on found node', ( done ) => {
       call = {
         on: jest.fn().mockImplementation( ( event, cb ) => {
           if ( event === 'data' ) {
@@ -22,21 +22,30 @@ describe( 'Cluster Discovery Service', () => {
         }),
         write: jest.fn().mockImplementation( response => {
           callResponse = response
+          expect( callResponse.getVersionInfo() ).toEqual( '1' )
+          expect( callResponse.getNonce() ).toEqual( '1' )
+          const [ resource ] = callResponse.getResourcesList()
+          const cluster = resource.unpack(
+            Cluster.deserializeBinary,
+            resource.getTypeName()
+          )
+          expect( cluster ).not.toBeNull()
+          if ( cluster ) {
+            expect( cluster.getName() ).toEqual( 'remote_cluster' )
+          }
+          done()
         })
       }
-    })
 
-    test( 'it writes response on found node', ( done ) => {
       const cache = {
-        createWatch: jest.fn().mockImplementation( () => {
-          return {
-            cacheResponse: {
-              version: '1',
-              resourcesList: [ c ]
-            },
-            watcher: null
-          }
-        })
+        createWatch: jest.fn().mockImplementation( ( request, subj ) => {
+          subj.next({
+            version: '1',
+            resources: [ c ],
+            request
+          })
+        }),
+        fetch: jest.fn()
       }
 
       const request = new discoveryMessages.DiscoveryRequest()
@@ -53,19 +62,7 @@ describe( 'Cluster Discovery Service', () => {
 
       requestHandler( request )
         .then( () => {
-          expect( call.write ).toHaveBeenCalled()
-          expect( callResponse.getVersionInfo() ).toEqual( '1' )
-          expect( callResponse.getNonce() ).toEqual( '1' )
-          const [ resource ] = callResponse.getResourcesList()
-          const cluster = resource.unpack(
-            Cluster.deserializeBinary,
-            resource.getTypeName()
-          )
-          expect( cluster ).not.toBeNull()
-          if ( cluster ) {
-            expect( cluster.getName() ).toEqual( 'remote_cluster' )
-          }
-          done()
+          //
         })
         .catch( err => {
           done.fail( err )

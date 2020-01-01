@@ -6,14 +6,15 @@ import { createClusterLoadAssignment } from './fixtures'
 
 describe( 'Endpoint Discovery Service', () => {
 
-  const cla = createClusterLoadAssignment()
+  const c = createClusterLoadAssignment()
 
   describe( 'streamEndpoints', () => {
     let requestHandler: ( request: discoveryMessages.DiscoveryRequest ) => Promise<void>
     let callResponse: discoveryMessages.DiscoveryResponse
     let call: any
 
-    beforeEach( () => {
+
+    test( 'it writes response on found node', ( done ) => {
       call = {
         on: jest.fn().mockImplementation( ( event, cb ) => {
           if ( event === 'data' ) {
@@ -22,21 +23,31 @@ describe( 'Endpoint Discovery Service', () => {
         }),
         write: jest.fn().mockImplementation( response => {
           callResponse = response
+          expect( callResponse.getVersionInfo() ).toEqual( '1' )
+          expect( callResponse.getNonce() ).toEqual( '1' )
+          const [ resource ] = callResponse.getResourcesList()
+          const clusterAssignment = resource.unpack(
+            ClusterLoadAssignment.deserializeBinary,
+            resource.getTypeName()
+          )
+          expect( clusterAssignment ).not.toBeNull()
+          if ( clusterAssignment ) {
+            expect( clusterAssignment.getClusterName() ).toEqual( 'remote_cluster' )
+          }
+
+          done()
         })
       }
-    })
 
-    test( 'it writes response on found node', ( done ) => {
       const cache = {
-        createWatch: jest.fn().mockImplementation( () => {
-          return {
-            cacheResponse: {
-              version: '1',
-              resourcesList: [ cla ]
-            },
-            watcher: null
-          }
-        })
+        createWatch: jest.fn().mockImplementation( ( request, subj ) => {
+          subj.next({
+            version: '1',
+            resources: [ c ],
+            request
+          })
+        }),
+        fetch: jest.fn()
       }
 
       const request = new discoveryMessages.DiscoveryRequest()
@@ -53,9 +64,23 @@ describe( 'Endpoint Discovery Service', () => {
 
       requestHandler( request )
         .then( () => {
-          expect( call.write ).toHaveBeenCalled()
-          expect( callResponse.getVersionInfo() ).toEqual( '1' )
-          expect( callResponse.getNonce() ).toEqual( '1' )
+          //
+        })
+        .catch( err => {
+          done.fail( err )
+        })
+    })
+
+    test( 'calls watcher if no cache response, returns response once fulfilled', ( done ) => {
+      call = {
+        on: jest.fn().mockImplementation( ( event, cb ) => {
+          if ( event === 'data' ) {
+            requestHandler = cb
+          }
+        }),
+        write: jest.fn().mockImplementation( response => {
+          callResponse = response
+          expect( callResponse.getVersionInfo() ).toEqual( '2' )
           const [ resource ] = callResponse.getResourcesList()
           const clusterAssignment = resource.unpack(
             ClusterLoadAssignment.deserializeBinary,
@@ -65,30 +90,19 @@ describe( 'Endpoint Discovery Service', () => {
           if ( clusterAssignment ) {
             expect( clusterAssignment.getClusterName() ).toEqual( 'remote_cluster' )
           }
-
           done()
         })
-        .catch( err => {
-          done.fail( err )
-        })
-    })
+      }
 
-    test( 'calls watcher if no cache response, returns response once fulfilled', ( done ) => {
       const cache = {
-        createWatch: jest.fn().mockImplementation( () => {
-          return {
-            cacheResponse: null,
-            watcher: {
-              watch: jest.fn().mockImplementation( () => {
-                return {
-                  version: '2',
-                  resourcesList: [ cla ]
-                }
-              }),
-              cancel: jest.fn()
-            }
-          }
-        })
+        createWatch: jest.fn().mockImplementation( ( request, subj ) => {
+          subj.next({
+            version: '2',
+            resources: [ c ],
+            request
+          })
+        }),
+        fetch: jest.fn()
       }
 
       const request = new discoveryMessages.DiscoveryRequest()
@@ -106,19 +120,7 @@ describe( 'Endpoint Discovery Service', () => {
 
       requestHandler( request )
         .then( () => {
-          expect( call.write ).toHaveBeenCalled()
-
-          expect( callResponse.getVersionInfo() ).toEqual( '2' )
-          const [ resource ] = callResponse.getResourcesList()
-          const clusterAssignment = resource.unpack(
-            ClusterLoadAssignment.deserializeBinary,
-            resource.getTypeName()
-          )
-          expect( clusterAssignment ).not.toBeNull()
-          if ( clusterAssignment ) {
-            expect( clusterAssignment.getClusterName() ).toEqual( 'remote_cluster' )
-          }
-          done()
+          //
         })
         .catch( err => {
           done.fail( err )

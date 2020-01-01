@@ -13,7 +13,7 @@ describe( 'Route Discovery Service', () => {
     let callResponse: discoveryMessages.DiscoveryResponse
     let call: any
 
-    beforeEach( () => {
+    test( 'it writes response on found node', ( done ) => {
       call = {
         on: jest.fn().mockImplementation( ( event, cb ) => {
           if ( event === 'data' ) {
@@ -22,38 +22,6 @@ describe( 'Route Discovery Service', () => {
         }),
         write: jest.fn().mockImplementation( response => {
           callResponse = response
-        })
-      }
-    })
-
-    test( 'it writes response on found node', ( done ) => {
-      const cache = {
-        createWatch: jest.fn().mockImplementation( () => {
-          return {
-            cacheResponse: {
-              version: '1',
-              resourcesList: [ c ]
-            },
-            watcher: null
-          }
-        })
-      }
-
-      const request = new discoveryMessages.DiscoveryRequest()
-      const node = new envoyCore.Node()
-      node.setId( 'test-node' )
-      node.setCluster( 'test-cluster' )
-      request.setNode( node )
-      request.setTypeUrl( 'type.googleapis.com/envoy.api.v2.Route' )
-      request.setResponseNonce( '' )
-      request.setResourceNamesList( [ 'remote_cluster' ] )
-
-      const server = new Server( cache, console )
-      server.streamRoutes( call )
-
-      requestHandler( request )
-        .then( () => {
-          expect( call.write ).toHaveBeenCalled()
           expect( callResponse.getVersionInfo() ).toEqual( '1' )
           expect( callResponse.getNonce() ).toEqual( '1' )
           const [ resource ] = callResponse.getResourcesList()
@@ -66,6 +34,35 @@ describe( 'Route Discovery Service', () => {
             expect( routeConfig.getName() ).toEqual( 'local_route' )
           }
           done()
+        })
+      }
+
+      const cache = {
+        createWatch: jest.fn().mockImplementation( ( request, subj ) => {
+          subj.next({
+            version: '1',
+            resources: [ c ],
+            request
+          })
+        }),
+        fetch: jest.fn()
+      }
+
+      const request = new discoveryMessages.DiscoveryRequest()
+      const node = new envoyCore.Node()
+      node.setId( 'test-node' )
+      node.setCluster( 'test-cluster' )
+      request.setNode( node )
+      request.setTypeUrl( 'type.googleapis.com/envoy.api.v2.RouteConfiguration' )
+      request.setResponseNonce( '' )
+      request.setResourceNamesList( [ 'remote_cluster' ] )
+
+      const server = new Server( cache, console )
+      server.streamRoutes( call )
+
+      requestHandler( request )
+        .then( () => {
+          //
         })
         .catch( err => {
           done.fail( err )
