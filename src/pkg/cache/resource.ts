@@ -1,3 +1,10 @@
+import { Resource } from '../../types'
+import { ClusterLoadAssignment } from '../../envoy/api/v2/eds_pb'
+import { Cluster } from '../../envoy/api/v2/cds_pb'
+import { RouteConfiguration } from '../../envoy/api/v2/rds_pb'
+import { Listener } from '../../envoy/api/v2/lds_pb'
+import { Runtime } from '../../envoy/service/discovery/v2/rtds_pb'
+
 const apiTypePrefix = 'type.googleapis.com/envoy.api.v2.'
 const discoveryTypePrefix = 'type.googleapis.com/envoy.service.discovery.v2.'
 
@@ -9,3 +16,47 @@ export const SecretType = apiTypePrefix + 'auth.Secret'
 export const RuntimeType = discoveryTypePrefix + 'Runtime'
 // AnyType is used only by ADS
 export const AnyType = ''
+
+export enum ResponseType {
+  Endpoint = 0,
+  Cluster,
+  Route,
+  Listener,
+  Secret,
+  Runtime,
+  UnknownType
+}
+
+export const getResourceName = ( res: Resource ): string => {
+  if ( res instanceof ClusterLoadAssignment ) {
+    return res.getClusterName()
+  } else if (
+    res instanceof Cluster ||
+    res instanceof RouteConfiguration ||
+    res instanceof Listener ||
+    res instanceof Runtime
+  ) {
+    return res.getName()
+  }
+
+  return ''
+}
+
+export const getResponseType = ( typeURL: string ): number => {
+  switch ( typeURL ) {
+    case EndpointType:
+      return ResponseType.Endpoint
+    case ClusterType:
+      return ResponseType.Cluster
+    case RouteType:
+      return ResponseType.Route
+    case ListenerType:
+      return ResponseType.Listener
+    case SecretType:
+      return ResponseType.Secret
+    case RuntimeType:
+      return ResponseType.Runtime
+    default:
+      return ResponseType.UnknownType
+  }
+}
