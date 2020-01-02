@@ -15,7 +15,7 @@ export type ConfigWatcher = {
 export type CancelWatch = () => void;
 
 export type Cache = ConfigWatcher & {
-  fetch( request: Request ): Promise<null|CacheResponse>;
+  fetch( request: Request ): CacheResponse;
 }
 
 export type CacheResponse = {
@@ -83,6 +83,7 @@ export type ServerStreamValues = {
 export interface Logger {
   info( ...args: any[] ): void;
   debug( ...args: any[] ): void;
+  warn( ...args: any[] ): void;
 }
 
 

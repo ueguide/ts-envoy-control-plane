@@ -148,14 +148,31 @@ export default class SnapshotCache implements Cache {
   }
 
 
-  async fetch( request: Request ): Promise<null|CacheResponse> {
-    if ( this.logger ) {
-      this.logger.info( request )
+  fetch( request: Request ): CacheResponse {
+    const node = request.getNode()
+    if ( !node ) {
+      throw new Error( 'Node missing in request' )
     }
 
+    const nodeId = this.hash.Id( node )
 
-    return new Promise( resolve => {
-      return resolve( null )
-    })
+    const snapshot = this.snapshots[nodeId]
+    const version = snapshot ? snapshot.getVersion( request.getTypeUrl() ) : ''
+
+    if ( snapshot ) {
+      // Respond only if the request version is distinct from the current snapshot state.
+      if ( request.getVersionInfo() == version ) {
+        if ( this.logger ) {
+          this.logger.warn( 'skip fetch: version up to date' )
+        }
+        throw new Error( 'skip fetch: version up to date' )
+      }
+
+      const resources = snapshot.getResources( request.getTypeUrl() )
+
+      return createResponse( request, resources, version )
+    }
+
+    throw new Error( `missing snapshot for ${nodeId}` )
   }
 }
