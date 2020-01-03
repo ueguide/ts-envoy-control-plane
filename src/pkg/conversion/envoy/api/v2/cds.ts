@@ -1,4 +1,3 @@
-import { Duration } from 'google-protobuf/google/protobuf/duration_pb'
 import * as cdsPB from '../../../../../envoy/api/v2/cds_pb'
 import * as edsPB from '../../../../../envoy/api/v2/eds_pb'
 import * as circuitBreakerPB from '../../../../../envoy/api/v2/cluster/circuit_breaker_pb'
@@ -6,7 +5,7 @@ import * as protocolPB from '../../../../../envoy/api/v2/core/protocol_pb'
 import * as addressPB from '../../../../../envoy/api/v2/core/address_pb'
 import * as configSourcePB from '../../../../../envoy/api/v2/core/config_source_pb'
 import * as certPB from '../../../../../envoy/api/v2/auth/cert_pb'
-import { factory } from '../../../factory'
+import { factory, duration } from '../../../factory'
 import { ClusterLoadAssignment } from './eds'
 import { Http2ProtocolOptions, TcpKeepalive, ConfigSource } from './core'
 import { UpstreamTlsContext } from './auth'
@@ -25,15 +24,11 @@ export const EdsClusterConfig = factory( cdsPB.Cluster.EdsClusterConfig, {
 })
 
 export const Cluster = factory( cdsPB.Cluster, {
-  setConnectTimeout: ( val: string ): Duration => {
-    const duration = new Duration
-    if ( ( /s/ ).test( val ) ) {
-      duration.setSeconds( parseFloat( val.replace( /s/, '' ) ) )
-    } else {
-      duration.setNanos( parseFloat( val ) )
-    }
+  setConnectTimeout: duration,
+  setType: ( val: string ) => {
+    const types = cdsPB.Cluster.DiscoveryType as any
 
-    return duration
+    return types[val.toUpperCase()]
   },
   setHttp2ProtocolOptions: ( val: any ): protocolPB.Http2ProtocolOptions => {
     return Http2ProtocolOptions( val )

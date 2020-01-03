@@ -7,7 +7,7 @@ export const ApiConfigSource = factory( configSourcePB.ApiConfigSource, {
   setApiType: ( val: string ) => {
     const types = configSourcePB.ApiConfigSource.ApiType as any
 
-    return types[val] || 0
+    return types[val.toUpperCase()] || 0
   },
   setGrpcServicesList: ( values: any[] ): grpcServicePB.GrpcService[] => {
     return values.map( val => {

@@ -27,14 +27,25 @@ services:
         aliases:
           - service_a
         
-  service-a-envoy:
+  #proxy-1:
+  #  image: envoyproxy/envoy:latest
+  #  volumes:
+  #    - ./src/sample/proxy-1.yaml:/etc/envoy.yaml
+  #  ports:
+  #    - "8080:80"
+  #    - "8001:8001"
+  #  command: /usr/local/bin/envoy -c /etc/envoy.yaml
+  #  networks:
+  #    - envoymesh
+
+  proxy-2:
     image: envoyproxy/envoy:latest
     volumes:
-      - ./src/sample/service_a/envoy.yaml:/etc/envoy.yaml
+      - ./src/sample/proxy-2.yaml:/etc/envoy.yaml
     ports:
-      - "8080:80"
-      - "8001:8001"
-    command: /usr/local/bin/envoy -c /etc/envoy.yaml --service-cluster service_a --service-node service_a
+      - "8081:80"
+      - "8002:8001"
+    command: /usr/local/bin/envoy -c /etc/envoy.yaml
     networks:
       - envoymesh
     

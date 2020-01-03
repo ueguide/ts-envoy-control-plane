@@ -1,3 +1,6 @@
+node:
+  id: "proxy-1"
+  cluster: "proxy-1"
 static_resources:
   listeners:
   - address:
@@ -21,6 +24,10 @@ static_resources:
               - match: { prefix: "/bbc" }
                 route: { host_rewrite: www.bbc.com, cluster: bbc }
               - match:
+                  prefix: "/edge"
+                route:
+                  cluster: edge
+              - match:
                   prefix: "/"
                 route:
                   cluster: local_service
@@ -35,6 +42,17 @@ static_resources:
     - socket_address:
         address: service_a
         port_value: 3001
+  - name: edge
+    connect_timeout: 0.25s
+    lb_policy: ROUND_ROBIN
+    type: EDS
+    eds_cluster_config:
+      eds_config:
+        api_config_source:
+          api_type: GRPC
+          grpc_services:
+            envoy_grpc:
+              cluster_name: xds_cluster
   - name: bbc
     connect_timeout: 0.25s
     lb_policy: ROUND_ROBIN

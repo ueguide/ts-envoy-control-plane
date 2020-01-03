@@ -1,5 +1,6 @@
 import * as pascalcase from 'pascalcase'
 import { Message } from 'google-protobuf'
+import { Duration } from 'google-protobuf/google/protobuf/duration_pb'
 
 export const factory = <T extends Message, K extends keyof T>( pb: {new(): T}, setters: Record<K, any> ) => {
   return ( obj: any ): T => {
@@ -25,4 +26,24 @@ export const factory = <T extends Message, K extends keyof T>( pb: {new(): T}, s
 
     return out
   }
+}
+
+export const duration = ( val: string ): Duration => {
+  const duration = new Duration
+  let isSeconds = ( /s/ ).test( val )
+  let n = parseFloat( val.replace( /s/, '' ) )
+
+  // ie value = .25s, convert to nanos
+  if ( isSeconds && n % 1 > 0 ) {
+    isSeconds = false
+    n = n * 1000000000
+  }
+
+  if ( isSeconds ) {
+    duration.setSeconds( n )
+  } else {
+    duration.setNanos( n )
+  }
+
+  return duration
 }

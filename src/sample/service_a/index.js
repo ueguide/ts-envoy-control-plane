@@ -1,11 +1,11 @@
-'use strict';
+'use strict'
 
 const http = require( 'http' )
 const url = require( 'url' )
 
 // Constants
-const PORT = 3001;
-const HOST = '0.0.0.0';
+const PORT = 3001
+const HOST = '0.0.0.0'
 
 // server
 const httpServer = http.createServer( ( req, res ) => {
@@ -13,11 +13,11 @@ const httpServer = http.createServer( ( req, res ) => {
     'Content-Type': 'application/json',
     'Cache-Control': 'no-cache'
   })
-	res.write("Hello from Service A \n")
+  res.write( 'Hello from Service A \n' )
   res.end()
 })
 
-httpServer.listen(PORT, HOST, () => {
-  console.log(`Running on http://${HOST}:${PORT}`);
+httpServer.listen( PORT, HOST, () => {
+  console.log( `Running on http://${HOST}:${PORT}` )
 })
 

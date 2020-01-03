@@ -1,7 +1,6 @@
 import { BoolValue } from 'google-protobuf/google/protobuf/wrappers_pb'
 import * as http_connection_manager_pb from '../../../../../../../../envoy/config/filter/network/http_connection_manager/v2/http_connection_manager_pb'
-import { factory } from '../../../../../../factory'
-import { Duration } from 'google-protobuf/google/protobuf/duration_pb'
+import { factory, duration } from '../../../../../../factory'
 import { Struct } from 'google-protobuf/google/protobuf/struct_pb'
 import { Any } from 'google-protobuf/google/protobuf/any_pb'
 import { ExtAuthz } from '../../ext_authz/v2/ext_authz'
@@ -48,7 +47,7 @@ export const HttpConnectionManager = factory( http_connection_manager_pb.HttpCon
   setCodecType: ( val: string ): http_connection_manager_pb.HttpConnectionManager.CodecType => {
     const codecs = http_connection_manager_pb.HttpConnectionManager.CodecType as any
 
-    return codecs[val]
+    return codecs[val.toUpperCase()]
   },
   setUseRemoteAddress: ( val: boolean ): BoolValue => {
     const b = new BoolValue
@@ -56,16 +55,7 @@ export const HttpConnectionManager = factory( http_connection_manager_pb.HttpCon
 
     return b
   },
-  setIdleTimeout: ( val: string ): Duration => {
-    const duration = new Duration
-    if ( ( /s/ ).test( val ) ) {
-      duration.setSeconds( parseFloat( val.replace( /s/, '' ) ) )
-    } else {
-      duration.setNanos( parseFloat( val ) )
-    }
-
-    return duration
-  },
+  setIdleTimeout: duration,
   setHttpFiltersList:( values: any[] ): http_connection_manager_pb.HttpFilter[] => {
     return values.map( val => {
       return HttpFilter( val )

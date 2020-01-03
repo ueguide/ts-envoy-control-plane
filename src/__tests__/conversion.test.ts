@@ -145,10 +145,10 @@ describe( 'conversion', () => {
         'transportSocketMatchesList': [],
         'name': 'xds_cluster',
         'altStatName': '',
-        'type': 'STRICT_DNS',
+        'type': 1,
         'connectTimeout': {
-          'seconds': 0.25,
-          'nanos': 0
+          'seconds': 0,
+          'nanos': 250000000
         },
         'lbPolicy': 'ROUND_ROBIN',
         'hostsList': [],
@@ -277,7 +277,7 @@ describe( 'conversion', () => {
         'transportSocketMatchesList': [],
         'name': 'service-a',
         'altStatName': '',
-        'type': 'EDS',
+        'type': 3,
         'edsClusterConfig': {
           'edsConfig': {
             'path': '',
