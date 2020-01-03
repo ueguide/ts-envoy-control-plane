@@ -1,4 +1,4 @@
-import { NodeHash, IStatusInfo, IResponseWatch, Request, ResponseSubject } from '../../types'
+import { NodeHash, IResponseWatch, Request, ResponseSubject } from '../../types'
 import { Node } from '../../envoy/api/v2/core/base_pb'
 
 export const IdHash: NodeHash = {
@@ -11,9 +11,9 @@ export const IdHash: NodeHash = {
   }
 }
 
-export class StatusInfo implements IStatusInfo {
+export class StatusInfo {
   node: Node;
-  watches: {[key: number]: IResponseWatch}
+  watches: {[id: number]: IResponseWatch}
   lastWatchRequestTime: Date
 
   constructor( node: Node ) {

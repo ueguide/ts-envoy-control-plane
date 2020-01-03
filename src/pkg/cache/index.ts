@@ -1,4 +1,4 @@
-import { Logger, Cache, NodeHash, Request, ResponseSubject, CancelWatch, CacheResponse, IStatusInfo, Resource } from '../../types'
+import { Logger, Cache, NodeHash, Request, ResponseSubject, CancelWatch, CacheResponse, Resource } from '../../types'
 import { IdHash, StatusInfo, ResponseWatch } from './status'
 import Snapshot from './snapshot'
 
@@ -55,7 +55,7 @@ const createResponse = ( request: Request, resources: {[name: string]: Resource}
 export default class SnapshotCache implements Cache {
   ads: boolean
   snapshots: {[key: string]: Snapshot}
-  status: {[key: string]: IStatusInfo}
+  status: {[key: string]: StatusInfo}
   hash: NodeHash
   logger: null | Logger
   watchCount: number;
@@ -67,6 +67,41 @@ export default class SnapshotCache implements Cache {
     this.hash = hash
     this.logger = logger
     this.watchCount = 0
+  }
+
+  setSnapshot( node: string, snapshot: Snapshot ): void {
+    // put in memory
+    this.snapshots[node] = snapshot
+
+    // trigger existing watches
+    const info = this.status[node]
+
+    if ( info ) {
+      for ( const id in info.watches ) {
+        const watch = info.watches[id]
+        const version = snapshot.getVersion( watch.request.getTypeUrl() )
+        if ( version != watch.request.getVersionInfo() ) {
+          this.respond( watch.request, watch.response, snapshot.getResources( watch.request.getTypeUrl() ), version )
+          // discard the watch
+          delete info.watches[id]
+        }
+      }
+    }
+  }
+
+  getSnapshot( node: string ): null | Snapshot {
+    const snapshot = this.snapshots[node]
+
+    if ( !snapshot ) {
+      return null
+    }
+
+    return snapshot
+  }
+
+  clearSnapshot( node: string ): void {
+    delete this.snapshots[node]
+    delete this.snapshots[status]
   }
 
   createWatch( request: Request, subject: ResponseSubject ): null | CancelWatch {
@@ -146,7 +181,6 @@ export default class SnapshotCache implements Cache {
     // emit to subject
     subject.next( createResponse( request, resources, version ) )
   }
-
 
   fetch( request: Request ): CacheResponse {
     const node = request.getNode()

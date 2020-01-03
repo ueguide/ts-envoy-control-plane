@@ -230,4 +230,36 @@ describe( 'SnapshotCache', () => {
     })
   }) // fetch
 
+  describe( 'setSnapshot', () => {
+    test( 'it responds to watch', () => {
+      const cache = new SnapshotCache( false, IdHash, console )
+
+      const request = new discoveryMessages.DiscoveryRequest()
+      const node = new envoyCore.Node()
+      node.setId( 'test-node' )
+      node.setCluster( 'test-cluster' )
+      request.setNode( node )
+      request.setTypeUrl( EndpointType )
+      request.setResourceNamesList( [ 'remote_cluster' ] )
+
+      const subj = new Subject<CacheResponse>()
+      subj.subscribe( response => {
+        expect( response.version ).toEqual( '1' )
+        expect( response.resources ).toHaveLength( 1 )
+        expect( response.resources[0] instanceof ClusterLoadAssignment ).toBe( true )
+      })
+
+      const cancel = cache.createWatch( request, subj )
+      expect( cancel ).not.toBeNull()
+      expect( cache.status['test-node'] ).not.toBeNull()
+      expect( cache.status['test-node'].getNumWatches() ).toEqual( 1 )
+
+      // set snapshot
+      const snap = new Snapshot( '1', [ createClusterLoadAssignment() ] )
+      cache.setSnapshot( 'test-node', snap )
+      expect( cache.snapshots['test-node'] ).not.toBeNull()
+      expect( cache.status['test-node'].getNumWatches() ).toEqual( 0 )
+    })
+  }) // setSnapshot
+
 })

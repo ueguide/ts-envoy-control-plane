@@ -37,15 +37,6 @@ export type NodeHash = {
   Id: ( node: undefined | Node ) => string;
 }
 
-export type IStatusInfo = {
-  getNode: () => Node;
-  getNumWatches: () => number;
-  getLastWatchRequestTime: () => Date;
-  touch: () => void;
-  addWatch: ( watchId: number, watch: IResponseWatch ) => void;
-  deleteWatch: ( watchId: number ) => void;
-}
-
 export type IResponseWatch = {
   request: Request;
   response: ResponseSubject;
