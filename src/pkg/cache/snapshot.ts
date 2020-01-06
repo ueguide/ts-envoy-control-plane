@@ -18,7 +18,7 @@ const newResources = ( version: string, items: Resource[] ): Resources => {
   }
 }
 
-export default class Snapshot {
+export class Snapshot {
   version: string;
   resources: {
     [key: number]: Resources;
@@ -61,3 +61,5 @@ export default class Snapshot {
     return this.resources[t].version
   }
 }
+
+export default Snapshot

@@ -8,9 +8,12 @@
     "test:watch": "npm test -- --watchAll",
     "build": "tsc",
     "sample": "node -r ts-node/register --inspect ./src/sample",
-    "sample2": "node ./build/sample",
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
-    "lint:fix": "tslint -p . --fix"
+    "lint:fix": "tslint -p . --fix",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test",
+    "version": "npm run format && git add -A src",
+    "postversion": "git push && git push --tags"
   },
   "author": "",
   "license": "ISC",

@@ -1,7 +1,4 @@
-import SnapshotCache from '../pkg/cache'
-import { IdHash } from '../pkg/cache/status'
-import Snapshot from '../pkg/cache/snapshot'
-import { EndpointType } from '../pkg/cache/resource'
+import { SnapshotCache, Snapshot, IdHash, EndpointType } from '../pkg/cache'
 import { createClusterLoadAssignment } from './fixtures'
 import * as discoveryMessages from '../envoy/api/v2/discovery_pb'
 import * as envoyCore from '../envoy/api/v2/core/base_pb'

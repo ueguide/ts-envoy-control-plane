@@ -1,8 +1,8 @@
 import * as grpc from 'grpc'
 import { RouteDiscoveryServiceService, IRouteDiscoveryServiceServer } from '../../envoy/api/v2/rds_grpc_pb'
-import { Server } from '.'
+import { Server } from './server'
 
-export const registerServices = ( grpcServer: grpc.Server, server: Server ): void => {
+const registerServices = ( grpcServer: grpc.Server, server: Server ): void => {
   grpcServer.addService<IRouteDiscoveryServiceServer>(
     RouteDiscoveryServiceService,
     {
@@ -13,4 +13,6 @@ export const registerServices = ( grpcServer: grpc.Server, server: Server ): voi
   )
 }
 
-export default registerServices
+export const rds = {
+  registerServices
+}
