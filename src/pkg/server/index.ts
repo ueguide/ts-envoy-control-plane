@@ -6,7 +6,6 @@ import { Cache, Logger, ServerStreamValues, CacheResponse } from '../../types'
 import * as resourceTypes from '../cache/resource'
 
 const createResponse = ( cacheResponse: CacheResponse, typeURL: string ): DiscoveryResponse => {
-  // console.log( 'TYPE>>>', typeURL )
   const { version, resources } = cacheResponse
 
   // build discovery response
@@ -36,7 +35,7 @@ export class Server {
     this.logger = logger
   }
 
-  process( call: grpc.ServerDuplexStream<DiscoveryRequest, DiscoveryResponse> ): void {
+  process( call: grpc.ServerDuplexStream<DiscoveryRequest, DiscoveryResponse>, defaultTypeURL: string ): void {
     const { cache, logger } = this
     // unique nonce generator for req-resp pairs per xDS stream; the server
     // ignores stale nonces. nonce is only modified within send() function.
@@ -111,7 +110,15 @@ export class Server {
     // On data received on stream
     call.on( 'data', async ( request: DiscoveryRequest ) => {
       // get request type url
-      const typeURL = request.getTypeUrl()
+      let typeURL = request.getTypeUrl()
+      if ( defaultTypeURL == resourceTypes.AnyType ) {
+        if ( typeURL == '' ) {
+          throw new Error( 'type URL is required for ADS' )
+        }
+      } else if ( typeURL == '' ) {
+        request.setTypeUrl( defaultTypeURL )
+        typeURL = defaultTypeURL
+      }
 
       // get the current request nonce
       const nonce = request.getResponseNonce() == '' ? 0 : parseInt( request.getResponseNonce() )
@@ -150,8 +157,7 @@ export class Server {
         }
         cache.createWatch( request, values.listeners )
       } else {
-        // @TODO return error
-        console.log( 'DID NOT CATCH_____', typeURL )
+        throw new Error( 'type url is missing or invalid' )
       }
 
     })
@@ -170,7 +176,7 @@ export class Server {
 
   // EDS methods
   streamEndpoints: grpc.handleBidiStreamingCall<DiscoveryRequest, DiscoveryResponse> = ( call ) => {
-    return this.process( call )
+    return this.process( call, resourceTypes.EndpointType )
   }
 
   fetchEndpoints: grpc.handleUnaryCall<DiscoveryRequest, DiscoveryResponse> = () => {
@@ -183,7 +189,7 @@ export class Server {
 
   // CDS methods
   streamClusters: grpc.handleBidiStreamingCall<DiscoveryRequest, DiscoveryResponse> = ( call ) => {
-    return this.process( call )
+    return this.process( call, resourceTypes.ClusterType )
   }
 
   fetchClusters: grpc.handleUnaryCall<DiscoveryRequest, DiscoveryResponse> = () => {
@@ -196,7 +202,7 @@ export class Server {
 
   // LDS methods
   streamListeners: grpc.handleBidiStreamingCall<DiscoveryRequest, DiscoveryResponse> = ( call ) => {
-    return this.process( call )
+    return this.process( call, resourceTypes.ListenerType )
   }
 
   fetchListeners: grpc.handleUnaryCall<DiscoveryRequest, DiscoveryResponse> = () => {
@@ -209,7 +215,7 @@ export class Server {
 
   // RDS methods
   streamRoutes: grpc.handleBidiStreamingCall<DiscoveryRequest, DiscoveryResponse> = ( call ) => {
-    return this.process( call )
+    return this.process( call, resourceTypes.RouteType )
   }
 
   fetchRoutes: grpc.handleUnaryCall<DiscoveryRequest, DiscoveryResponse> = () => {
@@ -217,6 +223,15 @@ export class Server {
   }
 
   deltaRoutes: grpc.handleBidiStreamingCall<DeltaDiscoveryRequest, DeltaDiscoveryResponse> = () => {
+    //
+  }
+
+  // ADS methods
+  streamAggregatedResources: grpc.handleBidiStreamingCall<DiscoveryRequest, DiscoveryResponse> = ( call ) => {
+    return this.process( call, resourceTypes.AnyType )
+  }
+
+  deltaAggregatedResources: grpc.handleBidiStreamingCall<DeltaDiscoveryRequest, DeltaDiscoveryResponse> = () => {
     //
   }
 }

@@ -60,6 +60,8 @@ do
       echo "${path} ..."
       $protoc --proto_path=${vendor} \
         --js_out="import_style=commonjs,binary:${OUT_DIR}" \
+        --grpc_out=$OUT_DIR \
+        --plugin="protoc-gen-grpc=$JS_PLUGIN_PATH" \
         ${path}/*.proto 
 
       $protoc --proto_path=${vendor} \
@@ -75,6 +77,8 @@ do
   echo "${i} ..."
   $protoc --proto_path=${vendor} \
     --js_out="import_style=commonjs,binary:${OUT_DIR}" \
+    --grpc_out=$OUT_DIR \
+    --plugin="protoc-gen-grpc=$JS_PLUGIN_PATH" \
     ${i}
 
   $protoc --proto_path=${vendor} \

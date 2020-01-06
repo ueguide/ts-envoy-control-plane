@@ -12,17 +12,17 @@ export const IdHash: NodeHash = {
 }
 
 export class StatusInfo {
-  node: Node;
+  node: Node | undefined;
   watches: {[id: number]: IResponseWatch}
   lastWatchRequestTime: Date
 
-  constructor( node: Node ) {
+  constructor( node: Node | undefined ) {
     this.node = node
     this.watches = {}
     this.lastWatchRequestTime = new Date
   }
 
-  getNode(): Node {
+  getNode(): Node | undefined {
     return this.node
   }
 

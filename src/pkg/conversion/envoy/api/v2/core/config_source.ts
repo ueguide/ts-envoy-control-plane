@@ -16,8 +16,13 @@ export const ApiConfigSource = factory( configSourcePB.ApiConfigSource, {
   }
 })
 
+export const AggregatedConfigSource = factory( configSourcePB.AggregatedConfigSource, {})
+
 export const ConfigSource = factory( configSourcePB.ConfigSource, {
   setApiConfigSource: ( val: any ): configSourcePB.ApiConfigSource => {
     return ApiConfigSource( val )
+  },
+  setAds: ( val: any ) => {
+    return AggregatedConfigSource( val )
   }
 })

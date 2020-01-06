@@ -3,6 +3,7 @@ import eds from '../pkg/server/eds'
 import lds from '../pkg/server/lds'
 import rds from '../pkg/server/rds'
 import cds from '../pkg/server/cds'
+import ads from '../pkg/server/ads'
 import SnapshotCache from '../pkg/cache'
 import Snapshot from '../pkg/cache/snapshot'
 import { IdHash } from '../pkg/cache/status'
@@ -11,7 +12,7 @@ import * as configs from './data'
 import { envoy } from '../pkg/conversion'
 
 const main = (): void => {
-  const cache = new SnapshotCache( false, IdHash, console )
+  const cache = new SnapshotCache( true, IdHash, console )
 
   // seed cache snapshots
   const prox1Snap = new Snapshot( '1', [ envoy.api.v2.ClusterLoadAssignment( configs._eds_bbc ), envoy.api.v2.ClusterLoadAssignment( configs._edge ) ] )
@@ -25,6 +26,14 @@ const main = (): void => {
   )
   cache.setSnapshot( 'proxy-2', prox2snap )
 
+  const prox3snap = new Snapshot( '1',
+    [ envoy.api.v2.ClusterLoadAssignment( configs._edge ) ],
+    [ envoy.api.v2.Cluster( configs._cluster2 ) ],
+    [ envoy.api.v2.RouteConfiguration( configs._route2 ) ],
+    [ envoy.api.v2.Listener( configs._listener2 ) ]
+  )
+  cache.setSnapshot( 'proxy-3', prox3snap )
+
   const grpcServer = new grpc.Server()
   const server = new Server( cache, console )
 
@@ -32,6 +41,7 @@ const main = (): void => {
   lds( grpcServer, server )
   rds( grpcServer, server )
   cds( grpcServer, server )
+  ads( grpcServer, server )
 
   grpcServer.bind( '0.0.0.0:5000', grpc.ServerCredentials.createInsecure() )
   grpcServer.start()

@@ -11,22 +11,6 @@ import { ClusterLoadAssignment } from '../envoy/api/v2/eds_pb'
 
 describe( 'SnapshotCache', () => {
   describe( 'createWatch', () => {
-    test( 'it should fail if no node set', () => {
-      const cache = new SnapshotCache( false, IdHash, console )
-      const request = new discoveryMessages.DiscoveryRequest()
-      const subj = new Subject<CacheResponse>()
-      const observer = jest.fn()
-      subj.subscribe( observer )
-
-      // test
-      try {
-        cache.createWatch( request, subj )
-        expect( true ).toBe( false )
-      } catch ( e ) {
-        expect( e.message ).toEqual( 'Node missing in request' )
-      }
-      expect( observer ).not.toHaveBeenCalled()
-    })
     test( 'it responds to watch', () => {
       const cache = new SnapshotCache( false, IdHash, console )
       const snap = new Snapshot( '1', [ createClusterLoadAssignment() ] )

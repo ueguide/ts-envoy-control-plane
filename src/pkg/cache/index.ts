@@ -106,10 +106,6 @@ export default class SnapshotCache implements Cache {
 
   createWatch( request: Request, subject: ResponseSubject ): null | CancelWatch {
     const node = request.getNode()
-    if ( !node ) {
-      throw new Error( 'Node missing in request' )
-    }
-
     const nodeId = this.hash.Id( node )
 
     // get or set status
