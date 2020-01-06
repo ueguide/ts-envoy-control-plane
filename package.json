@@ -1,6 +1,6 @@
 {
   "name": "envoy-control-plane",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -12,7 +12,6 @@
     "lint:fix": "tslint -p . --fix",
     "prepare": "npm run build",
     "prepublishOnly": "npm test",
-    "version": "npm run format && git add -A src",
     "postversion": "git push && git push --tags"
   },
   "author": "",
