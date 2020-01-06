@@ -8,7 +8,6 @@
     "noLib": false,
     "outDir": "./build",
     "removeComments": false,
-    "sourceMap": true,
     "noUnusedLocals": true,
     "target": "es6",
     "typeRoots": ["node_modules/@types", "./src/types"]

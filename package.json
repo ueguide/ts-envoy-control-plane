@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest --config jestconfig.json",
     "test:watch": "npm test -- --watchAll",
-    "build": "tsc",
+    "build": "tsc --declaration",
     "sample": "node -r ts-node/register --inspect ./src/sample",
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
     "lint:fix": "tslint -p . --fix",
