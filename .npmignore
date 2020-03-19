@@ -1,4 +1,5 @@
 /*
 !.npmignore
 !lib/
+!src/
 !package.json
