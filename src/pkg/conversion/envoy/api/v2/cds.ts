@@ -25,6 +25,11 @@ export const EdsClusterConfig = factory( cdsPB.Cluster.EdsClusterConfig, {
 
 export const Cluster = factory( cdsPB.Cluster, {
   setConnectTimeout: duration,
+  setLbPolicy: ( val: string ) => {
+    const types = cdsPB.Cluster.LbPolicy as any
+
+    return types[val.toUpperCase()]
+  },
   setType: ( val: string ) => {
     const types = cdsPB.Cluster.DiscoveryType as any
 

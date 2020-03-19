@@ -1,8 +1,14 @@
 import { UInt32Value } from 'google-protobuf/google/protobuf/wrappers_pb'
 import * as circuitBreakerPB from '../../../../../../envoy/api/v2/cluster/circuit_breaker_pb'
+import * as corePB from '../../../../../../envoy/api/v2/core/base_pb'
 import { factory } from '../../../../factory'
 
 export const Thresholds = factory( circuitBreakerPB.CircuitBreakers.Thresholds, {
+  setPriority: ( val: string ) => {
+    const types = corePB.RoutingPriority as any
+
+    return types[val.toUpperCase()]
+  },
   setMaxConnections: ( val: number ): UInt32Value => {
     const i = new UInt32Value
     i.setValue( val )

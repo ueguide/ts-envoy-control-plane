@@ -141,6 +141,7 @@ describe( 'conversion', () => {
 
       const msg = envoy.api.v2.Cluster( data )
       // console.log( JSON.stringify( msg.toObject(), null, 2 ) )
+      // console.log(msg.serializeBinary())
       expect( msg.toObject() ).toEqual({
         'transportSocketMatchesList': [],
         'name': 'xds_cluster',
@@ -150,7 +151,7 @@ describe( 'conversion', () => {
           'seconds': 0,
           'nanos': 250000000
         },
-        'lbPolicy': 'ROUND_ROBIN',
+        'lbPolicy': 0,
         'hostsList': [],
         'loadAssignment': {
           'clusterName': 'xds_cluster',
@@ -273,6 +274,7 @@ describe( 'conversion', () => {
 
       const msg = envoy.api.v2.Cluster( data )
       // console.log( JSON.stringify( msg.toObject(), null, 2 ) )
+      // console.log(msg.serializeBinary())
       expect( msg.toObject() ).toEqual({
         'transportSocketMatchesList': [],
         'name': 'service-a',
@@ -301,13 +303,13 @@ describe( 'conversion', () => {
           'seconds': 5,
           'nanos': 0
         },
-        'lbPolicy': 'ROUND_ROBIN',
+        'lbPolicy': 0,
         'hostsList': [],
         'healthChecksList': [],
         'circuitBreakers': {
           'thresholdsList': [
             {
-              'priority': 'HIGH',
+              'priority': 1,
               'maxConnections': {
                 'value': 1000000000
               },
