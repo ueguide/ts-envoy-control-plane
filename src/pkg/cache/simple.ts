@@ -101,7 +101,7 @@ export class SnapshotCache implements Cache {
 
   clearSnapshot( node: string ): void {
     delete this.snapshots[node]
-    delete this.snapshots[status]
+    delete this.status[node]
   }
 
   createWatch( request: Request, subject: ResponseSubject ): null | CancelWatch {
