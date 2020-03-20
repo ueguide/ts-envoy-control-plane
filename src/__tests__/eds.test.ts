@@ -1,7 +1,7 @@
 import { Server } from '../pkg/server'
-import { ClusterLoadAssignment } from '../envoy/api/v2/eds_pb'
-import * as discoveryMessages from '../envoy/api/v2/discovery_pb'
-import * as envoyCore from '../envoy/api/v2/core/base_pb'
+import { ClusterLoadAssignment } from '../../lib/envoy/api/v2/eds_pb'
+import * as discoveryMessages from '../../lib/envoy/api/v2/discovery_pb'
+import * as envoyCore from '../../lib/envoy/api/v2/core/base_pb'
 import { createClusterLoadAssignment } from './fixtures'
 
 describe( 'Endpoint Discovery Service', () => {

@@ -1,10 +1,10 @@
 import { SnapshotCache, Snapshot, IdHash, EndpointType } from '../pkg/cache'
 import { createClusterLoadAssignment } from './fixtures'
-import * as discoveryMessages from '../envoy/api/v2/discovery_pb'
-import * as envoyCore from '../envoy/api/v2/core/base_pb'
+import * as discoveryMessages from '../../lib/envoy/api/v2/discovery_pb'
+import * as envoyCore from '../../lib/envoy/api/v2/core/base_pb'
 import { Subject } from 'rxjs'
 import { CacheResponse } from '../types'
-import { ClusterLoadAssignment } from '../envoy/api/v2/eds_pb'
+import { ClusterLoadAssignment } from '../../lib/envoy/api/v2/eds_pb'
 
 describe( 'SnapshotCache', () => {
   describe( 'createWatch', () => {

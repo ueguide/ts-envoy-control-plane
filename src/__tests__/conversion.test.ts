@@ -1,8 +1,8 @@
 import { envoy } from '../pkg/conversion'
-import { HttpConnectionManager } from '../envoy/config/filter/network/http_connection_manager/v2/http_connection_manager_pb'
-import { TcpProxy } from '../envoy/config/filter/network/tcp_proxy/v2/tcp_proxy_pb'
-import { ExtAuthz } from '../envoy/config/filter/network/ext_authz/v2/ext_authz_pb'
-import { Lua } from '../envoy/config/filter/http/lua/v2/lua_pb'
+import { HttpConnectionManager } from '../../lib/envoy/config/filter/network/http_connection_manager/v2/http_connection_manager_pb'
+import { TcpProxy } from '../../lib/envoy/config/filter/network/tcp_proxy/v2/tcp_proxy_pb'
+import { ExtAuthz } from '../../lib/envoy/config/filter/network/ext_authz/v2/ext_authz_pb'
+import { Lua } from '../../lib/envoy/config/filter/http/lua/v2/lua_pb'
 
 describe( 'conversion', () => {
   describe( 'eds', () => {

@@ -1,9 +1,9 @@
-import { ClusterLoadAssignment } from '../envoy/api/v2/eds_pb'
-import { LocalityLbEndpoints, LbEndpoint, Endpoint } from '../envoy/api/v2/endpoint/endpoint_pb'
-import { Address, SocketAddress } from '../envoy/api/v2/core/address_pb'
-import { Cluster } from '../envoy/api/v2/cds_pb'
-import { Listener } from '../envoy/api/v2/lds_pb'
-import { RouteConfiguration } from '../envoy/api/v2/rds_pb'
+import { ClusterLoadAssignment } from '../../lib/envoy/api/v2/eds_pb'
+import { LocalityLbEndpoints, LbEndpoint, Endpoint } from '../../lib/envoy/api/v2/endpoint/endpoint_pb'
+import { Address, SocketAddress } from '../../lib/envoy/api/v2/core/address_pb'
+import { Cluster } from '../../lib/envoy/api/v2/cds_pb'
+import { Listener } from '../../lib/envoy/api/v2/lds_pb'
+import { RouteConfiguration } from '../../lib/envoy/api/v2/rds_pb'
 import { envoy } from '../pkg/conversion'
 
 export const createClusterLoadAssignment = (): ClusterLoadAssignment => {

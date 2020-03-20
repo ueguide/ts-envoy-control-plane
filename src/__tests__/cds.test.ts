@@ -1,7 +1,7 @@
 import { Server } from '../pkg/server'
-import { Cluster } from '../envoy/api/v2/cds_pb'
-import * as discoveryMessages from '../envoy/api/v2/discovery_pb'
-import * as envoyCore from '../envoy/api/v2/core/base_pb'
+import { Cluster } from '../../lib/envoy/api/v2/cds_pb'
+import * as discoveryMessages from '../../lib/envoy/api/v2/discovery_pb'
+import * as envoyCore from '../../lib/envoy/api/v2/core/base_pb'
 import { createCluster } from './fixtures'
 
 describe( 'Cluster Discovery Service', () => {
