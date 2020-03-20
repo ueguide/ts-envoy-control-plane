@@ -1,4 +1,4 @@
-import * as route_pb from '../../../../../../envoy/api/v2/route/route_pb'
+import * as route_pb from '../../../../../../../lib/envoy/api/v2/route/route_pb'
 import { factory } from '../../../../factory'
 import { UInt32Value } from 'google-protobuf/google/protobuf/wrappers_pb'
 import * as jspb from 'google-protobuf'

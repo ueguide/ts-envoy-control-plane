@@ -1,5 +1,5 @@
 import * as grpc from 'grpc'
-import { AggregatedDiscoveryServiceService, IAggregatedDiscoveryServiceServer } from '../../envoy/service/discovery/v2/ads_grpc_pb'
+import { AggregatedDiscoveryServiceService, IAggregatedDiscoveryServiceServer } from '../../../lib/envoy/service/discovery/v2/ads_grpc_pb'
 import { Server } from './server'
 
 const registerServices = ( grpcServer: grpc.Server, server: Server ): void => {

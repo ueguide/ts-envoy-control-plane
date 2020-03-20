@@ -1,4 +1,4 @@
-import * as grpcServicePB from '../../../../../../envoy/api/v2/core/grpc_service_pb'
+import * as grpcServicePB from '../../../../../../../lib/envoy/api/v2/core/grpc_service_pb'
 import { factory, duration } from '../../../../factory'
 
 export const EnvoyGrpc = factory( grpcServicePB.GrpcService.EnvoyGrpc, {})

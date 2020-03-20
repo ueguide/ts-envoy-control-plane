@@ -1,5 +1,5 @@
-import * as edsPB from '../../../../../envoy/api/v2/eds_pb'
-import * as endpointPB from '../../../../../envoy/api/v2/endpoint/endpoint_pb'
+import * as edsPB from '../../../../../../lib/envoy/api/v2/eds_pb'
+import * as endpointPB from '../../../../../../lib/envoy/api/v2/endpoint/endpoint_pb'
 import { factory } from '../../../factory'
 import { LocalityLbEndpoints } from './endpoint'
 

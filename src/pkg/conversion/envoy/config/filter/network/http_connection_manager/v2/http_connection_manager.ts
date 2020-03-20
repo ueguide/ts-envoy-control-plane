@@ -1,5 +1,5 @@
 import { BoolValue } from 'google-protobuf/google/protobuf/wrappers_pb'
-import * as http_connection_manager_pb from '../../../../../../../../envoy/config/filter/network/http_connection_manager/v2/http_connection_manager_pb'
+import * as http_connection_manager_pb from '../../../../../../../../../lib/envoy/config/filter/network/http_connection_manager/v2/http_connection_manager_pb'
 import { factory, duration } from '../../../../../../factory'
 import { Struct } from 'google-protobuf/google/protobuf/struct_pb'
 import { Any } from 'google-protobuf/google/protobuf/any_pb'

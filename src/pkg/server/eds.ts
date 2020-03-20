@@ -1,5 +1,5 @@
 import * as grpc from 'grpc'
-import { EndpointDiscoveryServiceService, IEndpointDiscoveryServiceServer } from '../../envoy/api/v2/eds_grpc_pb'
+import { EndpointDiscoveryServiceService, IEndpointDiscoveryServiceServer } from '../../../lib/envoy/api/v2/eds_grpc_pb'
 import { Server } from './server'
 
 const registerServices = ( grpcServer: grpc.Server, server: Server ): void => {

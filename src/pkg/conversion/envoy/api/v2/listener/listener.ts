@@ -1,4 +1,4 @@
-import * as listenerPB from '../../../../../../envoy/api/v2/listener/listener_pb'
+import * as listenerPB from '../../../../../../../lib/envoy/api/v2/listener/listener_pb'
 import { factory } from '../../../../factory'
 import { Any } from 'google-protobuf/google/protobuf/any_pb'
 import { filter } from '../../../config'

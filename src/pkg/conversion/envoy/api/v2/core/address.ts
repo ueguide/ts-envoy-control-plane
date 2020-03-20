@@ -1,4 +1,4 @@
-import * as addressPB from '../../../../../../envoy/api/v2/core/address_pb'
+import * as addressPB from '../../../../../../../lib/envoy/api/v2/core/address_pb'
 import { factory } from '../../../../factory'
 
 export const Pipe = factory( addressPB.Pipe, {})

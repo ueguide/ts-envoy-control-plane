@@ -1,7 +1,7 @@
 import { Message } from 'google-protobuf'
 import { Subject } from 'rxjs'
-import { DiscoveryRequest } from '../envoy/api/v2/discovery_pb'
-import { Node } from '../envoy/api/v2/core/base_pb'
+import { DiscoveryRequest } from '../../lib/envoy/api/v2/discovery_pb'
+import { Node } from '../../lib/envoy/api/v2/core/base_pb'
 
 // aliases
 export type Request = DiscoveryRequest

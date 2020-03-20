@@ -1,5 +1,5 @@
 import { NodeHash, IResponseWatch, Request, ResponseSubject } from '../../types'
-import { Node } from '../../envoy/api/v2/core/base_pb'
+import { Node } from '../../../lib/envoy/api/v2/core/base_pb'
 
 export const IdHash: NodeHash = {
   Id: ( node: undefined | Node ): string => {

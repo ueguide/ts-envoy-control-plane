@@ -1,5 +1,5 @@
-import * as certPB from '../../../../../../envoy/api/v2/auth/cert_pb'
-import * as configSourcePB from '../../../../../../envoy/api/v2/core/config_source_pb'
+import * as certPB from '../../../../../../../lib/envoy/api/v2/auth/cert_pb'
+import * as configSourcePB from '../../../../../../../lib/envoy/api/v2/core/config_source_pb'
 import { factory } from '../../../../factory'
 import { ConfigSource } from '../core'
 

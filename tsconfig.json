@@ -7,7 +7,7 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "noLib": false,
-    "outDir": "./lib",
+    "outDir": "./dist",
     "removeComments": false,
     "noUnusedLocals": true,
     "target": "es5",

@@ -1,5 +1,5 @@
-import * as configSourcePB from '../../../../../../envoy/api/v2/core/config_source_pb'
-import * as grpcServicePB from '../../../../../../envoy/api/v2/core/grpc_service_pb'
+import * as configSourcePB from '../../../../../../../lib/envoy/api/v2/core/config_source_pb'
+import * as grpcServicePB from '../../../../../../../lib/envoy/api/v2/core/grpc_service_pb'
 import { factory } from '../../../../factory'
 import { GrpcService } from './grpc_service'
 

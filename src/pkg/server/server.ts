@@ -1,7 +1,7 @@
 import { Subject } from 'rxjs'
 import * as grpc from 'grpc'
 import { Any } from 'google-protobuf/google/protobuf/any_pb'
-import { DiscoveryRequest, DiscoveryResponse, DeltaDiscoveryRequest, DeltaDiscoveryResponse } from '../../envoy/api/v2/discovery_pb'
+import { DiscoveryRequest, DiscoveryResponse, DeltaDiscoveryRequest, DeltaDiscoveryResponse } from '../../../lib/envoy/api/v2/discovery_pb'
 import { Cache, Logger, ServerStreamValues, CacheResponse } from '../../types'
 import * as resourceTypes from '../cache/resource'
 

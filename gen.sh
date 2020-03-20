@@ -48,7 +48,7 @@ importsi=(
 )
 
 # Directory to write generated code to (.js and .d.ts files)
-OUT_DIR="./src"
+OUT_DIR="./lib"
 
 for i in "${imports[@]}"
 do

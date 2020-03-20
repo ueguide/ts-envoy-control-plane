@@ -1,4 +1,4 @@
-import * as rds_pb from '../../../../../envoy/api/v2/rds_pb'
+import * as rds_pb from '../../../../../../lib/envoy/api/v2/rds_pb'
 import { factory } from '../../../factory'
 import { VirtualHost } from './route'
 
