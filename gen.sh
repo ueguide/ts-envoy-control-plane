@@ -28,6 +28,7 @@ imports=(
   "${vendor}/envoy/config/filter/http/lua/v2"
   "${vendor}/envoy/config/filter/network/ext_authz/v2"
   "${vendor}/envoy/config/filter/network/http_connection_manager/v2"
+  "${vendor}/envoy/config/filter/network/mysql_proxy"
   "${vendor}/envoy/config/filter/network/tcp_proxy/v2"
   "${vendor}/envoy/config/listener/v2"
   "${vendor}/envoy/service/discovery/v2"

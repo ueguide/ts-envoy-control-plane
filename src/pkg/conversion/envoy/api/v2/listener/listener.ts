@@ -31,6 +31,12 @@ export const Filter = factory( listenerPB.Filter, {
         any.pack( msg.serializeBinary(), packType )
         break
       }
+      case 'type.googleapis.com/envoy.config.filter.network.mysql_proxy.v1alpha1.MySQLProxy': {
+        const msg = filter.network.mysql_proxy.v1alpha1.MySQLProxy( val )
+        const packType = val['@type'].replace( 'type.googleapis.com/', '' )
+        any.pack( msg.serializeBinary(), packType )
+        break
+      }
       default: {
         // do nothing
       }
